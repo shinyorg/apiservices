@@ -1,0 +1,42 @@
+<Project>
+    <PropertyGroup>
+        <Authors>Allan Ritchie</Authors>
+        <Owners>aritchie;shinylib</Owners>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <DisableExtraReferences>False</DisableExtraReferences>
+        <NoWarn>$(NoWarn);1591;1701;1591;1702;1705;VSX1000;NU1603</NoWarn>
+        <Description>Shiny</Description>
+        <Product>$(AssemblyName) ($(TargetFramework))</Product>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://shinylib.net</PackageProjectUrl>
+        <ShinyVersion Condition=" '$(ShinyVersion)' == '' ">1.0.0</ShinyVersion>
+        <PackageVersion>$(ShinyVersion)</PackageVersion>
+        <PackageIcon>icon.png</PackageIcon>
+        <!--<PackageReleaseNotes>https://shinyapilib.net/release-notes/</PackageReleaseNotes>-->
+        <!--<PackageTags></PackageTags>-->
+        <RepositoryUrl>https://github.com/shinyorg/shinyapi</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <!--<DebugType Condition=" $(Configuration) == 'Release' ">embedded</DebugType>
+        <DebugType Condition=" $(Configuration) == 'Debug' ">full</DebugType>-->
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' AND '$(OS)' == 'WINDOWS_NT' ">
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <IncludeSymbols>True</IncludeSymbols>
+        <IncludeSource>True</IncludeSource>
+        <PublishRepositoryUrl>True</PublishRepositoryUrl>
+        <EmbedUntrackedSources>True</EmbedUntrackedSources>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="$(MSBuildThisFileDirectory)nuget.png" Pack="true" PackagePath="icon.png" />
+        <None Include="$(MSBuildThisFileDirectory)nuget.txt" Pack="true" PackagePath="readme.txt" />
+        <None Include="..\readme.md" Pack="true" PackagePath="\" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+    </ItemGroup>
+
+</Project>
