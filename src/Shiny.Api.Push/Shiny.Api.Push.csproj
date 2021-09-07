@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CorePush" Version="3.0.4" />
+    <PackageReference Include="FirebaseAdmin" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shiny.Api.Push.Abstractions\Shiny.Api.Push.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>
