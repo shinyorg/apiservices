@@ -24,9 +24,26 @@ namespace Shiny.Api.Push.Providers
                 new System.Net.Http.HttpClient()
             );
         }
-        public Task Send(Notification notification)
+
+
+        public async Task Send(string deviceToken, Notification notification)
         {
-            throw new System.NotImplementedException();
+            var apple = new AppleNotification
+            {
+                AlertBody = new AppleNotification.Alert
+                {
+
+                }
+            };
+            if (notification.Data != null)
+            {
+                foreach (var item in notification.Data)
+                {
+                    apple.Add(item.Key, item.Value);
+                }
+                apple.ContentAvailable = 1;
+            }
+            await this.apnSender.SendAsync(apple, deviceToken); // expiration, priority
         }
     }
 }
