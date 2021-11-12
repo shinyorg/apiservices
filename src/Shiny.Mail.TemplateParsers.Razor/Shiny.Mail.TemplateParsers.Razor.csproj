@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Shiny.Mail\Shiny.Mail.csproj" />
+		<PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="3.1.15" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.15" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.Extensions" Version="3.1.15" />
+	</ItemGroup>
+
+</Project>
