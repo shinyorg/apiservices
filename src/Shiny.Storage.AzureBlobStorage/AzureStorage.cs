@@ -1,6 +1,6 @@
 ﻿namespace Shiny.Storage.AzureBlobStorage
 {
-    public class Class1
+    public class AzureStorage : IStorage
     {
 
     }

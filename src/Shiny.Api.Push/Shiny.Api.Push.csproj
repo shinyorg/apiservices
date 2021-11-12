@@ -5,13 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CorePush" Version="3.0.4" />
+    <PackageReference Include="CorePush" Version="3.0.10" />
     <PackageReference Include="FirebaseAdmin" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shiny.Api.Push.Abstractions\Shiny.Api.Push.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
   </ItemGroup>
 
 </Project>

@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
+    <ProjectReference Include="..\Shiny.Mail\Shiny.Mail.csproj" />
+    <ProjectReference Include="..\Shiny.Storage\Shiny.Storage.csproj" />
   </ItemGroup>
 
 </Project>
