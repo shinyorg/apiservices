@@ -1,0 +1,12 @@
+﻿subject: {subject}
+from: {from}
+to: {to}
+cc: {cc}
+bcc: {bcc}
+---
+<html>
+<body>
+<h1>{title}</h1>
+<h3>{message}</h3>
+</body>
+</html>

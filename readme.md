@@ -34,7 +34,11 @@ Master|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Bui
 Dev|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/dev?style=for-the-badge)|
 Preview|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/preview?style=for-the-badge)|
 
-## Contributors
-* [Allan Ritchie](https://github.com/aritchie) - Project Lead
-* [Dan Siegel](https://github.com/dansiegel) - Contributor
-* [Emily Stanek](https://github.com/emilystanek) - Logo Designer
+
+### Mail
+
+### Storage (Async IFileProvider)
+
+### Push
+
+### Push Manager

@@ -11,8 +11,8 @@ namespace Shiny.Mail.Impl
         readonly ITemplateParser templateParser;
 
 
-        public MailProcessor(IMailSender mailSender, 
-                             IMailTemplateParser mailTemplateParser, 
+        public MailProcessor(IMailSender mailSender,
+                             IMailTemplateParser mailTemplateParser,
                              ITemplateLoader templateLoader,
                              ITemplateParser templateParser)
         {
@@ -30,6 +30,7 @@ namespace Shiny.Mail.Impl
             var mail = await this.mailTemplateParser.Parse(content).ConfigureAwait(false);
             beforeSend?.Invoke(mail);
 
+            // could validate email here as the template may not have had address in it
             await this.mailSender.Send(mail).ConfigureAwait(false);
             return mail;
         }
