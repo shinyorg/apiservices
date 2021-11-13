@@ -1,7 +1,18 @@
-﻿namespace Shiny.Storage.AzureBlobStorage
+﻿using Azure.Storage.Blobs;
+
+
+namespace Shiny.Storage.AzureBlobStorage
 {
     public class AzureBlobAsyncFileProvider : IAsyncFileProvider
     {
+        readonly BlobClient client;
+
+
+        public AzureBlobAsyncFileProvider()
+        {
+            //new BlobClient("", "");
+        }
+
         public Task<IDirectory> CreateDirectory(string path)
         {
             throw new NotImplementedException();

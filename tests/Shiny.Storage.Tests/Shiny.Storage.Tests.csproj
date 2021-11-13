@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Shiny.Storage.AzureBlobStorage\Shiny.Storage.AzureBlobStorage.csproj" />
+    <ProjectReference Include="..\..\src\Shiny.Storage.FtpClient\Shiny.Storage.FtpClient.csproj" />
     <ProjectReference Include="..\..\src\Shiny.Storage\Shiny.Storage.csproj" />
   </ItemGroup>
 
