@@ -1,23 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shiny.Storage.Impl
+﻿namespace Shiny.Storage.Impl
 {
     public class FileSystemFile : IFile
     {
-        public FileSystemFile(FileInfo file) { }
+        readonly FileInfo file;
+        public FileSystemFile(FileInfo file) => this.file = file;
+
+
+        public long Size => throw new NotImplementedException();
+
         public string Name => throw new NotImplementedException();
+
+        public string FullName => throw new NotImplementedException();
 
         public bool Exists => throw new NotImplementedException();
 
-        public DateTime? LastAccessed => throw new NotImplementedException();
+        public DateTimeOffset? LastAccessTime => throw new NotImplementedException();
 
-        public DateTime? DateCreated => throw new NotImplementedException();
+        public DateTimeOffset? LastWriteTime => throw new NotImplementedException();
 
-        public Task<Stream> OpenReadStream()
+        public DateTimeOffset? CreationTime => throw new NotImplementedException();
+
+        public Task<Stream> OpenStream()
         {
             throw new NotImplementedException();
         }

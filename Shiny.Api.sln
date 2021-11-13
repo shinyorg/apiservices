@@ -16,8 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		src\Directory.build.props = src\Directory.build.props
 		src\global.json = src\global.json
 		src\nuget.png = src\nuget.png
-		src\nuget.txt = src\nuget.txt
 		readme.md = readme.md
+		src\readme.txt = src\readme.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleWeb", "samples\SampleWeb\SampleWeb.csproj", "{17D190DF-08B9-4BCD-B839-727FFC3587F2}"
@@ -34,7 +34,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Storage.Tests", "test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Mail.Tests", "tests\Shiny.Mail.Tests\Shiny.Mail.Tests.csproj", "{145C7E11-D398-4398-835A-2AE25A1E373D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shiny.Api.Push.Tests", "tests\Shiny.Api.Push.Tests\Shiny.Api.Push.Tests.csproj", "{F15A48C6-B47C-4245-A3F8-964FEE09A42D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Api.Push.Tests", "tests\Shiny.Api.Push.Tests\Shiny.Api.Push.Tests.csproj", "{F15A48C6-B47C-4245-A3F8-964FEE09A42D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Push", "Push", "{8B31ACF0-86B8-4208-A054-940EA9378C1D}"
 EndProject
@@ -42,7 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mail", "Mail", "{109FDCE7-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storage", "Storage", "{CB07DEE0-7625-45A5-9452-2C5A5946DC96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShinyApiBuild", "build\ShinyApiBuild\ShinyApiBuild.csproj", "{1D70197D-59F1-458A-903E-A17396F66A05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShinyApiBuild", "build\ShinyApiBuild\ShinyApiBuild.csproj", "{1D70197D-59F1-458A-903E-A17396F66A05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

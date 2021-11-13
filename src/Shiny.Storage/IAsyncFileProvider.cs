@@ -7,5 +7,8 @@
 
         Task<IDirectory> CreateDirectory(string path);
         // TODO: file system watcher?
+
+        //Delete(string path)
+        //MoveTo(string dest)
     }
 }

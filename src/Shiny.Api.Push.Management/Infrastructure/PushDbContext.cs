@@ -1,6 +1,8 @@
-﻿namespace Shiny.Api.Push.Management.Infrastructure
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Shiny.Api.Push.Management.Infrastructure
 {
-    public class PushDbContext
+    public class PushDbContext : DbContext
     {
     }
 }

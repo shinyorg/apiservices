@@ -2,17 +2,15 @@
 {
     public class FileSystemDirectory : IDirectory
     {
-        public FileSystemDirectory(DirectoryInfo directory)
-        {
-            directory.
-        }
+        readonly DirectoryInfo directory;
+        public FileSystemDirectory(DirectoryInfo directory) => this.directory = directory;
 
-        public string Name => throw new NotImplementedException();
+        public string Name => this.directory.Name;
+        public string FullName => this.directory.FullName;
+        public bool Exists => this.directory.Exists;
 
-        public bool Exists => throw new NotImplementedException();
-
-        public DateTimeOffset? LastAccessed => throw new NotImplementedException();
-
-        public DateTimeOffset? CreationTime => throw new NotImplementedException();
+        public DateTimeOffset? LastAccessTime => this.directory.LastAccessTimeUtc;
+        public DateTimeOffset? LastWriteTime => this.directory.LastWriteTimeUtc;
+        public DateTimeOffset? CreationTime => this.directory.CreationTimeUtc;
     }
 }

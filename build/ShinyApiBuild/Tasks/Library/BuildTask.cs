@@ -11,12 +11,8 @@ namespace ShinyBuild.Tasks.Library
     [TaskName("Build")]
     public sealed class BuildTask : FrostingTask<BuildContext>
     {
-        // needs to be windows build for UWP
         public override bool ShouldRun(BuildContext context)
         {
-            if (!context.IsRunningOnWindows())
-                return false;
-
             if (context.IsRunningInCI && context.BuildNumber == 0)
                 throw new ArgumentException("BuildNumber argument is missing");
 
@@ -35,7 +31,6 @@ namespace ShinyBuild.Tasks.Library
                 .WithTarget("Build")
                 .WithProperty("ShinyVersion", context.NugetVersion)
                 .WithProperty("CI", context.IsRunningInCI ? "true" : "")
-                .WithProperty("OS", context.OperatingSystemString)
                 .SetConfiguration(context.MsBuildConfiguration)
             );
         }

@@ -13,12 +13,10 @@
         <ShinyVersion Condition=" '$(ShinyVersion)' == '' ">1.0.0</ShinyVersion>
         <PackageVersion>$(ShinyVersion)</PackageVersion>
         <PackageIcon>icon.png</PackageIcon>
-        <!--<PackageReleaseNotes>https://shinyapilib.net/release-notes/</PackageReleaseNotes>-->
-        <!--<PackageTags></PackageTags>-->
+        <PackageReleaseNotes>https://shinyapilib.net/release-notes/</PackageReleaseNotes>
+        <PackageTags>shiny mail templates push</PackageTags>
         <RepositoryUrl>https://github.com/shinyorg/shinyapi</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <!--<DebugType Condition=" $(Configuration) == 'Release' ">embedded</DebugType>
-        <DebugType Condition=" $(Configuration) == 'Debug' ">full</DebugType>-->
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
     </PropertyGroup>
@@ -34,8 +32,8 @@
 
     <ItemGroup>
         <None Include="$(MSBuildThisFileDirectory)nuget.png" Pack="true" PackagePath="icon.png" />
-        <None Include="$(MSBuildThisFileDirectory)nuget.txt" Pack="true" PackagePath="readme.txt" />
-        <None Include="..\readme.md" Pack="true" PackagePath="\" />
+        <None Include="$(MSBuildThisFileDirectory)readme.txt" Pack="true" PackagePath="readme.txt" />
+        <None Include="$(MSBuildThisFileDirectory)\..\readme.md" Pack="true" PackagePath="\" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     </ItemGroup>
 
