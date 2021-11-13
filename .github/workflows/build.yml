@@ -1,0 +1,59 @@
+name: Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+  push:
+    branches: [ master, main, dev, preview ]
+    paths:
+    - "src/**"
+    - "docs/**"
+    - "build/**"
+  #pull_request:
+  #  branches: [ master, main, dev ]
+  #  paths:
+  #  - "src/**"
+
+env:
+  DocsDeployGitHubToken: ${{ secrets.DOCS_GITHUB_TOKEN }}
+  NugetApiKey: ${{secrets.NUGETAPIKEY}}
+  TwitterConsumerKey: ${{secrets.TWITTER_CONSUMER_KEY}}
+  TwitterConsumerSecret: ${{secrets.TWITTER_CONSUMER_SECRET}}
+  TwitterAccessToken: ${{secrets.TWITTER_ACCESS_TOKEN}}
+  TwitterAccessTokenSecret: ${{secrets.TWITTER_ACCESS_TOKEN_SECRET}}
+  DiscordToken: ${{secrets.DISCORD_TOKEN}}
+  DiscordGuildId: '679761126598115336'
+  DiscordChannelId: '803717285986566174'
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0
+
+    - name: Generate Build Number
+      id: buildnumber
+      uses: einaregilsson/build-number@v3
+      with:
+        token: ${{secrets.github_token}}
+
+    - name: Build
+      run: dotnet run --project build/ShinyBuild.csproj --BuildNumber=${{steps.buildnumber.outputs.build_number}}
+
+    - name: Publish Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: nugets
+        path: ${{ github.workspace }}/artifacts
+        retention-days: 5
