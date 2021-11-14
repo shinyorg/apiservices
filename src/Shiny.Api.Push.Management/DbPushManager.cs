@@ -20,22 +20,27 @@ namespace Shiny.Api.Push.Management
         }
 
 
-        public Task<IEnumerable<NotificationRegistration>> GetRegistrations(string? userId, PushType? type, params string[] tags)
+        public Task<IEnumerable<NotificationRegistration>> GetRegistrations(string? userId, PushPlatform? platform, params string[] tags)
         {
             throw new NotImplementedException();
         }
 
-        public Task Register(NotificationRegistration registration)
+        public Task Register(NotificationRegistration registration) 
+        {
+            this.data.Registrations.Add(new Models.NotificationRegistrationModel
+            {
+
+            });
+
+            return this.data.SaveChangesAsync();
+        }
+
+        public Task Send(Notification notification, string? userId, PushPlatform? platform, params string[] tags)
         {
             throw new NotImplementedException();
         }
 
-        public Task Send(Notification notification, string? userId, PushType? type, params string[] tags)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UnRegister(PushType pushType, string registrationToken)
+        public Task UnRegister(PushPlatform platform, string registrationToken)
         {
             throw new NotImplementedException();
         }

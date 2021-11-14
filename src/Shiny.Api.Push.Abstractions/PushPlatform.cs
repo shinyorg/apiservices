@@ -1,6 +1,6 @@
 ﻿namespace Shiny.Api.Push
 {
-    public enum PushType
+    public enum PushPlatform
     {
         Google,
         Apple,

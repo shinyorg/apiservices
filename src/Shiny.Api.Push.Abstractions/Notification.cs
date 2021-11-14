@@ -5,6 +5,7 @@ namespace Shiny.Api.Push
 {
     public class Notification
     {
+        public PushPlatform Platform { get; set; }
         public string Title { get; set; }
         public string Message { get; set; }
         public string? CategoryOrChannel { get; set; }
