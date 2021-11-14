@@ -7,14 +7,12 @@ namespace Shiny.Api.Push.Management
 {
     public interface IPushManager
     {
-        // TODO: string for what OS it manages
         // TODO: what about formatting each message per user
         // TODO: store messages, attempts, etc
-        Task Send(Notification notification, string? userId, PushPlatform? platform, params string[] tags);
-        Task<IEnumerable<NotificationRegistration>> GetRegistrations(string? userId, PushPlatform? platform, params string[] tags);
+        Task Send(Notification notification, PushFilter? filter);
+        Task<IEnumerable<NotificationRegistration>> GetRegistrations(PushFilter? filter);
 
         Task Register(NotificationRegistration registration);
-        Task UnRegister(PushPlatform? platform, string registrationToken);
-        Task UnRegister(string? userId, params string[] tags);
+        Task UnRegister(PushFilter filter);
     }
 }

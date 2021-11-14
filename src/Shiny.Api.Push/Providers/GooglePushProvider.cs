@@ -62,40 +62,6 @@ namespace Shiny.Api.Push.Providers
                     //TimeToLive
                     Priority = Priority.Normal
                 },
-                Apns = new ApnsConfig
-                {
-                    Aps = new Aps
-                    {
-                        Alert = new ApsAlert
-                        {
-                            ActionLocKey = "",
-
-                            LocKey = "",
-                            LocArgs = new [] { "" },
-
-                            Title = "",
-                            TitleLocKey = "",
-                            TitleLocArgs = new [] { "" },
-                            //Subtitle = ""
-                            Subtitle = "",
-                            SubtitleLocKey = "",
-                            SubtitleLocArgs = new [] { "" },
-
-                            Body = notification.Message,
-                            LaunchImage = ""
-                        },
-                        Badge = 0,
-                        //MutableContent = true
-                        ContentAvailable = true,
-                        //CriticalSound = null
-                        CustomData = null,
-                        Sound = null,
-                        ThreadId = "",
-                        Category = notification.CategoryOrChannel
-                    },
-                    CustomData = null,
-                    Headers = null
-                },
                 Notification = new FirebaseAdmin.Messaging.Notification
                 {
                     Title = notification.Title,
