@@ -26,6 +26,8 @@ namespace Shiny.Api.Push.Providers
         }
 
 
+        public PushPlatform Platform { get; } = PushPlatform.Google;
+
         public async Task Send(string deviceToken, Notification notification)
         {
             var msg = new Message

@@ -49,13 +49,18 @@ namespace Shiny.Mail.Impl
                 return;
             }
 
-            var variable = values[0].ToLower();
-            var value = values[1];
+            var variable = values[0].ToLower().Trim();
+            var value = values[1].Trim();
+            if (String.IsNullOrWhiteSpace(variable) || String.IsNullOrWhiteSpace(value))
+            {
+                // also ignore
+                return;
+            }
 
             switch (variable)
             {
                 case "subject":
-                    mail.Subject = values[1];
+                    mail.Subject = value;
                     break;
 
                 case "html":
@@ -108,8 +113,8 @@ namespace Shiny.Mail.Impl
 
             if (lt != -1 && gt != -1)
             {
-                displayName = value.Substring(lt + 1, gt - 1);
-                address = value.Substring(0, lt - 1);
+                address = value.Substring(lt + 1, gt - 1);
+                displayName = value.Substring(0, lt - 1);
             }
             return displayName == null
                 ? new MailAddress(value)

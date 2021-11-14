@@ -8,7 +8,7 @@ namespace Shiny.Api.Push.Management
     {
         public string? UserId { get; set; }
         public string Token { get; set; }
-        public PushType Type { get; set; }
+        public PushPlatform Platform { get; set; }
         public IDictionary<string, string> Tags { get; set; }
         // unreg date?
         public DateTimeOffset? DateExpiry { get; set; }
