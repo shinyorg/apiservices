@@ -21,10 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Shiny.Api.Push.Abstractions\Shiny.Api.Push.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Shiny.Api.Push.Management.Abstractions\Shiny.Api.Push.Management.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Shiny.Api.Push.Management\Shiny.Api.Push.Management.csproj" />
-    <ProjectReference Include="..\..\src\Shiny.Api.Push\Shiny.Api.Push.csproj" />
   </ItemGroup>
 
 </Project>
