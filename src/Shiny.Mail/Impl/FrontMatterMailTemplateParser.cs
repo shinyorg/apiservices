@@ -106,19 +106,19 @@ namespace Shiny.Mail.Impl
 
         static MailAddress ToAddress(string value)
         {
-            var lt = value.IndexOf("<") + 1;
-            var gt = value.IndexOf(">");
+            var lt = value.LastIndexOf("<");
+            var gt = value.LastIndexOf(">");
             var address = value;
             string? displayName = null;
 
             if (lt != -1 && gt != -1)
             {
-                address = value.Substring(lt + 1, gt - 1);
-                displayName = value.Substring(0, lt - 1);
+                address = value.Substring(lt + 1).TrimEnd('>').Trim();
+                displayName = value.Substring(0, lt - 1).Trim();
             }
             return displayName == null
                 ? new MailAddress(value)
-                : new MailAddress(displayName, address);
+                : new MailAddress(address, displayName);
         }
     }
 }

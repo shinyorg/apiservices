@@ -37,12 +37,11 @@ test
         public async Task Variables_IgnoresUnset()
         {
             var mail = await this.parser.Parse(@"
-subject:
-to: test@shinylib.net
+to: 
 ---
 test
 ");
-            mail.Subject.Should().BeNull();
+            mail.To.Count.Should().Be(0);
         }
 
 
