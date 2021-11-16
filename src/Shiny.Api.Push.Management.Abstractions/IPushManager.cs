@@ -7,6 +7,7 @@ namespace Shiny.Api.Push.Management
 {
     public interface IPushManager
     {
+        // TODO: update a registration tags
         // TODO: what about formatting each message per user
         // TODO: store messages, attempts, etc
         Task Send(Notification notification, PushFilter? filter);
