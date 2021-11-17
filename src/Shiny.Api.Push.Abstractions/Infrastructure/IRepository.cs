@@ -5,8 +5,8 @@ namespace Shiny.Api.Push.Infrastructure
 {
     public interface IRepository
     {
-        Task<IEnumerable<NotificationRegistration>> Get(PushFilter? filter);
-        Task Save(NotificationRegistration reg);
+        Task<IEnumerable<PushRegistration>> Get(PushFilter? filter);
+        Task Save(PushRegistration reg);
         Task Remove(PushFilter filter);
     }
 }

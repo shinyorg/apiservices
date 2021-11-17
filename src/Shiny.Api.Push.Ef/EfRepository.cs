@@ -15,7 +15,7 @@ namespace Shiny.Api.Push.Ef
         }
 
 
-        public async Task Save(NotificationRegistration reg)
+        public async Task Save(PushRegistration reg)
         {
             var result = await this.data
                 .Set<DbNotificationRegistration>()
@@ -27,9 +27,9 @@ namespace Shiny.Api.Push.Ef
 
             if (result == null)
             {
-                result = new DbNotificationRegistration
+                result = new DbPushRegistration
                 {
-                    Tags = new List<DbNotificationRegistrationTag>(),
+                    Tags = new List<DbPushTag>(),
                     DateCreated = DateTimeOffset.Now
                 };
                 this.data.Add(result);
@@ -42,7 +42,7 @@ namespace Shiny.Api.Push.Ef
             result.Tags.Clear();
             foreach (var tag in reg.Tags)
             {
-                result.Tags.Add(new DbNotificationRegistrationTag
+                result.Tags.Add(new DbPushTag
                 {
                     Value = tag
                 });
@@ -54,13 +54,13 @@ namespace Shiny.Api.Push.Ef
         }
 
 
-        public async Task<IEnumerable<NotificationRegistration>> Get(PushFilter? filter)
+        public async Task<IEnumerable<PushRegistration>> Get(PushFilter? filter)
         {
             var regs = await this
                 .FindRegistrations(filter, true)
                 .ConfigureAwait(false);
 
-            return regs.Select(x => new NotificationRegistration
+            return regs.Select(x => new PushRegistration
             {
                 DeviceToken = x.DeviceToken,
                 Platform = x.Platform,
@@ -86,7 +86,7 @@ namespace Shiny.Api.Push.Ef
         }
 
 
-        Task<List<DbNotificationRegistration>> FindRegistrations(PushFilter? filter, bool includeTags)
+        Task<List<DbPushRegistration>> FindRegistrations(PushFilter? filter, bool includeTags)
         {
             var query = this.data.Set<DbNotificationRegistration>().AsQueryable();
             if (!String.IsNullOrWhiteSpace(filter?.UserId))

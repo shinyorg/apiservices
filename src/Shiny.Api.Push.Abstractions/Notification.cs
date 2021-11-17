@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Shiny.Api.Push.Providers;
 
 
 namespace Shiny.Api.Push
@@ -12,7 +14,7 @@ namespace Shiny.Api.Push
         public string? ImageUri { get; set; }
         public IDictionary<string, string> Data { get; set; }
 
-        //public Action<GoogleNotification>? Decorate { get; set; }
-        //public Action<AppleNotification>? Decorate { get; set; }
+        public Func<PushRegistration, GoogleNotification, Task>? DecorateGoogle { get; set; }
+        public Func<PushRegistration, AppleNotification, Task>? DecorateApple { get; set; }
     }
 }
