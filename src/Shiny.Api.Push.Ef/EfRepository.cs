@@ -2,18 +2,23 @@
 using Shiny.Api.Push.Infrastructure;
 
 
-namespace Shiny.Api.Push.Ef.Infrastructure
+namespace Shiny.Api.Push.Ef
 {
     public class EfRepository : IRepository
     {
-        readonly PushDbContext data;
-        public EfRepository(PushDbContext data) => this.data = data;
+        readonly DbContext data;
+
+
+        public EfRepository(DbContext data) 
+        {
+            this.data = data;
+        }
 
 
         public async Task Save(NotificationRegistration reg)
         {
             var result = await this.data
-                .Registrations
+                .Set<DbNotificationRegistration>()
                 .FirstOrDefaultAsync(x => 
                     x.DeviceToken == reg.DeviceToken && 
                     x.Platform == reg.Platform
@@ -83,7 +88,7 @@ namespace Shiny.Api.Push.Ef.Infrastructure
 
         Task<List<DbNotificationRegistration>> FindRegistrations(PushFilter? filter, bool includeTags)
         {
-            var query = this.data.Registrations.AsQueryable();
+            var query = this.data.Set<DbNotificationRegistration>().AsQueryable();
             if (!String.IsNullOrWhiteSpace(filter?.UserId))
                 query = query.Where(x => x.UserId == filter.UserId);
 

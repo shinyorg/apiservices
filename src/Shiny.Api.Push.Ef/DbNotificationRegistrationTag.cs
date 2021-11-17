@@ -1,4 +1,4 @@
-﻿namespace Shiny.Api.Push.Ef.Infrastructure
+﻿namespace Shiny.Api.Push.Ef
 {
     public class DbNotificationRegistrationTag
     {
