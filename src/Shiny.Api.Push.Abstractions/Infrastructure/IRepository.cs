@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Shiny.Api.Push.Management.Infrastructure
+namespace Shiny.Api.Push.Infrastructure
 {
     public interface IRepository
     {

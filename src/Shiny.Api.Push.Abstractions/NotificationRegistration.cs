@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Shiny.Api.Push.Management
+namespace Shiny.Api.Push
 {
     public class NotificationRegistration
     {

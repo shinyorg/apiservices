@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
-namespace Shiny.Api.Push.Management
+namespace Shiny.Api.Push
 {
     public interface IPushManager
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 
-namespace Shiny.Api.Push.Management.Ef.Infrastructure
+namespace Shiny.Api.Push.Ef.Infrastructure
 {
     public class PushDbContext : DbContext
     {

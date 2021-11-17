@@ -1,4 +1,4 @@
-﻿namespace Shiny.Api.Push.Management
+﻿namespace Shiny.Api.Push
 {
     public enum PushPlatform
     {

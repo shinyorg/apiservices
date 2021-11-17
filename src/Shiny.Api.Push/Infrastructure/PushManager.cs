@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Shiny.Api.Push.Management.Providers;
+using Shiny.Api.Push.Providers;
 
 
-namespace Shiny.Api.Push.Management.Infrastructure
+namespace Shiny.Api.Push.Infrastructure
 {
     public class PushManager : IPushManager
     {

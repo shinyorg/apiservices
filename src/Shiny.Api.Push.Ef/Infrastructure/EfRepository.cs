@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shiny.Api.Push.Management.Infrastructure;
+using Shiny.Api.Push.Infrastructure;
 
 
-namespace Shiny.Api.Push.Management.Ef.Infrastructure
+namespace Shiny.Api.Push.Ef.Infrastructure
 {
     public class EfRepository : IRepository
     {
