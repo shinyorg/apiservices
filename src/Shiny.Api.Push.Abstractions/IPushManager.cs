@@ -11,9 +11,9 @@ namespace Shiny.Api.Push
         // TODO: what about formatting each message per user
         // TODO: store messages, attempts, etc
         Task Send(Notification notification, PushFilter? filter);
-        Task<IEnumerable<NotificationRegistration>> GetRegistrations(PushFilter? filter);
+        Task<IEnumerable<PushRegistration>> GetRegistrations(PushFilter? filter);
 
-        Task Register(NotificationRegistration registration);
+        Task Register(PushRegistration registration);
         Task UnRegister(PushFilter filter);
     }
 }

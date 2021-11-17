@@ -5,7 +5,7 @@ namespace Shiny.Api.Push.Providers
 {
     public interface INotificationDecorator<T>
     {
-        Task Decorate(NotificationRegistration registration, Notification notification, T nativeNotification);
+        Task Decorate(PushRegistration registration, Notification notification, T nativeNotification);
     }
 
 
