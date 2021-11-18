@@ -5,7 +5,7 @@ namespace Shiny.Api.Push.Ef
 {
     public interface IPushDbContext
     {
-        DbSet<DbNotificationRegistration> Registrations { get; }
-        DbSet<DbNotificationRegistrationTag> Tags { get; }
+        DbSet<DbPushRegistration> Registrations { get; }
+        DbSet<DbPushTag> Tags { get; }
     }
 }

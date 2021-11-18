@@ -15,6 +15,10 @@ namespace Shiny.Storage.AzureBlobStorage
 
         public Task<IDirectory> CreateDirectory(string path)
         {
+            //this.client.OpenReadAsync(new Azure.Storage.Blobs.Models.BlobOpenReadOptions()
+            //{
+
+            //});
             throw new NotImplementedException();
         }
 

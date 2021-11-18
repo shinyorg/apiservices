@@ -44,6 +44,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Storage.FtpClient", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Api.Push.Ef", "src\Shiny.Api.Push.Ef\Shiny.Api.Push.Ef.csproj", "{5FF8CC77-EA18-4F2C-915D-59263BD94817}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shiny.Api.Push.Providers", "src\Shiny.Api.Push.Providers\Shiny.Api.Push.Providers.csproj", "{F7BB0282-93DF-491B-9D83-EB3DA637CD07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shiny.Api.Push.GeoDispatching", "src\Shiny.Api.Push.GeoDispatching\Shiny.Api.Push.GeoDispatching.csproj", "{E0E7C2D5-111D-4027-9D6D-FBAB78AC3DF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +106,14 @@ Global
 		{5FF8CC77-EA18-4F2C-915D-59263BD94817}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FF8CC77-EA18-4F2C-915D-59263BD94817}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FF8CC77-EA18-4F2C-915D-59263BD94817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7BB0282-93DF-491B-9D83-EB3DA637CD07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7BB0282-93DF-491B-9D83-EB3DA637CD07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7BB0282-93DF-491B-9D83-EB3DA637CD07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7BB0282-93DF-491B-9D83-EB3DA637CD07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0E7C2D5-111D-4027-9D6D-FBAB78AC3DF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0E7C2D5-111D-4027-9D6D-FBAB78AC3DF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0E7C2D5-111D-4027-9D6D-FBAB78AC3DF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0E7C2D5-111D-4027-9D6D-FBAB78AC3DF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +130,8 @@ Global
 		{F15A48C6-B47C-4245-A3F8-964FEE09A42D} = {8B31ACF0-86B8-4208-A054-940EA9378C1D}
 		{C560C153-180C-4CE1-ACDE-5783EE357314} = {CB07DEE0-7625-45A5-9452-2C5A5946DC96}
 		{5FF8CC77-EA18-4F2C-915D-59263BD94817} = {8B31ACF0-86B8-4208-A054-940EA9378C1D}
+		{F7BB0282-93DF-491B-9D83-EB3DA637CD07} = {8B31ACF0-86B8-4208-A054-940EA9378C1D}
+		{E0E7C2D5-111D-4027-9D6D-FBAB78AC3DF3} = {8B31ACF0-86B8-4208-A054-940EA9378C1D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97760152-ADDA-421F-9345-9C7825A99FB7}

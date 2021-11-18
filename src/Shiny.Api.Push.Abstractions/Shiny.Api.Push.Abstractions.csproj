@@ -9,4 +9,12 @@
 		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Providers\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Shiny.Api.Push.Providers\Shiny.Api.Push.Providers.csproj" />
+	</ItemGroup>
+
 </Project>

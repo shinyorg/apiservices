@@ -26,9 +26,8 @@ namespace Shiny.Api.Push.Providers
         }
 
 
-        public PushPlatform Platform { get; } = PushPlatform.Apple;
 
-        public async Task Send(string deviceToken, Notification notification)
+        public async Task Send(string deviceToken, AppleNotification notification)
         {
             var apple = new AppleNotification
             {

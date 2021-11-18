@@ -4,6 +4,6 @@ namespace Shiny.Api.Push.Providers
 {
     public interface IGooglePushProvider
     {
-        Task Send(GoogleNotification notification);
+        Task Send(string deviceToken, GoogleNotification notification);
     }
 }

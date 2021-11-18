@@ -18,7 +18,7 @@ namespace Shiny.Api.Push.Ef
         public async Task Save(PushRegistration reg)
         {
             var result = await this.data
-                .Set<DbNotificationRegistration>()
+                .Set<DbPushRegistration>()
                 .FirstOrDefaultAsync(x => 
                     x.DeviceToken == reg.DeviceToken && 
                     x.Platform == reg.Platform
@@ -88,7 +88,7 @@ namespace Shiny.Api.Push.Ef
 
         Task<List<DbPushRegistration>> FindRegistrations(PushFilter? filter, bool includeTags)
         {
-            var query = this.data.Set<DbNotificationRegistration>().AsQueryable();
+            var query = this.data.Set<DbPushRegistration>().AsQueryable();
             if (!String.IsNullOrWhiteSpace(filter?.UserId))
                 query = query.Where(x => x.UserId == filter.UserId);
 

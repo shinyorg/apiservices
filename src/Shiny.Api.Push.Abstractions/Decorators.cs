@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 
 
-namespace Shiny.Api.Push.Providers
+namespace Shiny.Api.Push
 {
     public interface INotificationDecorator<T>
     {

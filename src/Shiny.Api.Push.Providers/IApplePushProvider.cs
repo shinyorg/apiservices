@@ -4,6 +4,6 @@ namespace Shiny.Api.Push.Providers
 {
     public interface IApplePushProvider
     {
-        Task Send(AppleNotification notification);
+        Task Send(string deviceToken, AppleNotification notification);
     }
 }
