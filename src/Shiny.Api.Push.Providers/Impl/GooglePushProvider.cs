@@ -1,13 +1,8 @@
-﻿using CorePush.Google;
-
-using System.Threading.Tasks;
-
-
-namespace Shiny.Api.Push.Providers
+﻿namespace Shiny.Api.Push.Providers
 {
     public class GooglePushProvider : IGooglePushProvider
     {
-        readonly FcmSender sender;
+        //readonly FcmSender sender;
 
 
         public GooglePushProvider()

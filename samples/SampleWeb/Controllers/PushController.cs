@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
+using SampleWeb.Contracts;
+using Shiny.Api.Push;
 
 
 namespace SampleWeb.Controllers
@@ -9,18 +9,61 @@ namespace SampleWeb.Controllers
     [Route("[controller]")]
     public class PushController : ControllerBase
     {
-        readonly ILogger logger;
+        readonly IPushManager pushManager;
 
 
-        public PushController(ILogger<PushController> logger)
+        public PushController(IPushManager pushManager)
         {
-            this.logger = logger;
+            this.pushManager = pushManager;
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> Send()
+        [HttpPost("send")]
+        public async Task<ActionResult> Send([FromBody] Contracts.Notification notification)
         {
+            await this.pushManager.Send(
+                new Shiny.Api.Push.Notification
+                {
+                    Title = notification.Title,
+                    Message = notification.Message,
+                    Data = notification.Data
+                },
+                new PushFilter
+                {
+                    DeviceToken = notification.DeviceToken,
+                    UserId = notification.UserId,
+                    Platform = notification.Platform,
+                    Tags = notification.Tags
+                }
+            );
+            return this.Ok();
+        }
+
+
+        [HttpPost("register")]
+        public async Task<ActionResult> Register([FromBody] Registration register)
+        {
+            await this.pushManager.Register(new PushRegistration
+            {
+                DeviceToken = register.DeviceToken,
+                UserId = register.UserId,
+                Platform = register.Platform,
+                Tags = register.Tags
+            });
+            return this.Ok();
+        }
+
+
+        [HttpPost("unregister")]
+        public async Task<ActionResult> UnRegister([FromBody] Registration register)
+        {
+            await this.pushManager.UnRegister(new PushFilter
+            {
+                DeviceToken = register.DeviceToken,                
+                UserId = register.UserId,
+                Platform = register.Platform,
+                Tags = register.Tags
+            });
             return this.Ok();
         }
     }

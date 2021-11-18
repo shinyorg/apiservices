@@ -8,10 +8,10 @@ namespace Shiny.Api.Push.Providers
 {
     public class GoogleResult
     {
-        [JsonProperty("message_id")]
+        //[JsonProperty("message_id")]
         public string MessageId { get; set; }
 
-        [JsonProperty("registration_id")]
+        //[JsonProperty("registration_id")]
         public string RegistrationId { get; set; }
 
         public string Error { get; set; }

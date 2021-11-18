@@ -1,28 +1,26 @@
 ﻿using System.Threading.Tasks;
 
-using CorePush.Apple;
-
 
 namespace Shiny.Api.Push.Providers
 {
     public class ApplePushProvider : IApplePushProvider
     {
-        readonly ApnSender apnSender;
+        //readonly ApnSender apnSender;
 
 
         public ApplePushProvider()
         {
-            this.apnSender = new ApnSender(
-                new ApnSettings
-                {
-                    //AppBundleIdentifier = TestStartup.CurrentPlatform.AppIdentifier, // com.shiny.test
-                    //ServerType = ApnServerType.Development,
-                    //P8PrivateKey = Secrets.Values.ApnPrivateKey,
-                    //P8PrivateKeyId = Secrets.Values.ApnPrivateKeyId,
-                    //TeamId = Secrets.Values.ApnTeamId
-                },
-                new System.Net.Http.HttpClient()
-            );
+            //this.apnSender = new ApnSender(
+            //    new ApnSettings
+            //    {
+            //        //AppBundleIdentifier = TestStartup.CurrentPlatform.AppIdentifier, // com.shiny.test
+            //        //ServerType = ApnServerType.Development,
+            //        //P8PrivateKey = Secrets.Values.ApnPrivateKey,
+            //        //P8PrivateKeyId = Secrets.Values.ApnPrivateKeyId,
+            //        //TeamId = Secrets.Values.ApnTeamId
+            //    },
+            //    new System.Net.Http.HttpClient()
+            //);
         }
 
 
@@ -44,7 +42,7 @@ namespace Shiny.Api.Push.Providers
             //    }
             //    apple.ContentAvailable = 1;
             //}
-            await this.apnSender.SendAsync(apple, deviceToken); // expiration, priority
+            //await this.apnSender.SendAsync(apple, deviceToken); // expiration, priority
         }
     }
 }

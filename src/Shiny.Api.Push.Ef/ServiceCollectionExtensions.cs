@@ -3,9 +3,9 @@
 
 namespace Shiny.Api.Push.Ef
 {
-    public static class ServiceCollectionExtensions
+    public static class Extension
     {
-        public static void AddDbContext<T>() where T : DbContext, IPushDbContext
+        public static void AddDbContext<TDbContext>(this PushConfigurator config) where TDbContext : DbContext, IPushDbContext
         {
 
         }

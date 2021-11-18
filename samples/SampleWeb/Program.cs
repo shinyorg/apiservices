@@ -1,3 +1,5 @@
+using Shiny.Api.Push;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.ConfigureLogging(logging =>
@@ -8,6 +10,7 @@ builder.Host.ConfigureLogging(logging =>
 builder.Host.ConfigureServices(services =>
 {
     services.AddControllersWithViews();
+    //services.AddPushManagement(x => x)
 });
 
 var app = builder.Build();

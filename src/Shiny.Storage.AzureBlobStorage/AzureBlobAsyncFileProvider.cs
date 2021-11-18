@@ -1,16 +1,21 @@
 ﻿using Azure.Storage.Blobs;
+using Microsoft.Extensions.Options;
 
 
 namespace Shiny.Storage.AzureBlobStorage
 {
     public class AzureBlobAsyncFileProvider : IAsyncFileProvider
     {
-        readonly BlobClient client;
+        readonly Lazy<BlobClient> client;
 
 
-        public AzureBlobAsyncFileProvider()
+        public AzureBlobAsyncFileProvider(IOptions<AzureBlobConfiguration> options)
         {
-            //new BlobClient("", "");
+            this.client = new Lazy<BlobClient>(() => new BlobClient(
+                options.Value.ConnectionString,
+                options.Value.BlobContainerName,
+                options.Value.BlobName
+            ));
         }
 
         public Task<IDirectory> CreateDirectory(string path)

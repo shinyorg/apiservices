@@ -60,7 +60,9 @@ namespace Shiny.Api.Push.Infrastructure
                         if (notification!.DecorateApple != null)
                             await notification.DecorateApple.Invoke(registration, appleNative);
 
-                        await this.apple.Send(appleNative).ConfigureAwait(false);
+                        await this.apple
+                            .Send(registration.DeviceToken, appleNative)
+                            .ConfigureAwait(false);
                         break;
 
                     case PushPlatform.Google:
@@ -75,7 +77,9 @@ namespace Shiny.Api.Push.Infrastructure
                         if (notification!.DecorateGoogle != null)
                             await notification.DecorateGoogle.Invoke(registration, googleNative);
 
-                        await this.google.Send(googleNative).ConfigureAwait(false);
+                        await this.google
+                            .Send(registration.DeviceToken, googleNative)
+                            .ConfigureAwait(false);
                         break;
                 }
             }

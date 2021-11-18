@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Shiny.Api.Push.Abstractions\Shiny.Api.Push.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>
