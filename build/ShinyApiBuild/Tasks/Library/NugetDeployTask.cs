@@ -28,23 +28,12 @@ namespace ShinyBuild.Tasks.Library
 
         public override void Run(BuildContext context)
         {
-            // delete symbols for now
-            context.DeleteFiles("src/**/*.symbols.nupkg");
-
-            DoDeploy(context, context.NugetApiKey, MainNuget);
-        }
-
-
-        static void DoDeploy(BuildContext context, string apiKey, string sourceUrl)
-        {
             var settings = new DotNetCoreNuGetPushSettings
             {
-                ApiKey = apiKey,
-                Source = sourceUrl,
+                ApiKey = context.NugetApiKey,
+                Source = MainNuget,
                 SkipDuplicate = true
             };
-            // delete symbols for now
-            context.DeleteFiles("src/**/*.symbols.nupkg");
 
             var packages = context.GetFiles("src/**/*.nupkg");
             foreach (var package in packages)
@@ -55,10 +44,7 @@ namespace ShinyBuild.Tasks.Library
                 }
                 catch (Exception ex)
                 {
-                    if (context.AllowNugetUploadFailures)
-                        context.Error($"Error Upload: {package.FullPath} - Exception: {ex}");
-                    else
-                        throw; // break build
+                    context.Warning($"Error Upload: {package.FullPath} - Exception: {ex}");
                 }
             }
         }

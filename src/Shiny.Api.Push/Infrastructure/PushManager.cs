@@ -49,37 +49,11 @@ namespace Shiny.Api.Push.Infrastructure
                 switch (registration.Platform)
                 {
                     case PushPlatform.Apple:
-                        var appleNative = new AppleNotification();
-                        await Task
-                            .WhenAll(this.appleDecorators
-                                .Select(x => x.Decorate(registration, notification!, appleNative))
-                                .ToArray()
-                            )
-                            .ConfigureAwait(false);
-
-                        if (notification!.DecorateApple != null)
-                            await notification.DecorateApple.Invoke(registration, appleNative);
-
-                        await this.apple
-                            .Send(registration.DeviceToken, appleNative)
-                            .ConfigureAwait(false);
+                        await this.DoApple(registration, notification).ConfigureAwait(false);
                         break;
 
                     case PushPlatform.Google:
-                        var googleNative = new GoogleNotification();
-                        await Task
-                            .WhenAll(this.googleDecorators
-                                .Select(x => x.Decorate(registration, notification!, googleNative))
-                                .ToArray()
-                            )
-                            .ConfigureAwait(false);
-
-                        if (notification!.DecorateGoogle != null)
-                            await notification.DecorateGoogle.Invoke(registration, googleNative);
-
-                        await this.google
-                            .Send(registration.DeviceToken, googleNative)
-                            .ConfigureAwait(false);
+                        await this.DoGoogle(registration, notification).ConfigureAwait(false);
                         break;
                 }
             }
@@ -88,5 +62,43 @@ namespace Shiny.Api.Push.Infrastructure
 
         public Task UnRegister(PushFilter filter)
             => this.repository.Remove(filter);
+
+
+        async Task DoApple(PushRegistration registration, Notification notification)
+        {
+            var appleNative = this.apple.CreateNativeNotification(notification);
+            await Task
+                .WhenAll(this.appleDecorators
+                    .Select(x => x.Decorate(registration, notification!, appleNative))
+                    .ToArray()
+                )
+                .ConfigureAwait(false);
+
+            if (notification!.DecorateApple != null)
+                await notification.DecorateApple.Invoke(registration, appleNative);
+
+            await this.apple
+                .Send(registration.DeviceToken, appleNative)
+                .ConfigureAwait(false);
+        }
+
+
+        async Task DoGoogle(PushRegistration registration, Notification notification)
+        {
+            var googleNative = new GoogleNotification();
+            await Task
+                .WhenAll(this.googleDecorators
+                    .Select(x => x.Decorate(registration, notification!, googleNative))
+                    .ToArray()
+                )
+                .ConfigureAwait(false);
+
+            if (notification!.DecorateGoogle != null)
+                await notification.DecorateGoogle.Invoke(registration, googleNative);
+
+            await this.google
+                .Send(registration.DeviceToken, googleNative)
+                .ConfigureAwait(false);
+        }
     }
 }

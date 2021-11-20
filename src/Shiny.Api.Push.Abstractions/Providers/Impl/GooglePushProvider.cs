@@ -1,4 +1,6 @@
-﻿namespace Shiny.Api.Push.Providers
+﻿using System.Threading.Tasks;
+
+namespace Shiny.Api.Push.Providers
 {
     public class GooglePushProvider : IGooglePushProvider
     {
@@ -22,7 +24,13 @@
             //});
         }
 
+        public GoogleNotification CreateNativeNotification(Notification notification)
+        {
+            throw new System.NotImplementedException();
+        }
 
+
+        //POST https://fcm.googleapis.com/v1/{parent=projects/*}/messages:send
         public async Task Send(string deviceToken, GoogleNotification notification)
         {
             //var msg = new Message

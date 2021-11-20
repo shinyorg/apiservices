@@ -23,6 +23,10 @@ namespace Shiny.Api.Push.Providers
             //);
         }
 
+        public AppleNotification CreateNativeNotification(Notification notification)
+        {
+            throw new System.NotImplementedException();
+        }
 
 
         public async Task Send(string deviceToken, AppleNotification notification)

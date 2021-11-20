@@ -39,10 +39,8 @@ namespace ShinyBuild
 
         public string MajorMinorVersion => this.ArgumentOrEnvironment("ShinyVersion", Constants.MajorMinorVersion);
         public int BuildNumber => this.ArgumentOrEnvironment("BuildNumber", 0);
-        public bool UseXamarinPreview => this.HasArgumentOrEnvironment("UseXamarinPreview");
         public string MsBuildConfiguration => this.ArgumentOrEnvironment("configuration", Constants.DefaultBuildConfiguration);
         public string NugetApiKey => this.ArgumentOrEnvironment<string>("NugetApiKey");
-        public bool AllowNugetUploadFailures => this.ArgumentOrEnvironment("AllowNugetUploadFailures", false);
         public GitBranch Branch { get; }
         public string NugetVersion { get; }
 
