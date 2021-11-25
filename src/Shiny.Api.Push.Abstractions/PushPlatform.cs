@@ -1,8 +1,10 @@
-﻿namespace Shiny.Api.Push
+﻿using System;
+
+namespace Shiny.Api.Push
 {
     public enum PushPlatform
     {
-        Apple,
-        Google
+        Apple = 1,
+        Google = 2
     }
 }

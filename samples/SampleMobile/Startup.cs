@@ -24,6 +24,7 @@ namespace SampleMobile
         protected override void Configure(ILoggingBuilder builder, IServiceCollection services)
         {
             services.UsePush<MyPushDelegate>();
+            services.AddSingleton(Refit.RestService.For<ISampleApi>("https://acrmonster"));
         }
     }
 }

@@ -28,13 +28,7 @@ namespace SampleWeb.Controllers
                     Message = notification.Message,
                     Data = notification.Data
                 },
-                new PushFilter
-                {
-                    DeviceToken = notification.DeviceToken,
-                    UserId = notification.UserId,
-                    Platform = notification.Platform,
-                    Tags = notification.Tags
-                }
+                ToFilter(notification)
             );
             return this.Ok();
         }
@@ -47,7 +41,7 @@ namespace SampleWeb.Controllers
             {
                 DeviceToken = register.DeviceToken,
                 UserId = register.UserId,
-                Platform = register.Platform,
+                Platform = Enum.Parse<PushPlatform>(register.Platform),
                 Tags = register.Tags
             });
             return this.Ok();
@@ -57,14 +51,23 @@ namespace SampleWeb.Controllers
         [HttpPost("unregister")]
         public async Task<ActionResult> UnRegister([FromBody] Registration register)
         {
-            await this.pushManager.UnRegister(new PushFilter
-            {
-                DeviceToken = register.DeviceToken,                
-                UserId = register.UserId,
-                Platform = register.Platform,
-                Tags = register.Tags
-            });
+            await this.pushManager.UnRegister(ToFilter(register));
             return this.Ok();
+        }
+
+
+        static PushFilter ToFilter(Registration reg)
+        {
+            var filter = new PushFilter
+            {
+                DeviceToken = reg.DeviceToken,
+                UserId = reg.UserId,
+                Tags = reg.Tags
+            };
+            if (reg.Platform != null)
+                filter.Platform = Enum.Parse<PushPlatform>(reg.Platform);
+
+            return filter;
         }
     }
 }

@@ -47,12 +47,17 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Api.Push.GeoDispatching", "src\Shiny.Api.Push.GeoDispatching\Shiny.Api.Push.GeoDispatching.csproj", "{E0E7C2D5-111D-4027-9D6D-FBAB78AC3DF3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{C079828E-C618-4B92-8D22-9E286426C5F6}"
+	ProjectSection(SolutionItems) = preProject
+		samples\Directory.build.props = samples\Directory.build.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleMobile", "samples\SampleMobile\SampleMobile.csproj", "{B3297A80-BA04-4FF5-A6E5-9A15575AE293}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleMobile.iOS", "samples\SampleMobile.iOS\SampleMobile.iOS.csproj", "{049F413C-7BC4-421B-801D-9B5AB53D0022}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleMobile.Android", "samples\SampleMobile.Android\SampleMobile.Android.csproj", "{DE60DA70-889F-4819-857F-29D47A114788}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWeb.Contracts", "samples\SampleWeb.Contracts\SampleWeb.Contracts.csproj", "{4A560E33-9288-4FFD-924F-8D92DEE0E164}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -274,6 +279,18 @@ Global
 		{DE60DA70-889F-4819-857F-29D47A114788}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{DE60DA70-889F-4819-857F-29D47A114788}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{DE60DA70-889F-4819-857F-29D47A114788}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{4A560E33-9288-4FFD-924F-8D92DEE0E164}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A560E33-9288-4FFD-924F-8D92DEE0E164}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A560E33-9288-4FFD-924F-8D92DEE0E164}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{4A560E33-9288-4FFD-924F-8D92DEE0E164}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{4A560E33-9288-4FFD-924F-8D92DEE0E164}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{4A560E33-9288-4FFD-924F-8D92DEE0E164}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{4A560E33-9288-4FFD-924F-8D92DEE0E164}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A560E33-9288-4FFD-924F-8D92DEE0E164}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A560E33-9288-4FFD-924F-8D92DEE0E164}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{4A560E33-9288-4FFD-924F-8D92DEE0E164}.Release|iPhone.Build.0 = Release|Any CPU
+		{4A560E33-9288-4FFD-924F-8D92DEE0E164}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{4A560E33-9288-4FFD-924F-8D92DEE0E164}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -295,6 +312,7 @@ Global
 		{B3297A80-BA04-4FF5-A6E5-9A15575AE293} = {C079828E-C618-4B92-8D22-9E286426C5F6}
 		{049F413C-7BC4-421B-801D-9B5AB53D0022} = {C079828E-C618-4B92-8D22-9E286426C5F6}
 		{DE60DA70-889F-4819-857F-29D47A114788} = {C079828E-C618-4B92-8D22-9E286426C5F6}
+		{4A560E33-9288-4FFD-924F-8D92DEE0E164} = {C079828E-C618-4B92-8D22-9E286426C5F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97760152-ADDA-421F-9345-9C7825A99FB7}
