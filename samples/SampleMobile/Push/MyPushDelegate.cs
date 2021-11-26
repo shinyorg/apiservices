@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Shiny.Push;
 
 
-namespace SampleMobile
+namespace SampleMobile.Push
 {
     public class MyPushDelegate : IPushDelegate
     {
