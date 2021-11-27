@@ -39,6 +39,9 @@ namespace SampleMobile
         {
             services.UsePush<MyPushDelegate>();
             services.AddSingleton(Refit.RestService.For<ISampleApi>("https://acrmonster"));
+
+            services.UseXfMaterialDialogs();
+            services.UseGlobalCommandExceptionHandler();
         }
     }
 }

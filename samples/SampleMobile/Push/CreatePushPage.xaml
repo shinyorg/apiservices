@@ -1,12 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SampleMobile.Push.CreatePushPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:push="clr-namespace:SampleMobile.Push" 
+             xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView"
+             x:DataType="push:CreatePushViewModel"
+             x:Class="SampleMobile.Push.CreatePushPage"
+             Title="Push">
+    
+    <sv:SettingsView>
+        <sv:Section Title="Notification">
+            <sv:EntryCell Title="Title" ValueText="{Binding Title}" />
+            <sv:EntryCell Title="Message" ValueText="{Binding Message}" />
+        </sv:Section>
+        
+        <sv:Section Title="Filters">
+            <sv:CommandCell Command="{Binding SetDeviceTokenToMe}" ValueText="Set To My Token" />
+            <sv:EntryCell Title="Device Token" ValueText="{Binding DeviceToken}" />
+            <sv:EntryCell Title="User ID" ValueText="{Binding UserId}" />
+            <sv:EntryCell Title="Tags (comma separated)" ValueText="{Binding Tags}" />
+
+            <sv:CheckboxCell Checked="{Binding SendToIos}" />
+            <sv:CheckboxCell Checked="{Binding SendToAndroid}" />
+        </sv:Section>
+        
+        <sv:Section>
+            <sv:CommandCell Command="{Binding Send}" ValueText="Send" />
+        </sv:Section>
+    </sv:SettingsView>
 </ContentPage>
