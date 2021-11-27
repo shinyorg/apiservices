@@ -17,7 +17,7 @@ namespace SampleMobile
         public override void ConfigureApp(Application app, IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage>();
+            containerRegistry.RegisterForNavigation<TabbedPage>();
 
             containerRegistry.RegisterForNavigation<CreateMailPage, CreateMailViewModel>();
             containerRegistry.RegisterForNavigation<ExplorerPage, ExplorerViewModel>();
@@ -26,7 +26,13 @@ namespace SampleMobile
 
 
         public override Task RunApp(INavigationService navigator)
-            => navigator.Navigate("NavigationPage/MainPage");
+        { 
+            var start = $"{KnownNavigationParameters.CreateTab}={nameof(NavigationPage)}/";
+            var tab1 = start + nameof(CreatePushPage);
+            var tab2 = start + nameof(ExplorerPage);
+            var tab3 = start + nameof(CreateMailPage);
+            return navigator.Navigate($"TabbedPage?{tab1}&{tab2}&{tab3}");
+        }
 
 
         protected override void Configure(ILoggingBuilder builder, IServiceCollection services)

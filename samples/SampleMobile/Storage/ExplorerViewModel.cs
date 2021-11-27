@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Shiny;
+
 
 namespace SampleMobile.Storage
 {
-    public class ExplorerViewModel
+    public class ExplorerViewModel : ViewModel
     {
     }
 }
