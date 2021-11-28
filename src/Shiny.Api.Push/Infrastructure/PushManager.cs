@@ -35,8 +35,12 @@ namespace Shiny.Api.Push.Infrastructure
 
 
         public Task Register(PushRegistration registration)
-            => this.repository.Save(registration);
+        { 
+            if (registration.Platform == PushPlatforms.All)
+                throw new ArgumentException("You can only register a single platform at a time");
 
+            return this.repository.Save(registration);
+        }
 
         public async Task Send(Notification notification, PushFilter? filter)
         {
@@ -48,11 +52,11 @@ namespace Shiny.Api.Push.Infrastructure
             {
                 switch (registration.Platform)
                 {
-                    case PushPlatform.Apple:
+                    case PushPlatforms.Apple:
                         await this.DoApple(registration, notification).ConfigureAwait(false);
                         break;
 
-                    case PushPlatform.Google:
+                    case PushPlatforms.Google:
                         await this.DoGoogle(registration, notification).ConfigureAwait(false);
                         break;
                 }

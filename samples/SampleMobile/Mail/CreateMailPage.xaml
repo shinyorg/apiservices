@@ -1,12 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SampleMobile.Mail.CreateMailPage">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView" 
+             xmlns:mail="clr-namespace:SampleMobile.Mail"
+             x:DataType="mail:CreateMailViewModel"
+             x:Class="SampleMobile.Mail.CreateMailPage"
+             Title="Send Mail">
+    
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <sv:SettingsView>
+            <sv:Section>
+                <sv:EntryCell ValueText="{Binding TemplateName}" />
+                <sv:CheckboxCell Title="Is High Priority" Checked="{Binding IsHighPriority}" />
+            </sv:Section>
+            
+            <sv:Section Title="From">
+                <sv:EntryCell Title="Display Name" ValueText="{Binding FromDisplayName}" />
+                <sv:EntryCell Title="Address" ValueText="{Binding FromAddress}" />
+            </sv:Section>
+
+            <sv:Section Title="Reply To">
+                <sv:EntryCell Title="Display Name" ValueText="{Binding ReplyToDisplayName}" />
+                <sv:EntryCell Title="Address" ValueText="{Binding ReplyToAddress}" />
+            </sv:Section>
+            
+            <sv:Section Title="To">
+                <sv:EntryCell Title="Display Name" ValueText="{Binding ToDisplayName}" />
+                <sv:EntryCell Title="Address" ValueText="{Binding ToAddress}" />
+            </sv:Section>
+
+            <sv:Section>
+                <sv:CommandCell Title="Send" Command="{Binding Send}" />
+            </sv:Section>
+        </sv:SettingsView>
     </ContentPage.Content>
 </ContentPage>

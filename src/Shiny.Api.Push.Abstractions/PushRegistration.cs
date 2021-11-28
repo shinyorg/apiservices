@@ -7,7 +7,7 @@ namespace Shiny.Api.Push
     {
         public string? UserId { get; set; }
         public string DeviceToken { get; set; }
-        public PushPlatform Platform { get; set; }
+        public PushPlatforms Platform { get; set; }
         public string[]? Tags { get; set; }
 
         public DateTimeOffset? DateExpiry { get; set; }

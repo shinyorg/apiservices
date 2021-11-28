@@ -3,7 +3,7 @@
     public class DbPushRegistration
     {
         public Guid Id { get; set; }
-        public PushPlatform Platform { get; set; }
+        public PushPlatforms Platform { get; set; }
         public string DeviceToken { get; set; }
         public string? UserId { get; set; }
         public DateTimeOffset? DateExpiry { get; set; }

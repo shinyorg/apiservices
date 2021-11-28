@@ -9,8 +9,8 @@
     
     <sv:SettingsView>
         <sv:Section Title="Notification">
-            <sv:EntryCell Title="Title" ValueText="{Binding Title}" />
-            <sv:EntryCell Title="Message" ValueText="{Binding Message}" />
+            <sv:EntryCell Title="Title" ValueText="{Binding NotificationTitle}" />
+            <sv:EntryCell Title="Message" ValueText="{Binding NotificationMessage}" />
         </sv:Section>
         
         <sv:Section Title="Filters">
@@ -24,7 +24,9 @@
         </sv:Section>
         
         <sv:Section>
-            <sv:CommandCell Command="{Binding Send}" ValueText="Send" />
+            <sv:CommandCell Command="{Binding Register}" Title="Register" />
+            <sv:CommandCell Command="{Binding UnRegister}" Title="Un-Register" />
+            <sv:CommandCell Command="{Binding Send}" Title="Send" />
         </sv:Section>
     </sv:SettingsView>
 </ContentPage>

@@ -1,5 +1,6 @@
 ﻿using Shiny;
 using Shiny.Push;
+using System.Collections.Generic;
 using System.Windows.Input;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -9,42 +10,67 @@ namespace SampleMobile.Push
 {
     public class CreatePushViewModel : ViewModel
     {
-        public CreatePushViewModel(ISampleApi api, IPushManager pushManager, IDialogs dialogs)
+        public CreatePushViewModel(ISampleApi api, 
+                                   IPushManager pushManager, 
+                                   IPlatform platform,
+                                   IDialogs dialogs)
         {
             this.SetDeviceTokenToMe = ReactiveCommand.CreateFromTask(async () =>
             {
                 var result = await pushManager.RequestAccess();
                 if (result.Status == AccessState.Available)
-                { 
                     this.DeviceToken = result.RegistrationToken!;
-                }
                 else
+                    await this.Dialogs.Alert("Invalid Push Permission - " + result.Status);
+            });
+
+            this.Register = ReactiveCommand.CreateFromTask(() => dialogs.LoadingTask(async () =>
+            {
+                var result = await pushManager.RequestAccess();
+                if (result.Status != AccessState.Available)
                 {
                     await this.Dialogs.Alert("Invalid Push Permission - " + result.Status);
                 }
+                else
+                {
+                    await api.Register(new SampleWeb.Contracts.Registration
+                    {
+                        DeviceToken = result.RegistrationToken!,
+                        UserId = this.UserId,
+                        UseAndroid = platform.IsAndroid(),
+                        UseApple = platform.IsIos(),
+                        Tags = this.Tags!.Split(',')
+                    });
+                }
+            }));
+
+            this.UnRegister = ReactiveCommand.CreateFromTask(async () =>
+            {
+                await pushManager.UnRegister();
             });
 
             this.Send = ReactiveCommand.CreateFromTask(
                 async () =>
                 {
-                    var result = await pushManager.RequestAccess();
-                    if (result.Status != AccessState.Available)
+                    var notification = new SampleWeb.Contracts.Notification
                     {
+                        Title = this.NotificationTitle,
+                        Message = this.NotificationMessage,
 
-                        await this.Dialogs.LoadingTask(() => api.Send(new SampleWeb.Contracts.Notification
-                        {
-                            Title = this.Title,
-                            Message = this.Message,
+                        DeviceToken = this.DeviceToken!,
+                        UserId = this.UserId!,
+                        Tags = this.Tags!.Split(','),
+                        UseAndroid = this.SendToAndroid,
+                        UseApple = this.SendToIos
+                    };
+                    if (!this.DataKey.IsEmpty() && !this.DataValue.IsEmpty())
+                        notification.Data = new Dictionary<string, string> {{ this.DataKey!, this.DataValue! }};
 
-                            DeviceToken = this.DeviceToken,
-                            UserId = this.UserId,
-                            Tags = this.Tags.Split(',')
-                        }));
-                        await dialogs.Snackbar("Notification Sent");
-                    }
+                    await this.Dialogs.LoadingTask(() => api.Send(notification));
+                    await dialogs.Snackbar("Notification Sent");
                 }, 
                 this.WhenAny(
-                    x => x.Message,
+                    x => x.NotificationMessage,
                     x => x.SendToAndroid,
                     x => x.SendToIos,
                     (msg, android, ios) => 
@@ -56,11 +82,14 @@ namespace SampleMobile.Push
 
 
         public ICommand Send { get; set; }
+        public ICommand Register { get; }
+        public ICommand UnRegister { get; }
         public ICommand SetDeviceTokenToMe { get; set; }
 
-        [Reactive] public string Title { get; set; }
-        [Reactive] public string Message { get; set; }
-        // TODO: push data
+        [Reactive] public string NotificationTitle { get; set; }
+        [Reactive] public string NotificationMessage { get; set; }
+        [Reactive] public string DataKey { get; set; }
+        [Reactive] public string DataValue { get; set; }
 
         [Reactive] public string DeviceToken { get; set; }
         [Reactive] public string UserId { get; set; }

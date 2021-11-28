@@ -41,7 +41,7 @@ namespace SampleWeb.Controllers
             {
                 DeviceToken = register.DeviceToken,
                 UserId = register.UserId,
-                Platform = Enum.Parse<PushPlatform>(register.Platform),
+                Platform = GetPlatform(register),
                 Tags = register.Tags
             });
             return this.Ok();
@@ -56,18 +56,27 @@ namespace SampleWeb.Controllers
         }
 
 
-        static PushFilter ToFilter(Registration reg)
+        static PushFilter ToFilter(Registration reg) => new PushFilter
         {
-            var filter = new PushFilter
-            {
-                DeviceToken = reg.DeviceToken,
-                UserId = reg.UserId,
-                Tags = reg.Tags
-            };
-            if (reg.Platform != null)
-                filter.Platform = Enum.Parse<PushPlatform>(reg.Platform);
+            DeviceToken = reg.DeviceToken,
+            UserId = reg.UserId,
+            Tags = reg.Tags,
+            Platform = GetPlatform(reg)
+        };
 
-            return filter;
+
+        static PushPlatforms GetPlatform(Registration reg)
+        {
+            if (reg.UseApple && reg.UseAndroid)
+                return PushPlatforms.All;
+
+            if (reg.UseAndroid)
+                return PushPlatforms.Google;
+
+            if (reg.UseApple)
+                return PushPlatforms.Apple;
+
+            throw new ArgumentException("Not platform set");
         }
     }
 }

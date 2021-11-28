@@ -4,7 +4,7 @@
     {
         public string? DeviceToken { get; set; }
         public string? UserId { get; set; }
-        public PushPlatform? Platform { get; set; }
+        public PushPlatforms Platform { get; set; } = PushPlatforms.All;
         public string[]? Tags { get; set; }
     }
 }
