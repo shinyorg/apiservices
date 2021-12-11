@@ -55,7 +55,7 @@ namespace Shiny.Api.Push.Providers
             //            TitleLocKey = "",
             //            TitleLocArgs = new[] { "" },
 
-            //            ClickAction = "",
+            //            ClickAction = "", // always set to shiny push intent
 
             //            ChannelId = "",
             //            Color = "",
