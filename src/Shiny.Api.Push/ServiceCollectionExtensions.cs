@@ -9,7 +9,10 @@ namespace Shiny.Api.Push
         public static void AddPushManagement(this IServiceCollection services, Action<PushConfigurator> configure)
         {
             services.AddSingleton<IPushManager, PushManager>();
+            var cfg = new PushConfigurator(services);
+            configure(cfg);
 
+            // now validate & default where applicable
         }
     }
 }

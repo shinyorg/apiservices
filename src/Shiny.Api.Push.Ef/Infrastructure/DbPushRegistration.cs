@@ -1,4 +1,4 @@
-﻿namespace Shiny.Api.Push.Ef
+﻿namespace Shiny.Api.Push.Ef.Infrastructure
 {
     public class DbPushRegistration
     {

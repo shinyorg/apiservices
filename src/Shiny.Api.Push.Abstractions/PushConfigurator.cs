@@ -1,18 +1,33 @@
-﻿using Shiny.Api.Push.Providers;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Shiny.Api.Push.Infrastructure;
+using Shiny.Api.Push.Providers;
+
 
 namespace Shiny.Api.Push
 {
     public class PushConfigurator
     {
-        public PushConfigurator AddDecorator(IAppleNotificationDecorator decorator)
+        public PushConfigurator(IServiceCollection services) => this.Services = services;
+
+
+        public PushConfigurator UseRepository<TRepository>() where TRepository : class, IRepository
         {
+            this.Services.AddScoped<IRepository, TRepository>();
             return this;
         }
 
-        public PushConfigurator AddDecorator(IGoogleNotificationDecorator decorator)
-        {
-            return this;
-        }
+
+        public IServiceCollection Services { get; }
+        //public PushConfigurator AddDecorator(IAppleNotificationDecorator decorator)
+        //{
+        //    this.services.AddScoped<IAppleNotificationDecorator>(decorator);
+        //    return this;
+        //}
+
+        //public PushConfigurator AddDecorator(IGoogleNotificationDecorator decorator)
+        //{
+        //    return this;
+        //}
 
         public PushConfigurator AddApple(AppleConfiguration configuration)
         {

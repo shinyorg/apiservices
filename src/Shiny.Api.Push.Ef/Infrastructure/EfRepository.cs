@@ -2,16 +2,16 @@
 using Shiny.Api.Push.Infrastructure;
 
 
-namespace Shiny.Api.Push.Ef
+namespace Shiny.Api.Push.Ef.Infrastructure
 {
     public class EfRepository : IRepository
     {
         readonly DbContext data;
 
 
-        public EfRepository(DbContext data) 
+        public EfRepository(IPushDbContext context)
         {
-            this.data = data;
+            this.data = context as DbContext ?? throw new ArgumentException("IPushDbContext is not an EntityFramework DbContext");
         }
 
 
@@ -19,8 +19,8 @@ namespace Shiny.Api.Push.Ef
         {
             var result = await this.data
                 .Set<DbPushRegistration>()
-                .FirstOrDefaultAsync(x => 
-                    x.DeviceToken == reg.DeviceToken && 
+                .FirstOrDefaultAsync(x =>
+                    x.DeviceToken == reg.DeviceToken &&
                     x.Platform == reg.Platform
                 )
                 .ConfigureAwait(false);
@@ -79,7 +79,7 @@ namespace Shiny.Api.Push.Ef
                 .ConfigureAwait(false);
 
             if (tokens.Count > 0)
-            { 
+            {
                 this.data.RemoveRange(tokens);
                 await this.data.SaveChangesAsync().ConfigureAwait(false);
             }

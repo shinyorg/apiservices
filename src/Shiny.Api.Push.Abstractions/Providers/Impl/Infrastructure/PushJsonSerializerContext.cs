@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 //https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-source-generator/
 namespace Shiny.Api.Push.Providers.Infrastructure
 {
-    [JsonSerializable(typeof(AppleNotification, GenerationMode = JsonSourceGenerationMode.Serialization))]
+    [JsonSerializable(typeof(AppleNotification), GenerationMode = JsonSourceGenerationMode.Serialization)]
     [JsonSerializable(typeof(GoogleNotification), GenerationMode = JsonSourceGenerationMode.Serialization)]
     internal partial class PushJsonSerializerContext : JsonSerializerContext
     {
