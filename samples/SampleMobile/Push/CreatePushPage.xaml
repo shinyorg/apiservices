@@ -14,13 +14,13 @@
         </sv:Section>
         
         <sv:Section Title="Filters">
-            <sv:CommandCell Command="{Binding SetDeviceTokenToMe}" ValueText="Set To My Token" />
+            <sv:ButtonCell Command="{Binding SetDeviceTokenToMe}" Title="Set To My Token" />
             <sv:EntryCell Title="Device Token" ValueText="{Binding DeviceToken}" />
             <sv:EntryCell Title="User ID" ValueText="{Binding UserId}" />
             <sv:EntryCell Title="Tags (comma separated)" ValueText="{Binding Tags}" />
 
-            <sv:CheckboxCell Checked="{Binding SendToIos}" />
-            <sv:CheckboxCell Checked="{Binding SendToAndroid}" />
+            <sv:CheckboxCell Title="Send to iOS" Checked="{Binding SendToIos}" />
+            <sv:CheckboxCell Title="Send to Android" Checked="{Binding SendToAndroid}" />
         </sv:Section>
         
         <sv:Section>

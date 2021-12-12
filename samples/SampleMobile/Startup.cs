@@ -27,7 +27,7 @@ namespace SampleMobile
 
         public override Task RunApp(INavigationService navigator)
         { 
-            var start = $"{KnownNavigationParameters.CreateTab}={nameof(NavigationPage)}/";
+            var start = $"{KnownNavigationParameters.CreateTab}={nameof(NavigationPage)}|";
             var tab1 = start + nameof(CreatePushPage);
             var tab2 = start + nameof(ExplorerPage);
             var tab3 = start + nameof(CreateMailPage);
