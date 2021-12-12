@@ -2,9 +2,14 @@
 {
     public static class PushManagerExtensions
     {
-        public static async Task SendGeoDispatch(this IPushManager pushManager, GeoDispatchNotification notification, PushFilter? filter)
+        public static Task SendGeoDispatch(this IPushManager pushManager, GeoDispatchNotification notification, PushFilter? filter)
         {
+            // TODO: validate message
+            //if (notification.CenterLatitude)
+            //{
 
+            //}
+            return pushManager.Send(notification, filter);
         }
     }
 }

@@ -8,6 +8,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -22,5 +23,8 @@
 	  <ProjectReference Include="..\..\src\Shiny.Storage\Shiny.Storage.csproj" />
 	  <ProjectReference Include="..\..\tests\Shiny.Mail.Tests\Shiny.Mail.Tests.csproj" />
 	  <ProjectReference Include="..\SampleWeb.Contracts\SampleWeb.Contracts.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
 	</ItemGroup>
 </Project>

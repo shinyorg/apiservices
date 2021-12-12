@@ -1,5 +1,4 @@
 ﻿using Shiny.Api.Push.Providers;
-
 using System.Threading.Tasks;
 
 

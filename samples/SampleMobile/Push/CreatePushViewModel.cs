@@ -47,6 +47,7 @@ namespace SampleMobile.Push
             this.UnRegister = ReactiveCommand.CreateFromTask(async () =>
             {
                 await pushManager.UnRegister();
+                await dialogs.Snackbar("UnRegistered successfully");
             });
 
             this.Send = ReactiveCommand.CreateFromTask(
