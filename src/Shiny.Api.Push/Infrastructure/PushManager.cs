@@ -25,6 +25,10 @@ namespace Shiny.Api.Push.Infrastructure
             this.repository = repository ?? throw new ArgumentException("Repository is null");
             this.appleDecorators = appleDecorators.ToList();
             this.googleDecorators = googleDecorators.ToList();
+
+            if (apple == null && google == null)
+                throw new ArgumentException("No push provider has been registered");
+
             this.apple = apple;
             this.google = google;
         }
@@ -41,6 +45,7 @@ namespace Shiny.Api.Push.Infrastructure
 
             return this.repository.Save(registration);
         }
+
 
         public async Task Send(Notification notification, PushFilter? filter)
         {
@@ -70,6 +75,9 @@ namespace Shiny.Api.Push.Infrastructure
 
         async Task DoApple(PushRegistration registration, Notification notification)
         {
+            if (this.apple == null)
+                throw new ArgumentException("Apple Push is not registered with this manager");
+
             var appleNative = this.apple.CreateNativeNotification(notification);
             await Task
                 .WhenAll(this.appleDecorators
