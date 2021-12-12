@@ -1,38 +1,51 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Shiny.Api.Push.Providers.Impl.Infrastructure;
 
 namespace Shiny.Api.Push.Providers
 {
     public class GooglePushProvider : IGooglePushProvider
     {
-        //readonly FcmSender sender;
+        const string FcmUrl = "https://fcm.googleapis.com/fcm/send";
+        readonly GoogleConfiguration configuration;
+        readonly HttpClient httpClient;
 
 
-        public GooglePushProvider()
+        public GooglePushProvider(GoogleConfiguration configuration)
         {
-            //var creds = GoogleCredential.FromJson(JsonConvert.SerializeObject(new TestGoogleCredential
-            //{
-            //    ProjectId = Secrets.Values.GoogleCredentialProjectId,
-            //    PrivateKeyId = Secrets.Values.GoogleCredentialPrivateKeyId,
-            //    PrivateKey = Secrets.Values.GoogleCredentialPrivateKey,
-            //    ClientId = Secrets.Values.GoogleCredentialClientId,
-            //    ClientEmail = Secrets.Values.GoogleCredentialClientEmail,
-            //    ClientCertUrl = Secrets.Values.GoogleCredentialClientCertUrl
-            //}));
-            //FirebaseApp.Create(new AppOptions
-            //{
-            //    Credential = creds
-            //});
+            this.configuration = configuration;
+            this.httpClient = new HttpClient();
         }
+
 
         public GoogleNotification CreateNativeNotification(Notification notification)
         {
-            throw new System.NotImplementedException();
+            var native = new GoogleNotification();
+
+            return native;
         }
 
 
         //POST https://fcm.googleapis.com/v1/{parent=projects/*}/messages:send
         public async Task Send(string deviceToken, GoogleNotification notification)
         {
+            var json = Serializer.Serialize(notification);
+
+            using (var request = new HttpRequestMessage(HttpMethod.Post, FcmUrl))
+            {
+                request.Headers.Add("Authorization", $"key = {this.configuration.ServerKey}");
+                request.Headers.Add("Sender", $"id = {this.configuration.SenderId}");
+                request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await this.httpClient.SendAsync(request, CancellationToken.None);
+                response.EnsureSuccessStatusCode();
+
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                //return JsonHelper.Deserialize<FcmResponse>(responseString);
+            }
+
             //var msg = new Message
             //{
             //    //Apns

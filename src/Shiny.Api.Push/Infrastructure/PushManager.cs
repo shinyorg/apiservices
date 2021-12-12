@@ -97,6 +97,9 @@ namespace Shiny.Api.Push.Infrastructure
 
         async Task DoGoogle(PushRegistration registration, Notification notification)
         {
+            if (this.google == null)
+                throw new ArgumentException("No Google provider is registered with this manager");
+
             var googleNative = new GoogleNotification();
             await Task
                 .WhenAll(this.googleDecorators

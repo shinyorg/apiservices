@@ -2,6 +2,7 @@
 
 using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -11,6 +12,7 @@ namespace Shiny.Api.Push.Providers
     {
         const string DevUrl = "https://api.development.push.apple.com";
         const string ProdUrl = "https://api.push.apple.com";
+        readonly HttpClient httpClient;
         readonly AppleConfiguration config;
         //readonly ApnSender apnSender;
 
@@ -18,6 +20,8 @@ namespace Shiny.Api.Push.Providers
         public ApplePushProvider(AppleConfiguration config)
         {
             this.config = config ?? throw new ArgumentNullException(nameof(config));
+
+            this.httpClient = new HttpClient();
             //this.apnSender = new ApnSender(
             //    new ApnSettings
             //    {
@@ -95,15 +99,10 @@ namespace Shiny.Api.Push.Providers
             var bg = notification.Aps.ContentAvailable == 1 && notification.Aps.Alert == null;
             request.Headers.Add("apns-push-type", bg ? "background" : "alert"); // for iOS 13 required
 
-            //if (!string.IsNullOrWhiteSpace(apnsId))
-            //{
-            //    request.Headers.Add("apns-id", apnsId);
-            //}
+            var response = await this.httpClient.SendAsync(request, CancellationToken.None);
+            response.EnsureSuccessStatusCode();
 
-            //using (var response = await http.SendAsync(request, cancellationToken))
-            //{
-            //    var succeed = response.IsSuccessStatusCode;
-            //    var content = await response.Content.ReadAsStringAsync();
+            var content = await response.Content.ReadAsStringAsync();
             //    var error = JsonHelper.Deserialize<ApnsError>(content);
 
             //    return new ApnsResponse
@@ -111,7 +110,6 @@ namespace Shiny.Api.Push.Providers
             //        IsSuccess = succeed,
             //        Error = error
             //    };
-            //}
         }
     }
 }
