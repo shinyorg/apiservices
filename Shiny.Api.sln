@@ -10,7 +10,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C2DBA370-CD54-4F74-A99E-90D48DCBD708}"
 	ProjectSection(SolutionItems) = preProject
 		src\global.json = src\global.json
-		src\nuget.png = src\nuget.png
 		readme.md = readme.md
 	EndProjectSection
 EndProject
@@ -25,8 +24,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Storage.Tests", "tests\Shiny.Storage.Tests\Shiny.Storage.Tests.csproj", "{36EE7A3E-47B8-4A54-B3D0-6D4AD3F4CC41}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Mail.Tests", "tests\Shiny.Mail.Tests\Shiny.Mail.Tests.csproj", "{145C7E11-D398-4398-835A-2AE25A1E373D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Api.Push.Tests", "tests\Shiny.Api.Push.Tests\Shiny.Api.Push.Tests.csproj", "{F15A48C6-B47C-4245-A3F8-964FEE09A42D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Push", "Push", "{8B31ACF0-86B8-4208-A054-940EA9378C1D}"
 EndProject
@@ -60,7 +57,28 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{24C20221-23EA-427B-AAEB-5A5F475E7A78}"
 	ProjectSection(SolutionItems) = preProject
 		src\Directory.build.props = src\Directory.build.props
+		src\nuget.png = src\nuget.png
 		src\readme.txt = src\readme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{651C11E3-BBFA-473C-BCFB-91FA22F6DD8A}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{FBA41A83-81AC-41C6-A656-6F697E377B00}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug_report.yml = .github\ISSUE_TEMPLATE\bug_report.yml
+		.github\CODE_OF_CONDUCT.md = .github\CODE_OF_CONDUCT.md
+		.github\ISSUE_TEMPLATE\config.yml = .github\ISSUE_TEMPLATE\config.yml
+		.github\CONTRIBUTING.md = .github\CONTRIBUTING.md
+		.github\dependabot.yml = .github\dependabot.yml
+		.github\ISSUE_TEMPLATE\feature_request.yml = .github\ISSUE_TEMPLATE\feature_request.yml
+		.github\FUNDING.yml = .github\FUNDING.yml
+		.github\workflows\lock.yml = .github\workflows\lock.yml
+		.github\PULL_REQUEST_TEMPLATE.md = .github\PULL_REQUEST_TEMPLATE.md
+		.github\workflows\sponsors.yml = .github\workflows\sponsors.yml
+		.github\workflows\stale.yml = .github\workflows\stale.yml
 	EndProjectSection
 EndProject
 Global
@@ -169,18 +187,6 @@ Global
 		{145C7E11-D398-4398-835A-2AE25A1E373D}.Release|iPhone.Build.0 = Release|Any CPU
 		{145C7E11-D398-4398-835A-2AE25A1E373D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{145C7E11-D398-4398-835A-2AE25A1E373D}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{F15A48C6-B47C-4245-A3F8-964FEE09A42D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F15A48C6-B47C-4245-A3F8-964FEE09A42D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F15A48C6-B47C-4245-A3F8-964FEE09A42D}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{F15A48C6-B47C-4245-A3F8-964FEE09A42D}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{F15A48C6-B47C-4245-A3F8-964FEE09A42D}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{F15A48C6-B47C-4245-A3F8-964FEE09A42D}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{F15A48C6-B47C-4245-A3F8-964FEE09A42D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F15A48C6-B47C-4245-A3F8-964FEE09A42D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F15A48C6-B47C-4245-A3F8-964FEE09A42D}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{F15A48C6-B47C-4245-A3F8-964FEE09A42D}.Release|iPhone.Build.0 = Release|Any CPU
-		{F15A48C6-B47C-4245-A3F8-964FEE09A42D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{F15A48C6-B47C-4245-A3F8-964FEE09A42D}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{1D70197D-59F1-458A-903E-A17396F66A05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1D70197D-59F1-458A-903E-A17396F66A05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D70197D-59F1-458A-903E-A17396F66A05}.Debug|iPhone.ActiveCfg = Debug|Any CPU
@@ -308,10 +314,10 @@ Global
 		{67A94163-3F70-45DC-A017-4B8B6750F6C2} = {CB07DEE0-7625-45A5-9452-2C5A5946DC96}
 		{36EE7A3E-47B8-4A54-B3D0-6D4AD3F4CC41} = {CB07DEE0-7625-45A5-9452-2C5A5946DC96}
 		{145C7E11-D398-4398-835A-2AE25A1E373D} = {109FDCE7-7624-4A44-8BBD-4CA986C7A1D7}
-		{F15A48C6-B47C-4245-A3F8-964FEE09A42D} = {8B31ACF0-86B8-4208-A054-940EA9378C1D}
 		{8B31ACF0-86B8-4208-A054-940EA9378C1D} = {24C20221-23EA-427B-AAEB-5A5F475E7A78}
 		{109FDCE7-7624-4A44-8BBD-4CA986C7A1D7} = {24C20221-23EA-427B-AAEB-5A5F475E7A78}
 		{CB07DEE0-7625-45A5-9452-2C5A5946DC96} = {24C20221-23EA-427B-AAEB-5A5F475E7A78}
+		{1D70197D-59F1-458A-903E-A17396F66A05} = {651C11E3-BBFA-473C-BCFB-91FA22F6DD8A}
 		{C560C153-180C-4CE1-ACDE-5783EE357314} = {CB07DEE0-7625-45A5-9452-2C5A5946DC96}
 		{5FF8CC77-EA18-4F2C-915D-59263BD94817} = {8B31ACF0-86B8-4208-A054-940EA9378C1D}
 		{E0E7C2D5-111D-4027-9D6D-FBAB78AC3DF3} = {8B31ACF0-86B8-4208-A054-940EA9378C1D}
@@ -320,6 +326,7 @@ Global
 		{DE60DA70-889F-4819-857F-29D47A114788} = {C079828E-C618-4B92-8D22-9E286426C5F6}
 		{4A560E33-9288-4FFD-924F-8D92DEE0E164} = {C079828E-C618-4B92-8D22-9E286426C5F6}
 		{2EFD74F3-CD9E-44F5-8DDC-B728EE289B2F} = {8B31ACF0-86B8-4208-A054-940EA9378C1D}
+		{FBA41A83-81AC-41C6-A656-6F697E377B00} = {651C11E3-BBFA-473C-BCFB-91FA22F6DD8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97760152-ADDA-421F-9345-9C7825A99FB7}

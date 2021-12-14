@@ -1,15 +1,18 @@
 ﻿# Shiny Services for .NET 
 <img src="https://github.com/shinyorg/shiny/raw/master/art/logo.png" width="100" /> 
 
-TODO
+## COMING SOON
 
 ## Features
-* 
+* Push Notification Management without a 3rd Party (think Azure Notification Hubs for your on-prem servers)
+* Mail Templating On Steroids!
+* Async File Providers
+	* Local File System
+	* Azure Blob Storage
+	* FTP
 
 ## Links
-* [Documentation]()
-* [Change Log]()
-* [Samples]()
+* [Samples](https://github.com/shinyorg/shinyapi/tree/master/samples)
 * [Community Support](https://github.com/shinyorg/shiny/discussions)
 * [NuGets](https://www.nuget.org/profiles/ShinyLib)
 
@@ -33,12 +36,3 @@ Branch|Status
 Master|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/master?style=for-the-badge)|
 Dev|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/dev?style=for-the-badge)|
 Preview|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/preview?style=for-the-badge)|
-
-
-### Mail
-
-### Storage (Async IFileProvider)
-
-### Push
-
-### Push Manager

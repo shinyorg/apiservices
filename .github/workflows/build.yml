@@ -49,7 +49,7 @@ jobs:
         token: ${{secrets.github_token}}
 
     - name: Build
-      run: dotnet run --project build/ShinyBuild.csproj --BuildNumber=${{steps.buildnumber.outputs.build_number}}
+      run: dotnet run --project build/ShinyApiBuild.csproj --BuildNumber=${{steps.buildnumber.outputs.build_number}}
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v2
