@@ -5,6 +5,6 @@ namespace Shiny.Api.Push.Providers
     public interface IPushProvider<TNative> where TNative : class
     {
         TNative CreateNativeNotification(Notification notification);
-        Task Send(string token, TNative native);
+        Task Send(string token, Notification notification, TNative native);
     }
 }

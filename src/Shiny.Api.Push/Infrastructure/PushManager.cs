@@ -39,7 +39,7 @@ namespace Shiny.Api.Push.Infrastructure
 
 
         public Task Register(PushRegistration registration)
-        { 
+        {
             if (registration.Platform == PushPlatforms.All)
                 throw new ArgumentException("You can only register a single platform at a time");
 
@@ -52,18 +52,25 @@ namespace Shiny.Api.Push.Infrastructure
             notification = notification ?? throw new ArgumentException("Notification is null");
             var registrations = await this.repository.Get(filter).ConfigureAwait(false);
 
-            // TODO: log successful/failure?
             foreach (var registration in registrations)
             {
-                switch (registration.Platform)
+                // TODO: log intent # of registrations
+                try
                 {
-                    case PushPlatforms.Apple:
-                        await this.DoApple(registration, notification).ConfigureAwait(false);
-                        break;
+                    switch (registration.Platform)
+                    {
+                        case PushPlatforms.Apple:
+                            await this.DoApple(registration, notification).ConfigureAwait(false);
+                            break;
 
-                    case PushPlatforms.Google:
-                        await this.DoGoogle(registration, notification).ConfigureAwait(false);
-                        break;
+                        case PushPlatforms.Google:
+                            await this.DoGoogle(registration, notification).ConfigureAwait(false);
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // TODO: log successful/failure since this will send multiples
                 }
             }
         }
@@ -90,7 +97,7 @@ namespace Shiny.Api.Push.Infrastructure
                 await notification.DecorateApple.Invoke(registration, appleNative);
 
             await this.apple
-                .Send(registration.DeviceToken, appleNative)
+                .Send(registration.DeviceToken, notification, appleNative)
                 .ConfigureAwait(false);
         }
 
@@ -112,7 +119,7 @@ namespace Shiny.Api.Push.Infrastructure
                 await notification.DecorateGoogle.Invoke(registration, googleNative);
 
             await this.google
-                .Send(registration.DeviceToken, googleNative)
+                .Send(registration.DeviceToken, notification, googleNative)
                 .ConfigureAwait(false);
         }
     }

@@ -1,18 +1,34 @@
-﻿using System;
+﻿namespace Shiny.Api.Push;
+
+using System;
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Shiny.Api.Push.Infrastructure;
+using Shiny.Api.Push.Providers;
 
-namespace Shiny.Api.Push
+
+public static class ServiceCollectionExtensions
 {
-    public static class ServiceCollectionExtensions
+    public static void AddPushManagement(this IServiceCollection services, Action<PushConfigurator> configure)
     {
-        public static void AddPushManagement(this IServiceCollection services, Action<PushConfigurator> configure)
-        {
-            services.AddSingleton<IPushManager, PushManager>();
-            var cfg = new PushConfigurator(services);
-            configure(cfg);
+        var cfg = new PushConfigurator(services);
+        configure(cfg);
 
-            // now validate & default where applicable
-        }
+        if (!services.Any(x => x.ServiceType == typeof(IPushManager)))
+            services.AddTransient<IPushManager, PushManager>();
+    }
+
+
+    public static PushConfigurator AddApplePush(this PushConfigurator pushConfig, AppleConfiguration configuration)
+    {
+        pushConfig.Services.AddTransient<IApplePushProvider>(x => new ApplePushProvider(configuration));
+        return pushConfig;
+    }
+
+
+    public static PushConfigurator AddGoogle(this PushConfigurator pushConfig, GoogleConfiguration configuration)
+    {
+        pushConfig.Services.AddTransient<IGooglePushProvider>(x => new GooglePushProvider(configuration));
+        return pushConfig;
     }
 }

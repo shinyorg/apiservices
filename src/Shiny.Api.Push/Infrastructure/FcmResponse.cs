@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Shiny.Api.Push.Providers.Impl
+
+namespace Shiny.Api.Push.Infrastructure
 {
     public class FcmResponse
     {
@@ -39,10 +40,10 @@ namespace Shiny.Api.Push.Providers.Impl
 
     public class FcmResult
     {
-        [JsonProperty("message_id")]
+        [JsonPropertyName("message_id")]
         public string MessageId { get; set; }
 
-        [JsonProperty("registration_id")]
+        [JsonPropertyName("registration_id")]
         public string RegistrationId { get; set; }
 
         public string Error { get; set; }
