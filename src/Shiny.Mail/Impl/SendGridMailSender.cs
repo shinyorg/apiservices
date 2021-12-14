@@ -3,7 +3,7 @@ using SendGrid.Helpers.Mail;
 using System.Net.Mail;
 
 
-namespace Shiny.Mail.MailSenders.SendGrid
+namespace Shiny.Mail.Impl
 {
     public class SendGridMailSender : IMailSender
     {

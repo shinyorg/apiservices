@@ -1,7 +1,8 @@
 ﻿using RazorEngine.Configuration;
 using RazorEngine.Templating;
 
-namespace Shiny.Mail.TemplateParsers.Razor
+
+namespace Shiny.Mail.Impl
 {
     public class RazorTemplateParser : ITemplateParser
     {

@@ -1,6 +1,6 @@
 ﻿using Shiny.Storage;
 
-namespace Shiny.Mail.TemplateLoaders.ShinyStorage
+namespace Shiny.Mail.Impl
 {
     public class ShinyStorageTemplateLoader : ITemplateLoader
     {
@@ -28,7 +28,9 @@ namespace Shiny.Mail.TemplateLoaders.ShinyStorage
             if (!file.Exists)
                 throw new ArgumentException($"Template file {fullPath} does not exist");
 
-            return null;
+            using (var stream = await file.OpenStream())
+                using (var sr = new StreamReader(stream))
+                    return await sr.ReadToEndAsync();
         }
     }
 }
