@@ -2,16 +2,12 @@
 {
     public class FileSystemAsyncFileProvider : IAsyncFileProvider
     {
-        //public FileSystemAsyncFileProvider(string? rootDirectory = null)
-        //{
-        //    Directory.GetDirectoryRoot
-        //}
-
-
         public Task<IDirectory> CreateDirectory(string path)
         {
-            throw new NotImplementedException();
+            var dir = Directory.CreateDirectory(path);
+            return Task.FromResult<IDirectory>(new FileSystemDirectory(dir));
         }
+
 
         public Task<IEnumerable<IFilePath>> GetDirectoryContents(string path, CancellationToken cancelToken) => Task.Run<IEnumerable<IFilePath>>(() =>
         {

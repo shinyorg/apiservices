@@ -1,5 +1,6 @@
 ﻿using RazorEngine.Configuration;
 using RazorEngine.Templating;
+using Shiny.Mail.Impl.Helpers;
 
 
 namespace Shiny.Mail.Impl
@@ -12,7 +13,8 @@ namespace Shiny.Mail.Impl
         public RazorTemplateParser(TemplateServiceConfiguration? config = null)
         {
             config ??= new TemplateServiceConfiguration();
-            //config.Namespaces.Add("");
+            config.Namespaces.Add(typeof(RazorTemplateHelper).Namespace);
+
             this.service = RazorEngineService.Create(config);
         }
 

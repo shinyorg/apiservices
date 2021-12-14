@@ -1,0 +1,9 @@
+﻿from: test@shinylib.net
+to: @Model.To
+subject: @Model.Subject
+cc: @RazorTemplateHelper.ToMailGroup(@Model.Cc)
+bcc: @RazorTemplateHelper.ToMailGroup(@Model.Bcc)
+---
+This is <strong>test</strong> message
+
+@Model.AdditionalMessage

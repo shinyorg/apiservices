@@ -98,8 +98,11 @@ namespace Shiny.Mail.Impl
             var addresses = value.Split(";").Select(x => x.Trim()).ToArray();
             foreach (var address in addresses)
             {
-                var final = ToAddress(address);
-                col.Add(final);
+                if (!String.IsNullOrWhiteSpace(address))
+                {
+                    var final = ToAddress(address);
+                    col.Add(final);
+                }
             }
         }
 

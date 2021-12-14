@@ -3,10 +3,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using Shiny.Mail.Impl;
 
+
 public class MailConfigurator
 {
     public MailConfigurator(IServiceCollection services) => this.Services = services;
     public IServiceCollection Services { get; }
+
 
     public MailConfigurator UseMailProcessor<TImpl>() where TImpl : class, IMailProcessor
     {
@@ -49,9 +51,9 @@ public class MailConfigurator
     }
 
 
-    public MailConfigurator UseFileTemplateLoader(string path)
+    public MailConfigurator UseFileTemplateLoader(string path, string ext = "mailtemplate")
     {
-        this.Services.AddSingleton<ITemplateLoader>(_ => new FileTemplateLoader(path));
+        this.Services.AddSingleton<ITemplateLoader>(_ => new FileTemplateLoader(path, ext));
         return this;
     }
 }

@@ -6,23 +6,19 @@
         public FileSystemFile(FileInfo file) => this.file = file;
 
 
-        public long Size => throw new NotImplementedException();
+        public long Size => this.file.Length;
+        public string Name => this.file.Name;
+        public string FullName => this.file.FullName;
+        public bool Exists => this.file.Exists;
+        public DateTimeOffset? LastAccessTime => this.file.LastAccessTimeUtc;
+        public DateTimeOffset? LastWriteTime => this.file.LastAccessTimeUtc;
+        public DateTimeOffset? CreationTime => this.file.CreationTimeUtc;
 
-        public string Name => throw new NotImplementedException();
-
-        public string FullName => throw new NotImplementedException();
-
-        public bool Exists => throw new NotImplementedException();
-
-        public DateTimeOffset? LastAccessTime => throw new NotImplementedException();
-
-        public DateTimeOffset? LastWriteTime => throw new NotImplementedException();
-
-        public DateTimeOffset? CreationTime => throw new NotImplementedException();
 
         public Task<Stream> OpenStream()
         {
-            throw new NotImplementedException();
+            var stream = File.OpenWrite(this.file.FullName);
+            return Task.FromResult<Stream>(stream);
         }
     }
 }
