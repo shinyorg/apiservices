@@ -13,6 +13,7 @@
 	<ItemGroup>
 		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+		<PackageReference Include="RazorEngine.NetCore" Version="3.1.0" />
 		<PackageReference Include="SendGrid" Version="9.25.1" />
 	</ItemGroup>
 

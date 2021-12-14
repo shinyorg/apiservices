@@ -22,7 +22,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Shiny.Mail.TemplateParsers.Razor\Shiny.Mail.TemplateParsers.Razor.csproj" />
 		<ProjectReference Include="..\..\src\Shiny.Mail\Shiny.Mail.csproj" />
 	</ItemGroup>
 

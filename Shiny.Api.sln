@@ -22,8 +22,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Mail", "src\Shiny.Mai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Storage", "src\Shiny.Storage\Shiny.Storage.csproj", "{EA8EB757-F4CC-4826-9DC4-CC9773E1AF47}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Mail.TemplateParsers.Razor", "src\Shiny.Mail.TemplateParsers.Razor\Shiny.Mail.TemplateParsers.Razor.csproj", "{EAD87252-0D10-4CDF-97C1-0D0029D38759}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Storage.AzureBlobStorage", "src\Shiny.Storage.AzureBlobStorage\Shiny.Storage.AzureBlobStorage.csproj", "{67A94163-3F70-45DC-A017-4B8B6750F6C2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Storage.Tests", "tests\Shiny.Storage.Tests\Shiny.Storage.Tests.csproj", "{36EE7A3E-47B8-4A54-B3D0-6D4AD3F4CC41}"
@@ -57,9 +55,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleMobile.iOS", "samples
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleMobile.Android", "samples\SampleMobile.Android\SampleMobile.Android.csproj", "{DE60DA70-889F-4819-857F-29D47A114788}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWeb.Contracts", "samples\SampleWeb.Contracts\SampleWeb.Contracts.csproj", "{4A560E33-9288-4FFD-924F-8D92DEE0E164}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleWeb.Contracts", "samples\SampleWeb.Contracts\SampleWeb.Contracts.csproj", "{4A560E33-9288-4FFD-924F-8D92DEE0E164}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shiny.Push.Api", "src\Shiny.Push.Api\Shiny.Push.Api.csproj", "{2EFD74F3-CD9E-44F5-8DDC-B728EE289B2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Push.Api", "src\Shiny.Push.Api\Shiny.Push.Api.csproj", "{2EFD74F3-CD9E-44F5-8DDC-B728EE289B2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,18 +129,6 @@ Global
 		{EA8EB757-F4CC-4826-9DC4-CC9773E1AF47}.Release|iPhone.Build.0 = Release|Any CPU
 		{EA8EB757-F4CC-4826-9DC4-CC9773E1AF47}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{EA8EB757-F4CC-4826-9DC4-CC9773E1AF47}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{EAD87252-0D10-4CDF-97C1-0D0029D38759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAD87252-0D10-4CDF-97C1-0D0029D38759}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EAD87252-0D10-4CDF-97C1-0D0029D38759}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{EAD87252-0D10-4CDF-97C1-0D0029D38759}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{EAD87252-0D10-4CDF-97C1-0D0029D38759}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{EAD87252-0D10-4CDF-97C1-0D0029D38759}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{EAD87252-0D10-4CDF-97C1-0D0029D38759}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EAD87252-0D10-4CDF-97C1-0D0029D38759}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EAD87252-0D10-4CDF-97C1-0D0029D38759}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{EAD87252-0D10-4CDF-97C1-0D0029D38759}.Release|iPhone.Build.0 = Release|Any CPU
-		{EAD87252-0D10-4CDF-97C1-0D0029D38759}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{EAD87252-0D10-4CDF-97C1-0D0029D38759}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{67A94163-3F70-45DC-A017-4B8B6750F6C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{67A94163-3F70-45DC-A017-4B8B6750F6C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67A94163-3F70-45DC-A017-4B8B6750F6C2}.Debug|iPhone.ActiveCfg = Debug|Any CPU
@@ -315,7 +301,6 @@ Global
 		{17D190DF-08B9-4BCD-B839-727FFC3587F2} = {C079828E-C618-4B92-8D22-9E286426C5F6}
 		{7CC48FE4-A18D-4980-81A2-8E03A3FF47F2} = {109FDCE7-7624-4A44-8BBD-4CA986C7A1D7}
 		{EA8EB757-F4CC-4826-9DC4-CC9773E1AF47} = {CB07DEE0-7625-45A5-9452-2C5A5946DC96}
-		{EAD87252-0D10-4CDF-97C1-0D0029D38759} = {109FDCE7-7624-4A44-8BBD-4CA986C7A1D7}
 		{67A94163-3F70-45DC-A017-4B8B6750F6C2} = {CB07DEE0-7625-45A5-9452-2C5A5946DC96}
 		{36EE7A3E-47B8-4A54-B3D0-6D4AD3F4CC41} = {CB07DEE0-7625-45A5-9452-2C5A5946DC96}
 		{145C7E11-D398-4398-835A-2AE25A1E373D} = {109FDCE7-7624-4A44-8BBD-4CA986C7A1D7}

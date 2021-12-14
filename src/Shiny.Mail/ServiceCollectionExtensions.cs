@@ -5,9 +5,10 @@ namespace Shiny.Mail
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddMailProcessor(this IServiceCollection services, Action<MailConfigurator> config)
+        public static void AddMailProcessor(this IServiceCollection services, Action<MailConfigurator> configAction)
         {
-
+            var config = new MailConfigurator(services);
+            configAction.Invoke(config);
         }
     }
 }
