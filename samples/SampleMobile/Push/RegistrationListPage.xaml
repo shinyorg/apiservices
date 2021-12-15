@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:push="clr-namespace:SampleMobile.Push"
+             x:Class="SampleMobile.Push.RegistrationListPage"
+             x:DataType="push:RegistrationListViewModel"
+             Title="Push Registrations">
+    
+    <ContentPage.Content>
+        <RefreshView Command="{Binding Load}" 
+                     IsRefreshing="{Binding IsBusy}">
+            <CollectionView ItemsSource="{Binding Registrations}"
+                            SelectedItem="{Binding SelectedReg}"
+                            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

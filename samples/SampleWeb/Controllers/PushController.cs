@@ -18,6 +18,14 @@ namespace SampleWeb.Controllers
         }
 
 
+        [HttpPost("registrations")]
+        public async Task<ActionResult<IEnumerable<PushRegistration>>> Registrations([FromBody] PushFilter filter)
+        {
+            var result = await this.pushManager.GetRegistrations(filter);
+            return this.Ok(result);
+        }
+
+
         [HttpPost("send")]
         public async Task<ActionResult> Send([FromBody] Contracts.Notification notification)
         {

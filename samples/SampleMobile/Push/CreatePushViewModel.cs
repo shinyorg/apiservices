@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Prism.Navigation;
+using SampleWeb.Contracts;
 
 
 namespace SampleMobile.Push
@@ -11,10 +13,24 @@ namespace SampleMobile.Push
     public class CreatePushViewModel : ViewModel
     {
         public CreatePushViewModel(ISampleApi api, 
+                                   INavigationService navigator,
                                    IPushManager pushManager, 
                                    IPlatform platform,
                                    IDialogs dialogs)
         {
+            this.ShowRegistrations = navigator.NavigateCommand(nameof(RegistrationListPage), p =>
+            {
+                var filter = new Registration
+                {
+                    DeviceToken = this.DeviceToken!,
+                    UserId = this.UserId!,
+                    Tags = this.Tags!.Split(','),
+                    UseAndroid = this.SendToAndroid,
+                    UseApple = this.SendToIos
+                };
+                p.Add("Filter", filter);
+            });
+
             this.SetDeviceTokenToMe = ReactiveCommand.CreateFromTask(async () =>
             {
                 var result = await pushManager.RequestAccess();
@@ -82,10 +98,11 @@ namespace SampleMobile.Push
         }
 
 
-        public ICommand Send { get; set; }
+        public ICommand Send { get; }
         public ICommand Register { get; }
         public ICommand UnRegister { get; }
-        public ICommand SetDeviceTokenToMe { get; set; }
+        public ICommand SetDeviceTokenToMe { get; }
+        public ICommand ShowRegistrations { get; }
 
         [Reactive] public string NotificationTitle { get; set; }
         [Reactive] public string NotificationMessage { get; set; }

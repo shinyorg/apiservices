@@ -21,12 +21,14 @@
 
             <sv:CheckboxCell Title="Send to iOS" Checked="{Binding SendToIos}" />
             <sv:CheckboxCell Title="Send to Android" Checked="{Binding SendToAndroid}" />
+
+            <sv:ButtonCell Title="Show Registrations" Command="{Binding ShowRegistrations}" />
         </sv:Section>
         
         <sv:Section>
-            <sv:CommandCell Command="{Binding Register}" Title="Register" />
-            <sv:CommandCell Command="{Binding UnRegister}" Title="Un-Register" />
-            <sv:CommandCell Command="{Binding Send}" Title="Send" />
+            <sv:ButtonCell Command="{Binding Register}" Title="Register" />
+            <sv:ButtonCell Command="{Binding UnRegister}" Title="Un-Register" />
+            <sv:ButtonCell Command="{Binding Send}" Title="Send" />
         </sv:Section>
     </sv:SettingsView>
 </ContentPage>

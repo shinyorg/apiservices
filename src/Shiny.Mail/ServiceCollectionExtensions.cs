@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Shiny.Mail.Impl;
+
 
 namespace Shiny.Mail
 {
@@ -11,14 +12,9 @@ namespace Shiny.Mail
             var config = new MailConfigurator(services);
             configAction.Invoke(config);
 
-            if (!services.Any(x => x.ServiceType == typeof(ITemplateParser)))
-                services.AddSingleton<ITemplateParser, RazorTemplateParser>();
-
-            if (!services.Any(x => x.ServiceType == typeof(IMailTemplateParser)))
-                services.AddTransient<IMailTemplateParser, FrontMatterMailTemplateParser>();
-
-            if (!services.Any(x => x.ServiceType == typeof(IMailProcessor)))
-                services.AddTransient<IMailProcessor, MailProcessor>();
+            services.TryAddSingleton<ITemplateParser, RazorTemplateParser>();
+            services.TryAddSingleton<IMailTemplateParser, FrontMatterMailTemplateParser>();
+            services.TryAddTransient<IMailProcessor, MailProcessor>();
         }
     }
 }
