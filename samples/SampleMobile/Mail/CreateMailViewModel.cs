@@ -18,28 +18,27 @@ namespace SampleMobile.Mail
                         To = this.ToAddress
                     });
                     await dialogs.Snackbar("Sent E-Mail Successfully");
-                },
-                this.WhenAny(
-                    x => x.TemplateName,
-                    x => x.ReplyToAddress,
-                    x => x.ToAddress,
-                    (template, from, replyTo, to) =>
-                    {
-                        if (template.GetValue().IsEmpty())
-                            return false;
+                }
+                //this.WhenAny(
+                //    x => x.TemplateName,
+                //    x => x.ToAddress,
+                //    (template, from, replyTo, to) =>
+                //    {
+                //        if (template.GetValue().IsEmpty())
+                //            return false;
 
-                        if (from.GetValue().IsEmpty())
-                            return false;
+                //        if (from.GetValue().IsEmpty())
+                //            return false;
 
-                        if (replyTo.GetValue().IsEmpty())
-                            return false;
+                //        if (replyTo.GetValue().IsEmpty())
+                //            return false;
 
-                        if (to.GetValue().IsEmpty())
-                            return false;
+                //        if (to.GetValue().IsEmpty())
+                //            return false;
 
-                        return true;
-                    }
-                )
+                //        return true;
+                //    }
+                //)
             );
         }
 
