@@ -9,29 +9,35 @@ public class PushConfigurator
 {
     public PushConfigurator(IServiceCollection services) => this.Services = services;
 
+    public IServiceCollection Services { get; }
+
 
     public PushConfigurator UseRepository<TRepository>() where TRepository : class, IRepository
     {
-        this.Services.AddTransient<IRepository, TRepository>();
+        this.Services.AddSingleton<IRepository, TRepository>();
         return this;
     }
 
 
-    public IServiceCollection Services { get; }
+    public PushConfigurator AddReporter<TReporter>() where TReporter : class, INotificationReporter
+    {
+        this.Services.AddSingleton<INotificationReporter, TReporter>();
+        return this;
+    }
 
 
     #region Apple
 
     public PushConfigurator AddApplePush<TImpl>() where TImpl : class, IApplePushProvider
     {
-        this.Services.AddTransient<IApplePushProvider, TImpl>();
+        this.Services.AddSingleton<IApplePushProvider, TImpl>();
         return this;
     }
 
 
     public PushConfigurator AddAppleDecorator<TImpl>() where TImpl : class, IAppleNotificationDecorator
     {
-        this.Services.AddTransient<IAppleNotificationDecorator, TImpl>();
+        this.Services.AddSingleton<IAppleNotificationDecorator, TImpl>();
         return this;
     }
 

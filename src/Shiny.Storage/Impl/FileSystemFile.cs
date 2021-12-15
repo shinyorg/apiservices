@@ -15,9 +15,9 @@
         public DateTimeOffset? CreationTime => this.file.CreationTimeUtc;
 
 
-        public Task<Stream> OpenStream()
+        public Task<Stream> OpenStream(bool forWrite)
         {
-            var stream = File.OpenWrite(this.file.FullName);
+            var stream = forWrite ? File.OpenWrite(this.file.FullName) : File.OpenRead(this.file.FullName);
             return Task.FromResult<Stream>(stream);
         }
     }

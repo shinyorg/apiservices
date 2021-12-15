@@ -20,11 +20,32 @@ namespace SampleWeb.Controllers
 
 
         [HttpPost("list")]
-        public async Task<ActionResult> List([FromBody] ListStorage contract)
+        public async Task<ActionResult<List<StorageItem>>> List([FromBody] ListStorage contract)
         {
             var provider = this.GetProvider(contract.ProviderName);
-            var files = await provider.GetDirectoryContents(contract.Path);
+            var files = (await provider.GetDirectoryContents(contract.Path))
+                .Select(x => new StorageItem
+                {
+                    Name = x.Name,
+                    FullName = x.FullName,
+                    IsDirectory = x.IsDirectory()
+                })
+                .ToList();
+
             return this.Ok(files);
+        }
+
+
+        [HttpPost("viewfile")]
+        public async Task<ActionResult<string>> ViewFile([FromBody] ListStorage contract)
+        {
+            var provider = this.GetProvider(contract.ProviderName);
+            var file = await provider.GetFile(contract.Path);
+            if (file == null || !file.Exists)
+                return this.NotFound("File not found");
+
+            var content = await file.ReadFileAsString();
+            return this.Ok(content);
         }
 
 
@@ -36,11 +57,11 @@ namespace SampleWeb.Controllers
                 if (typeName.Equals(name, StringComparison.OrdinalIgnoreCase))
                     return provider;
 
-                typeName = typeName.ToLower().Replace("AsyncFileProvider", String.Empty);
+                typeName = typeName.ToLower().Replace("asyncfileprovider", String.Empty);
                 if (typeName.Equals(name, StringComparison.OrdinalIgnoreCase))
                     return provider;
 
-                if (provider.GetType().FullName.Equals(typeName, StringComparison.OrdinalIgnoreCase))
+                if (provider.GetType().FullName!.Equals(typeName, StringComparison.OrdinalIgnoreCase))
                     return provider;
             }
             throw new ArgumentException("No provider found for " + name);

@@ -18,15 +18,15 @@ namespace SampleMobile.Push
 
 
         public RegistrationListViewModel(ISampleApi apiClient, IDialogs dialogs)
-        { 
+        {
             this.Load = this.LoadingCommand(async () =>
             {
                 this.Registrations = await apiClient.GetRegistrations(this.filter!);
             });
             this.WhenAnyValue(x => x.SelectedReg)
                 .Skip(1)
-                .SubscribeAsync(async x => 
-                { 
+                .SubscribeAsync(async x =>
+                {
                     var result = await dialogs.Confirm("Remove this registration?");
                     if (result)
                     {
@@ -44,7 +44,7 @@ namespace SampleMobile.Push
                 })
                 .DisposedBy(this.DestroyWith);
         }
-        
+
 
         public ICommand Load { get; }
         [Reactive] public Registration SelectedReg { get; set; }

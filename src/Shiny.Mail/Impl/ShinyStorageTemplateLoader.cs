@@ -28,7 +28,7 @@ namespace Shiny.Mail.Impl
             if (!file.Exists)
                 throw new ArgumentException($"Template file {fullPath} does not exist");
 
-            using (var stream = await file.OpenStream())
+            using (var stream = await file.OpenStream(false))
                 using (var sr = new StreamReader(stream))
                     return await sr.ReadToEndAsync();
         }

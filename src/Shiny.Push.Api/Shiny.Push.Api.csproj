@@ -1,7 +1,7 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.38">
 
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0;xamarin.ios10;$(AndroidTargetFramework)</TargetFramework>
+		<TargetFrameworks>netstandard2.0;xamarin.ios10;$(AndroidTargetFramework)</TargetFrameworks>
 	</PropertyGroup>
 
 	<ItemGroup>

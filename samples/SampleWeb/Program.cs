@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 using SampleWeb;
 using Shiny.Api.Push;
 using Shiny.Api.Push.Ef;
@@ -16,18 +18,24 @@ builder.Host.ConfigureLogging(x => x.AddConsole());
 
 builder.Host.ConfigureServices(services =>
 {
+    var cfg = builder.Configuration;
+
     services.AddEndpointsApiExplorer();
     services.AddSwaggerGen();
     services.AddControllersWithViews();
 
+    services.AddDbContextFactory<SampleDbContext>(
+        x => x.UseSqlServer(cfg.GetConnectionString("Main"))
+    );
+
     services.AddPushManagement(x => x
-        .AddApplePush(builder.Configuration.GetSection("Push:Apple").Get<AppleConfiguration>())
-        .AddGoogle(builder.Configuration.GetSection("Push:Google").Get<GoogleConfiguration>())
+        .AddApplePush(cfg.GetSection("Push:Apple").Get<AppleConfiguration>())
+        .AddGooglePush(cfg.GetSection("Push:Google").Get<GoogleConfiguration>())
         .UseEfRepository<SampleDbContext>()
     );
 
     services.AddMailProcessor(x => x
-        .UseSmtpSender(builder.Configuration.GetSection("Mail:Smtp").Get<SmtpConfig>())
+        .UseSmtpSender(cfg.GetSection("Mail:Smtp").Get<SmtpConfig>())
         .UseFileTemplateLoader("mailtemplates")
         //.UseSendGridSender(builder.Configuration["Mail:SendGridApiKey"])
         // mail processor, razor parser, and front matter parser loaded automatically

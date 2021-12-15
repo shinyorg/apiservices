@@ -6,9 +6,12 @@
         Task<IFile> GetFile(string path);
 
         Task<IDirectory> CreateDirectory(string path);
-        // TODO: file system watcher?
 
+        // TODO: file system watcher? possible for ftp or azure blobs?
+
+        //Exists(string path)
         //Delete(string path)
-        //MoveTo(string dest)
+        //MoveTo(string source, string destination)
+        //CopyTo(string source, string destrination)
     }
 }

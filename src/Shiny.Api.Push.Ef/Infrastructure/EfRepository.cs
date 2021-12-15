@@ -4,91 +4,99 @@ using Shiny.Api.Push.Infrastructure;
 
 namespace Shiny.Api.Push.Ef.Infrastructure
 {
-    public class EfRepository : IRepository
+    public class EfRepository<TDbContext> : IRepository where TDbContext : DbContext, IPushDbContext
     {
-        readonly DbContext data;
+        readonly IDbContextFactory<TDbContext> contextFactory;
 
-
-        public EfRepository(IPushDbContext context)
+        public EfRepository(IDbContextFactory<TDbContext> contextFactory)
         {
-            this.data = context as DbContext ?? throw new ArgumentException("IPushDbContext is not an EntityFramework DbContext");
+            this.contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
         }
 
 
         public async Task Save(PushRegistration reg)
         {
-            var result = await this.data
-                .Set<DbPushRegistration>()
-                .FirstOrDefaultAsync(x =>
-                    x.DeviceToken == reg.DeviceToken &&
-                    x.Platform == reg.Platform
-                )
-                .ConfigureAwait(false);
-
-            if (result == null)
+            using (var data = await this.contextFactory.CreateDbContextAsync().ConfigureAwait(false))
             {
-                result = new DbPushRegistration
-                {
-                    Tags = new List<DbPushTag>(),
-                    DateCreated = DateTimeOffset.Now
-                };
-                this.data.Add(result);
-            }
-            result.DeviceToken = reg.DeviceToken;
-            result.Platform = reg.Platform;
-            result.UserId = reg.UserId;
-            result.DateExpiry = reg.DateExpiry;
+                var result = await data
+                    .Set<DbPushRegistration>()
+                    .FirstOrDefaultAsync(x =>
+                        x.DeviceToken == reg.DeviceToken &&
+                        x.Platform == reg.Platform
+                    )
+                    .ConfigureAwait(false);
 
-            result.Tags.Clear();
-            foreach (var tag in reg.Tags)
-            {
-                result.Tags.Add(new DbPushTag
+                if (result == null)
                 {
-                    Value = tag
-                });
-            }
+                    result = new DbPushRegistration
+                    {
+                        Tags = new List<DbPushTag>(),
+                        DateCreated = DateTimeOffset.Now
+                    };
+                    data.Add(result);
+                }
+                result.DeviceToken = reg.DeviceToken;
+                result.Platform = reg.Platform;
+                result.UserId = reg.UserId;
+                result.DateExpiry = reg.DateExpiry;
 
-            await this.data
-                .SaveChangesAsync()
-                .ConfigureAwait(false);
+                result.Tags.Clear();
+                foreach (var tag in reg.Tags)
+                {
+                    result.Tags.Add(new DbPushTag
+                    {
+                        Value = tag
+                    });
+                }
+
+                await data
+                    .SaveChangesAsync()
+                    .ConfigureAwait(false);
+            }
         }
 
 
         public async Task<IEnumerable<PushRegistration>> Get(PushFilter? filter)
         {
-            var regs = await this
-                .FindRegistrations(filter, true)
-                .ConfigureAwait(false);
-
-            return regs.Select(x => new PushRegistration
+            using (var data = await this.contextFactory.CreateDbContextAsync().ConfigureAwait(false))
             {
-                DeviceToken = x.DeviceToken,
-                Platform = x.Platform,
-                UserId = x.UserId,
-                DateExpiry = x.DateExpiry,
-                DateCreated = x.DateCreated,
-                Tags = x.Tags.Select(x => x.Value).ToArray()
-            });
+                var regs = await this
+                    .FindRegistrations(data, filter, true)
+                    .ConfigureAwait(false);
+
+                return regs.Select(x => new PushRegistration
+                {
+                    DeviceToken = x.DeviceToken,
+                    Platform = x.Platform,
+                    UserId = x.UserId,
+                    DateExpiry = x.DateExpiry,
+                    DateCreated = x.DateCreated,
+                    Tags = x.Tags.Select(x => x.Value).ToArray()
+                });
+            }
         }
 
 
         public async Task Remove(PushFilter filter)
         {
-            var tokens = await this
-                .FindRegistrations(filter, false)
-                .ConfigureAwait(false);
-
-            if (tokens.Count > 0)
+            using (var data = await this.contextFactory.CreateDbContextAsync().ConfigureAwait(false))
             {
-                this.data.RemoveRange(tokens);
-                await this.data.SaveChangesAsync().ConfigureAwait(false);
+                var tokens = await this
+                    .FindRegistrations(data, filter, false)
+                    .ConfigureAwait(false);
+
+                if (tokens.Count > 0)
+                {
+                    data.RemoveRange(tokens);
+                    await data.SaveChangesAsync().ConfigureAwait(false);
+                }
             }
         }
 
 
-        Task<List<DbPushRegistration>> FindRegistrations(PushFilter? filter, bool includeTags)
+        Task<List<DbPushRegistration>> FindRegistrations(TDbContext data, PushFilter? filter, bool includeTags)
         {
-            var query = this.data.Set<DbPushRegistration>().AsQueryable();
+            var query = data.Set<DbPushRegistration>().AsQueryable();
             if (!String.IsNullOrWhiteSpace(filter?.UserId))
                 query = query.Where(x => x.UserId == filter.UserId);
 

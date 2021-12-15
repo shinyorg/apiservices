@@ -12,9 +12,8 @@
 	* FTP
 
 ## Links
-* [Samples](https://github.com/shinyorg/shinyapi/tree/master/samples)
+* [Samples](https://github.com/shinyorg/apservices/tree/master/samples)
 * [Community Support](https://github.com/shinyorg/shiny/discussions)
-* [NuGets](https://www.nuget.org/profiles/ShinyLib)
 
 ## Support Shiny!
 

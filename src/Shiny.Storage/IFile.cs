@@ -3,6 +3,6 @@
     public interface IFile : IFilePath
     {
         long Size { get; }
-        Task<Stream> OpenStream();
+        Task<Stream> OpenStream(bool forWrite);
     }
 }

@@ -1,28 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:storage="clr-namespace:SampleMobile.Storage"
+             xmlns:contracts="clr-namespace:SampleWeb.Contracts;assembly=SampleWeb.Contracts"
              x:Class="SampleMobile.Storage.ExplorerPage"
              x:DataType="storage:ExplorerViewModel"
-             Title="Storage">
+             Title="{Binding Title}">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
-            <Picker ItemsSource="{Binding Providers}" 
-                    SelectedItem="{Binding SelectedProvider}" 
+
+            <Picker ItemsSource="{Binding Providers}"
+                    SelectedItem="{Binding SelectedProvider}"
                     HorizontalOptions="FillAndExpand"
                     Grid.Row="0" />
-            
+
             <CollectionView ItemsSource="{Binding List}"
                             SelectedItem="{Binding SelectedItem}"
                             SelectionMode="Single">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        
+                    <DataTemplate x:DataType="contracts:StorageItem">
+                        <StackLayout>
+                            <Label Text="{Binding Name}"
+                                   FontSize="Title" />
+
+                            <Label>
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding IsDirectory}"
+                                                 Value="True">
+                                        <Setter Property="Text" Value="Directory" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding IsDirectory}"
+                                                 Value="False">
+                                        <Setter Property="Text" Value="File" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

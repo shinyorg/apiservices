@@ -16,7 +16,7 @@
 
         public DateTimeOffset? CreationTime => throw new NotImplementedException();
 
-        public Task<Stream> OpenStream()
+        public Task<Stream> OpenStream(bool forWrite)
         {
             throw new NotImplementedException();
         }

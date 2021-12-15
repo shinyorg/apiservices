@@ -1,27 +1,33 @@
 ﻿#if !NETSTANDARD
 using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Shiny.Push.Infrastructure;
 
 
-namespace Shiny.Push.Api
+namespace Shiny.Push
 {
-    public sealed class PushManager : IPushManager, IPushTags, IShinyStartupTask
+    public sealed class PushManager : IPushManager, IPushTagSupport, IShinyStartupTask
     {
         readonly PushContainer container;
         readonly INativeAdapter adapter;
         readonly ILogger logger;
+        readonly PushConfiguration config;
 
 
         public PushManager(PushContainer container,
                            INativeAdapter adapter,
+                           PushConfiguration config,
                            ILogger<PushManager> logger)
         {
             this.adapter = adapter;
             this.container = container;
             this.logger = logger;
+            this.config = config;
+
+            this.config.Http ??= new HttpClient();
         }
 
 
@@ -36,6 +42,8 @@ namespace Shiny.Push.Api
             {
                 this.container.SetCurrentToken(token, false);
                 await this.container.OnTokenRefreshed(token).ConfigureAwait(false);
+
+                // TODO: call httpclient
             };
 
             this.adapter.OnReceived = push => this.container.OnReceived(push);
@@ -62,6 +70,26 @@ namespace Shiny.Push.Api
         {
             await this.adapter.UnRegister().ConfigureAwait(false);
             this.container.ClearRegistration();
+        }
+
+        public Task SetTags(params string[]? tags)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddTag(string tag)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveTag(string tag)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ClearTags()
+        {
+            throw new NotImplementedException();
         }
 
 
