@@ -1,5 +1,5 @@
 name: Bug Report
-description: You have found something wrong with Shiny
+description: You have found something wrong with Shiny API Services
 title: "[Bug]: "
 labels: [bug, unverified]
 body:

@@ -36,8 +36,8 @@ builder.Host.ConfigureServices(services =>
 
     services.AddMailProcessor(x => x
         .UseSmtpSender(cfg.GetSection("Mail:Smtp").Get<SmtpConfig>())
-        .UseFileTemplateLoader("mailtemplates")
-        //.UseSendGridSender(builder.Configuration["Mail:SendGridApiKey"])
+        .UseFileTemplateLoader("mailtemplates", "mailtemplate")
+        //.UseSendGridSender(cfg["Mail:SendGridApiKey"])
         // mail processor, razor parser, and front matter parser loaded automatically
     );
 

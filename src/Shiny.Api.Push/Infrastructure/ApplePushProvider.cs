@@ -72,7 +72,7 @@ public class ApplePushProvider : IApplePushProvider
             Content = new StringContent(json)
         };
 
-        request.Headers.Authorization = new AuthenticationHeaderValue("bearer", this.CreateToken());
+        request.Headers.Authorization = new AuthenticationHeaderValue("bearer", this.GetJwtToken());
         request.Headers.TryAddWithoutValidation(":method", "POST");
         request.Headers.TryAddWithoutValidation(":path", path);
         request.Headers.TryAddWithoutValidation("apns-id", Guid.NewGuid().ToString("D"));
@@ -94,9 +94,31 @@ public class ApplePushProvider : IApplePushProvider
 
 
     //https://stackoverflow.com/questions/43870237/how-to-implement-apple-token-based-push-notifications-using-p8-file-in-c
-    string CreateToken()
+
+    object syncLock = new object();
+    DateTime? expiryTime;
+    string? currentJwt;
+
+
+    string GetJwtToken()
     {
-        // TODO: pull these from a queue of some sort
+        if (this.expiryTime == null || this.expiryTime < DateTime.UtcNow)
+        {
+            lock (this.syncLock)
+            {
+                if (this.expiryTime == null || this.expiryTime < DateTime.UtcNow)
+                {
+                    this.currentJwt = this.CreateJwtToken();
+                    this.expiryTime = DateTime.UtcNow;
+                }
+            }
+        }
+        return this.currentJwt!;
+    }
+
+
+    string CreateJwtToken()
+    {
         var privateKey = this.GetECDsa();
         var securityKey = new ECDsaSecurityKey(privateKey) { KeyId = this.config.KeyId };
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.EcdsaSha256);
