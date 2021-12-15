@@ -5,7 +5,7 @@
         public Guid Id { get; set; }
         public string Value { get; set; }
 
-        public Guid NotificationRegistrationId { get; set; }
-        public DbPushRegistration Registration { get; set; }
+        public Guid PushRegistrationId { get; set; }
+        public DbPushRegistration PushRegistration { get; set; }
     }
 }

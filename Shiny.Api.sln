@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C2DBA370-CD54-4F74-A99E-90D48DCBD708}"
 	ProjectSection(SolutionItems) = preProject
 		src\global.json = src\global.json
+		push_tables.sql = push_tables.sql
 		readme.md = readme.md
 	EndProjectSection
 EndProject
