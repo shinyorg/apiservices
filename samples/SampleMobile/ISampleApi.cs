@@ -9,7 +9,7 @@ namespace SampleMobile
     public interface ISampleApi
     {
         [Post("/mail/send/{templateName}")]
-        Task SendMail([Body(BodySerializationMethod.Serialized)] SendMail mail);
+        Task SendMail(string templateName, [Body(BodySerializationMethod.Serialized)] SendMail mail);
 
 
         [Get("/storage/providers")]

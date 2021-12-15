@@ -2,6 +2,6 @@
 {
     public static class Constants
     {
-        public const string ShinyPushAndroidIntent = "";
+        public const string ShinyPushAndroidIntent = "org.shinylib.push.ShinyPushNotificationBroadcastReceiver.ENTRY_ACTION";
     }
 }

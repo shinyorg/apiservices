@@ -14,6 +14,8 @@ namespace SampleMobile
 {
     public class Startup : FrameworkStartup
     {
+        const string BaseRemoteUrl = "https://acrmonster:44372";
+
         public override void ConfigureApp(Application app, IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
@@ -27,7 +29,7 @@ namespace SampleMobile
 
 
         public override Task RunApp(INavigationService navigator)
-        { 
+        {
             var start = $"{KnownNavigationParameters.CreateTab}={nameof(NavigationPage)}|";
             var tab1 = start + nameof(CreatePushPage);
             var tab2 = start + nameof(ExplorerPage);
@@ -39,10 +41,10 @@ namespace SampleMobile
         protected override void Configure(ILoggingBuilder builder, IServiceCollection services)
         {
             services.UsePush<MyPushDelegate>();
-            services.AddSingleton(Refit.RestService.For<ISampleApi>("https://acrmonster"));
+            services.AddSingleton(Refit.RestService.For<ISampleApi>(BaseRemoteUrl));
 
             services.UseXfMaterialDialogs();
-            services.UseGlobalCommandExceptionHandler();
+            services.UseGlobalCommandExceptionHandler(x => x.AlertType = ErrorAlertType.FullError);
         }
     }
 }

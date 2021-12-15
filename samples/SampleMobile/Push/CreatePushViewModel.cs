@@ -12,9 +12,9 @@ namespace SampleMobile.Push
 {
     public class CreatePushViewModel : ViewModel
     {
-        public CreatePushViewModel(ISampleApi api, 
+        public CreatePushViewModel(ISampleApi api,
                                    INavigationService navigator,
-                                   IPushManager pushManager, 
+                                   IPushManager pushManager,
                                    IPlatform platform,
                                    IDialogs dialogs)
         {
@@ -85,12 +85,12 @@ namespace SampleMobile.Push
 
                     await this.Dialogs.LoadingTask(() => api.Send(notification));
                     await dialogs.Snackbar("Notification Sent");
-                }, 
+                },
                 this.WhenAny(
                     x => x.NotificationMessage,
                     x => x.SendToAndroid,
                     x => x.SendToIos,
-                    (msg, android, ios) => 
+                    (msg, android, ios) =>
                         !msg.GetValue().IsEmpty() &&
                         (android.GetValue() || ios.GetValue())
                 )
