@@ -1,0 +1,18 @@
+{
+  "solution": {
+    "path": "Shiny.Api.sln",
+    "projects": [
+      "src\\Shiny.Api.Push.Abstractions\\Shiny.Api.Push.Abstractions.csproj",
+      "src\\Shiny.Api.Push.Ef\\Shiny.Api.Push.Ef.csproj",
+      "src\\Shiny.Api.Push.GeoDispatching\\Shiny.Api.Push.GeoDispatching.csproj",
+      "src\\Shiny.Api.Push\\Shiny.Api.Push.csproj",
+      "src\\Shiny.Mail\\Shiny.Mail.csproj",
+      "src\\Shiny.Push.Api\\Shiny.Push.Api.csproj",
+      "src\\Shiny.Storage.AzureBlobStorage\\Shiny.Storage.AzureBlobStorage.csproj",
+      "src\\Shiny.Storage.FtpClient\\Shiny.Storage.FtpClient.csproj",
+      "src\\Shiny.Storage\\Shiny.Storage.csproj",
+      "tests\\Shiny.Mail.Tests\\Shiny.Mail.Tests.csproj",
+      "tests\\Shiny.Storage.Tests\\Shiny.Storage.Tests.csproj"
+    ]
+  }
+}

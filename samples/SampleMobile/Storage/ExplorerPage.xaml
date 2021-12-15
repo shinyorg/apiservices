@@ -6,8 +6,26 @@
              x:DataType="storage:ExplorerViewModel"
              Title="Storage">
     <ContentPage.Content>
-        <CollectionView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             
-        </CollectionView>
+            <Picker ItemsSource="{Binding Providers}" 
+                    SelectedItem="{Binding SelectedProvider}" 
+                    HorizontalOptions="FillAndExpand"
+                    Grid.Row="0" />
+            
+            <CollectionView ItemsSource="{Binding List}"
+                            SelectedItem="{Binding SelectedItem}"
+                            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -20,6 +20,7 @@ namespace SampleMobile
             containerRegistry.RegisterForNavigation<TabbedPage>();
 
             containerRegistry.RegisterForNavigation<CreateMailPage, CreateMailViewModel>();
+            containerRegistry.RegisterForNavigation<RegistrationListPage, RegistrationListViewModel>();
             containerRegistry.RegisterForNavigation<ExplorerPage, ExplorerViewModel>();
             containerRegistry.RegisterForNavigation<CreatePushPage, CreatePushViewModel>();
         }
