@@ -31,8 +31,8 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.shiny.pushapi</string>
+	<string>com.shiny.sample</string>
 	<key>CFBundleDisplayName</key>
-	<string>Push API</string>
+	<string>API Services</string>
 </dict>
 </plist>

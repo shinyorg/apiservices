@@ -13,7 +13,7 @@ namespace SampleMobile
                                  AppSettings settings,
                                  IDialogs dialogs)
         {
-            this.ApiBaseUri = settings.ApiBaseUrl;
+            this.ApiBaseUrl = settings.ApiBaseUrl;
 
             this.Save = ReactiveCommand.CreateFromTask(
                 async () =>
@@ -23,9 +23,10 @@ namespace SampleMobile
                     try
                     {
                         await dialogs.LoadingTask(async () => {
-                            settings.ApiBaseUrl = this.ApiBaseUri;
+                            settings.ApiBaseUrl = this.ApiBaseUrl;
                             await api.GetFileProviders();
                         });
+                        await dialogs.Snackbar("Swipe away the app to restart it");
                     }
                     catch
                     {
@@ -34,7 +35,7 @@ namespace SampleMobile
                     }
                 },
                 this.WhenAny(
-                    x => x.ApiBaseUri,
+                    x => x.ApiBaseUrl,
                     x => !x.GetValue().IsEmpty() && Uri.TryCreate(x.GetValue(), UriKind.Absolute, out _)
                 )
             );
@@ -42,6 +43,6 @@ namespace SampleMobile
 
 
         public ICommand Save { get; }
-        [Reactive] public string ApiBaseUri { get; set; }
+        [Reactive] public string ApiBaseUrl { get; set; }
     }
 }

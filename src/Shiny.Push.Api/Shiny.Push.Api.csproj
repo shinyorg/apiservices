@@ -7,7 +7,7 @@
 	<ItemGroup>
 		<None Include="Platforms\**\*.cs" />
 		<Compile Remove="Platforms\**\*.cs" />
-		<PackageReference Include="Shiny.Push.Common" Version="2.4.1.2971" />
+		<PackageReference Include="Shiny.Push.Common" Version="2.5.0.2982-preview" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.StartsWith('netstandard'))">

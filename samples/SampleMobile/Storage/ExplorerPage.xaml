@@ -5,10 +5,11 @@
              xmlns:contracts="clr-namespace:SampleWeb.Contracts;assembly=SampleWeb.Contracts"
              x:Class="SampleMobile.Storage.ExplorerPage"
              x:DataType="storage:ExplorerViewModel"
-             Title="{Binding Title}">
+             Title="File Provider">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -16,11 +17,20 @@
             <Picker ItemsSource="{Binding Providers}"
                     SelectedItem="{Binding SelectedProvider}"
                     HorizontalOptions="FillAndExpand"
+                    BackgroundColor="Beige"
+                    TextColor="Black"
                     Grid.Row="0" />
+
+            <Label Text="{Binding CurrentPath}" 
+                   FontSize="Large"
+                   VerticalOptions="FillAndExpand"
+                   VerticalTextAlignment="Center" 
+                   Grid.Row="1" />
 
             <CollectionView ItemsSource="{Binding List}"
                             SelectedItem="{Binding SelectedItem}"
-                            SelectionMode="Single">
+                            SelectionMode="Single"
+                            Grid.Row="2">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="contracts:StorageItem">
                         <StackLayout>

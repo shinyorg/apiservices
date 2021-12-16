@@ -20,7 +20,7 @@ namespace SampleMobile.Storage
             this.Load = this.LoadingCommand(async () =>
             {
                 var item = this.SelectedItem;
-                this.Title = item?.Name ?? ".";
+                this.CurrentPath = item?.Name ?? ".";
 
                 var args = new ListStorage
                 {
@@ -58,15 +58,16 @@ namespace SampleMobile.Storage
         }
 
 
-        public override Task InitializeAsync(INavigationParameters parameters)
+        public override void OnAppearing()
         {
+            base.OnAppearing();
             this.LoadProviders.Execute(null);
-            return base.InitializeAsync(parameters);
         }
 
 
         public ICommand Load { get; }
         public ICommand LoadProviders { get; }
+        [Reactive] public string CurrentPath { get; private set; }
         [Reactive] public StorageItem? SelectedItem { get; set; }
         [Reactive] public List<StorageItem> List { get; private set; }
         [Reactive] public string SelectedProvider { get; set; }
