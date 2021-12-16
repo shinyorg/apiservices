@@ -25,14 +25,15 @@ namespace SampleMobile.Push
             });
             this.WhenAnyValue(x => x.SelectedReg)
                 .Skip(1)
-                .SubscribeAsync(async x =>
+                .SubscribeAsync(async reg =>
                 {
                     var result = await dialogs.Confirm("Remove this registration?");
                     if (result)
                     {
                         try
                         {
-                            await app.ApiClient.UnRegister(x);
+                            var platform = reg.UseApple ? "apple" : "google";
+                            await app.ApiClient.UnRegisterPush(platform, reg.DeviceToken!);
                             this.Load.Execute(null);
                             await dialogs.Snackbar("Successfully removed registration");
                         }

@@ -11,7 +11,10 @@ using Shiny.Extensions.Push;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.ConfigureLogging(x => x.AddConsole());
+builder.Host.ConfigureLogging(x => {
+    x.AddConsole();
+    x.AddDebug();
+});
 
 builder.Host.ConfigureServices(services =>
 {
@@ -25,6 +28,7 @@ builder.Host.ConfigureServices(services =>
     {
         var connString = cfg.GetConnectionString("Main");
         x.UseSqlServer(connString);
+        //x.LogTo(Console.Write);
     });
 
     services.AddPushManagement(x => x

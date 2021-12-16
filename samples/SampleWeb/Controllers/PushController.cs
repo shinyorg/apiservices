@@ -19,10 +19,20 @@ namespace SampleWeb.Controllers
 
 
         [HttpPost("registrations")]
-        public async Task<ActionResult<IEnumerable<PushRegistration>>> Registrations([FromBody] PushFilter filter)
+        public async Task<ActionResult<IEnumerable<Registration>>> Registrations([FromBody] PushFilter filter)
         {
             var result = await this.pushManager.GetRegistrations(filter);
-            return this.Ok(result);
+            var registrations = result
+                .Select(x => new Registration
+                {
+                    DeviceToken = x.DeviceToken,
+                    UseAndroid = x.Platform == PushPlatforms.Google,
+                    UseApple = x.Platform == PushPlatforms.Apple,
+                    UserId = x.UserId,
+                    Tags = x.Tags
+                });
+
+            return this.Ok(registrations);
         }
 
 
@@ -56,10 +66,11 @@ namespace SampleWeb.Controllers
         }
 
 
-        [HttpPost("unregister")]
-        public async Task<ActionResult> UnRegister([FromBody] Registration register)
+        [HttpDelete("unregister/{platform}/{deviceToken}")]
+        public async Task<ActionResult> UnRegister(string platform, string deviceToken)
         {
-            await this.pushManager.UnRegister(ToFilter(register));
+            var push = Enum.Parse<PushPlatforms>(platform, true);
+            await this.pushManager.UnRegister(push, deviceToken);
             return this.Ok();
         }
 

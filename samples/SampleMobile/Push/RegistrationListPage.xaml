@@ -1,20 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:push="clr-namespace:SampleMobile.Push"
+             xmlns:contracts="clr-namespace:SampleWeb.Contracts;assembly=SampleWeb.Contracts"
              x:Class="SampleMobile.Push.RegistrationListPage"
              x:DataType="push:RegistrationListViewModel"
              Title="Push Registrations">
-    
+
     <ContentPage.Content>
-        <RefreshView Command="{Binding Load}" 
+        <RefreshView Command="{Binding Load}"
                      IsRefreshing="{Binding IsBusy}">
+
             <CollectionView ItemsSource="{Binding Registrations}"
                             SelectedItem="{Binding SelectedReg}"
                             SelectionMode="Single">
+
+                <CollectionView.EmptyView>
+                    <Label Text="No Push Registration"
+                           FontSize="Large"
+                           HorizontalTextAlignment="Center"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalTextAlignment="Center"
+                           VerticalOptions="FillAndExpand" />
+                </CollectionView.EmptyView>
+
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        
+                    <DataTemplate x:DataType="contracts:Registration">
+                        <StackLayout>
+                            <Label Text="{Binding DeviceToken, StringFormat='Device Token: {0}'}" FontAttributes="Bold" />
+                            <Label FontAttributes="Italic">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding UseAndroid}"
+                                                 Value="True">
+                                        <Setter Property="Text" Value="Android" />
+                                    </DataTrigger>
+
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding UseApple}"
+                                                 Value="True">
+                                        <Setter Property="Text" Value="Apple" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <Label Text="{Binding UserId, StringFormat='UserId: {0}'}" />
+
+                            <BoxView HeightRequest="1" BackgroundColor="Black" />
+                        </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

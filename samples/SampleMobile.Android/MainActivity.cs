@@ -10,16 +10,16 @@ using Xamarin.Forms.Platform.Android;
 namespace SampleMobile.Droid
 {
     [Activity(
-        Label = "SampleMobile", 
-        Icon = "@mipmap/icon", 
-        Theme = "@style/MainTheme", 
-        MainLauncher = true, 
-        ConfigurationChanges = 
-            ConfigChanges.ScreenSize | 
-            ConfigChanges.Orientation | 
-            ConfigChanges.UiMode | 
-            ConfigChanges.ScreenLayout | 
-            ConfigChanges.SmallestScreenSize 
+        Label = "API Services",
+        Icon = "@mipmap/icon",
+        Theme = "@style/MainTheme",
+        MainLauncher = true,
+        ConfigurationChanges =
+            ConfigChanges.ScreenSize |
+            ConfigChanges.Orientation |
+            ConfigChanges.UiMode |
+            ConfigChanges.ScreenLayout |
+            ConfigChanges.SmallestScreenSize
     )]
     public partial class MainActivity : FormsAppCompatActivity
     {

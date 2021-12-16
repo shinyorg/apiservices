@@ -93,8 +93,29 @@ public class PushManager : IPushManager
     }
 
 
-    public Task UnRegister(PushFilter filter)
-        => this.repository.Remove(filter);
+    public Task UnRegister(PushPlatforms platform, string deviceToken)
+    {
+        if (String.IsNullOrEmpty(deviceToken))
+            throw new ArgumentNullException(nameof(deviceToken));
+
+        if (platform == PushPlatforms.All)
+            throw new ArgumentException("You can only unregister on one platform when using device token");
+
+        return this.repository.Remove(new PushFilter
+        {
+            Platform = platform,
+            DeviceToken = deviceToken
+        });
+    }
+
+
+    public Task UnRegisterByUser(string userId)
+    {
+        if (String.IsNullOrEmpty(userId))
+            throw new ArgumentNullException(nameof(userId));
+
+        return this.repository.Remove(new PushFilter { UserId = userId });
+    }
 
 
     async Task DoApple(PushRegistration registration, Notification notification)

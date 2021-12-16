@@ -20,6 +20,7 @@ namespace Shiny.Extensions.Push.Ef.Infrastructure
             {
                 var result = await data
                     .Set<DbPushRegistration>()
+                    .Include(x => x.Tags)
                     .FirstOrDefaultAsync(x =>
                         x.DeviceToken == reg.DeviceToken &&
                         x.Platform == reg.Platform
@@ -41,12 +42,15 @@ namespace Shiny.Extensions.Push.Ef.Infrastructure
                 result.DateExpiry = reg.DateExpiry;
 
                 result.Tags.Clear();
-                foreach (var tag in reg.Tags)
+                if (reg.Tags != null)
                 {
-                    result.Tags.Add(new DbPushTag
+                    foreach (var tag in reg.Tags)
                     {
-                        Value = tag
-                    });
+                        result.Tags.Add(new DbPushTag
+                        {
+                            Value = tag
+                        });
+                    }
                 }
 
                 await data
@@ -100,8 +104,8 @@ namespace Shiny.Extensions.Push.Ef.Infrastructure
             if (!String.IsNullOrWhiteSpace(filter?.UserId))
                 query = query.Where(x => x.UserId == filter.UserId);
 
-            if (filter?.Platform != null)
-                query = query.Where(x => x.Platform == filter.Platform);
+            if ((filter?.Platform ?? PushPlatforms.All) != PushPlatforms.All)
+                query = query.Where(x => x.Platform == filter!.Platform);
 
             if (filter?.DeviceToken != null)
                 query = query.Where(x => x.DeviceToken == filter.DeviceToken);

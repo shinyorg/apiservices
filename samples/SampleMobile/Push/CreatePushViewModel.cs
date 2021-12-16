@@ -49,7 +49,7 @@ namespace SampleMobile.Push
                 }
                 else
                 {
-                    await app.ApiClient.Register(new Registration
+                    await app.ApiClient.RegisterPush(new Registration
                     {
                         DeviceToken = result.RegistrationToken!,
                         UserId = this.UserId,
@@ -57,11 +57,21 @@ namespace SampleMobile.Push
                         UseApple = platform.IsIos(),
                         Tags = this.Tags?.Split(',')
                     });
+                    await dialogs.Snackbar("Successfully registered for push");
                 }
             }));
 
             this.UnRegister = ReactiveCommand.CreateFromTask(async () =>
             {
+                if (pushManager.CurrentRegistrationToken == null)
+                {
+                    await dialogs.Snackbar("Not currently registered for push");
+                    return;
+                }
+                await app.ApiClient.UnRegisterPush(
+                    platform.IsIos() ? "apple" : "google",
+                    pushManager.CurrentRegistrationToken
+                );
                 await pushManager.UnRegister();
                 await dialogs.Snackbar("UnRegistered successfully");
             });
@@ -69,14 +79,14 @@ namespace SampleMobile.Push
             this.Send = ReactiveCommand.CreateFromTask(
                 async () =>
                 {
-                    var notification = new SampleWeb.Contracts.Notification
+                    var notification = new Notification
                     {
                         Title = this.NotificationTitle,
                         Message = this.NotificationMessage,
 
                         DeviceToken = this.DeviceToken!,
                         UserId = this.UserId!,
-                        Tags = this.Tags!.Split(','),
+                        Tags = this.Tags?.Split(','),
                         UseAndroid = this.SendToAndroid,
                         UseApple = this.SendToIos
                     };

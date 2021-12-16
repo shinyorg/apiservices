@@ -29,34 +29,37 @@
                    VerticalTextAlignment="Center"
                    Grid.Row="1" />
 
-            <CollectionView ItemsSource="{Binding List}"
-                            SelectedItem="{Binding SelectedItem}"
-                            SelectionMode="Single"
-                            Grid.Row="2">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="contracts:StorageItem">
-                        <StackLayout>
-                            <Label Text="{Binding Name}"
-                                   FontSize="Title" />
+            <RefreshView Command="{Binding Load}"
+                         IsRefreshing="{Binding IsBusy}"
+                         Grid.Row="2">
+                <CollectionView ItemsSource="{Binding List}"
+                                SelectedItem="{Binding SelectedItem}"
+                                SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="contracts:StorageItem">
+                            <StackLayout>
+                                <Label Text="{Binding Name}"
+                                       FontSize="Title" />
 
-                            <Label>
-                                <Label.Triggers>
-                                    <DataTrigger TargetType="Label"
-                                                 Binding="{Binding IsDirectory}"
-                                                 Value="True">
-                                        <Setter Property="Text" Value="Directory" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="Label"
-                                                 Binding="{Binding IsDirectory}"
-                                                 Value="False">
-                                        <Setter Property="Text" Value="File" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                                <Label>
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding IsDirectory}"
+                                                     Value="True">
+                                            <Setter Property="Text" Value="Directory" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding IsDirectory}"
+                                                     Value="False">
+                                            <Setter Property="Text" Value="File" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

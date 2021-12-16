@@ -16,7 +16,7 @@ namespace SampleWeb.Controllers
 
         [HttpGet("providers")]
         public ActionResult<string[]> Providers()
-            => this.Ok(this.providers.Select(x => x.GetType().FullName).ToArray());
+            => this.Ok(this.providers.Select(x => x.GetType().Name).ToArray());
 
 
         [HttpPost("list")]

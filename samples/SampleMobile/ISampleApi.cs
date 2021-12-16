@@ -37,10 +37,10 @@ namespace SampleMobile
 
 
         [Post("/push/register")]
-        Task Register([Body(BodySerializationMethod.Serialized)] Registration register);
+        Task RegisterPush([Body(BodySerializationMethod.Serialized)] Registration register);
 
 
-        [Post("/push/unregister")]
-        Task UnRegister([Body(BodySerializationMethod.Serialized)] Registration register);
+        [Delete("/push/unregister/{platform}/{deviceToken}")]
+        Task UnRegisterPush(string platform, string deviceToken);
     }
 }

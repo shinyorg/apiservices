@@ -15,6 +15,12 @@ namespace SampleWeb
         public DbSet<DbPushTag> Tags => this.Set<DbPushTag>();
 
 
+        protected override void OnConfiguring(DbContextOptionsBuilder opts) => opts
+            .LogTo(message => Console.WriteLine(message))
+            .EnableSensitiveDataLogging()
+            .EnableDetailedErrors();
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
