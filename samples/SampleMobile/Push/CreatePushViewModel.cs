@@ -24,7 +24,7 @@ namespace SampleMobile.Push
                 {
                     DeviceToken = this.DeviceToken!,
                     UserId = this.UserId!,
-                    Tags = this.Tags!.Split(','),
+                    Tags = this.Tags?.Split(','),
                     UseAndroid = this.SendToAndroid,
                     UseApple = this.SendToIos
                 };
@@ -55,7 +55,7 @@ namespace SampleMobile.Push
                         UserId = this.UserId,
                         UseAndroid = platform.IsAndroid(),
                         UseApple = platform.IsIos(),
-                        Tags = this.Tags!.Split(',')
+                        Tags = this.Tags?.Split(',')
                     });
                 }
             }));

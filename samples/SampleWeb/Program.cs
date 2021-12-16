@@ -24,9 +24,11 @@ builder.Host.ConfigureServices(services =>
     services.AddSwaggerGen();
     services.AddControllersWithViews();
 
-    services.AddDbContextFactory<SampleDbContext>(
-        x => x.UseSqlServer(cfg.GetConnectionString("Main"))
-    );
+    services.AddDbContextFactory<SampleDbContext>(x => 
+    {
+        var connString = cfg.GetConnectionString("Main");
+        x.UseSqlServer(connString);
+    });
 
     services.AddPushManagement(x => x
         .AddApplePush(cfg.GetSection("Push:Apple").Get<AppleConfiguration>())

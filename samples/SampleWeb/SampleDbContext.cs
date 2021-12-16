@@ -8,6 +8,9 @@ namespace SampleWeb
 {
     public class SampleDbContext : DbContext, IPushDbContext
     {
+        public SampleDbContext(DbContextOptions<SampleDbContext> options) : base(options) { }
+
+
         public DbSet<DbPushRegistration> Registrations => this.Set<DbPushRegistration>();
         public DbSet<DbPushTag> Tags => this.Set<DbPushTag>();
 
@@ -17,7 +20,7 @@ namespace SampleWeb
             base.OnModelCreating(modelBuilder);
 
             var reg = modelBuilder.Entity<DbPushRegistration>();
-            reg.ToTable("PushRegistration");
+            reg.ToTable("PushRegistrations");
             reg.HasKey(x => x.Id);
             reg
                 .Property(x => x.Id)

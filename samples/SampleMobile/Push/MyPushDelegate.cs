@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Shiny.Push;
 
 
@@ -7,19 +6,8 @@ namespace SampleMobile.Push
 {
     public class MyPushDelegate : IPushDelegate
     {
-        public Task OnEntry(PushNotificationResponse response)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task OnReceived(PushNotification notification)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task OnTokenRefreshed(string token)
-        {
-            throw new NotImplementedException();
-        }
+        public Task OnEntry(PushNotificationResponse response) => Task.CompletedTask;
+        public Task OnReceived(PushNotification notification) => Task.CompletedTask;
+        public Task OnTokenRefreshed(string token) => Task.CompletedTask;
     }
 }
