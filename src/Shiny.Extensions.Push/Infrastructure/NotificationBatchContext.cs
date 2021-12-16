@@ -46,6 +46,8 @@ public class NotificationBatchContext
 
     public async Task OnNotificationError(PushRegistration registration, Exception exception)
     {
+        this.failures.Add((registration, exception));
+
         this.logger.LogWarning(exception, $"Batch {this.batchId} Notification Error - Device Token: {registration.DeviceToken}");
         await this.Wrap(x => x.OnNotificationError(this.batchId, registration, this.notification, exception)).ConfigureAwait(false);
     }
@@ -53,6 +55,8 @@ public class NotificationBatchContext
 
     public async Task OnNotificationSuccess(PushRegistration registration)
     {
+        this.success.Add(registration);
+
         this.logger.LogInformation("Batch {0} - Success Device Token: {1}", this.batchId, registration.DeviceToken);
         var s = success.ToArray();
         var f = failures.ToArray();
