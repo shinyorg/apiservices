@@ -11,6 +11,7 @@ public class GoogleNotification
     //public string Name { get; set; } - response messageid
     //public string Topic { get; set; }
     //public string Condition { get; set; }
+    public string To { get; set; }
     public string Token { get; set; }
     public Dictionary<string, string>? Data { get; set; }
     public GoogleAndroidConfig? Android { get; set; }

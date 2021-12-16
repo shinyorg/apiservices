@@ -47,7 +47,8 @@ public class GooglePushProvider : IGooglePushProvider
     //POST https://fcm.googleapis.com/v1/{parent=projects/*}/messages:send
     public async Task Send(string deviceToken, Notification notification, GoogleNotification native)
     {
-        native.Token = deviceToken; // TODO: watch this - may have to clone the native especially if I start doing Task.WhenAll
+        native.To = deviceToken;
+        native.Token = deviceToken;
         var json = Serializer.Serialize(native);
 
         using (var request = new HttpRequestMessage(HttpMethod.Post, FcmUrl))
@@ -57,15 +58,15 @@ public class GooglePushProvider : IGooglePushProvider
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await this.httpClient.SendAsync(request, CancellationToken.None);
-            response.EnsureSuccessStatusCode();
-
             var responseString = await response.Content.ReadAsStringAsync();
-            var result = Serializer.DeserialzeFcmResponse(responseString);
+            Console.WriteLine("Response: " + json);
+            //var result = Serializer.DeserialzeFcmResponse(responseString);
 
             // TODO: logging
-            if (result == null)
-                throw new ArgumentException("Invalid response from Firebase - result was empty");
+            //if (result == null)
+            //    throw new ArgumentException("Invalid response from Firebase - result was empty");
 
+            response.EnsureSuccessStatusCode();
             // TODO: log/process result
         }
     }

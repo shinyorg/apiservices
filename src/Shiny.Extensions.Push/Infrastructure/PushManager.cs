@@ -145,7 +145,7 @@ public class PushManager : IPushManager
         if (this.google == null)
             throw new ArgumentException("No Google provider is registered with this manager");
 
-        var googleNative = new GoogleNotification();
+        var googleNative = this.google.CreateNativeNotification(notification);
         await Task
             .WhenAll(this.googleDecorators
                 .Select(x => x.Decorate(registration, notification!, googleNative))

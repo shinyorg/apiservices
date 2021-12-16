@@ -8,29 +8,38 @@ using System.Text.Json.Serialization;
 
 internal static class Serializer
 {
+    static readonly PushJsonSerializerContext JsonContext = new(new JsonSerializerOptions
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    });
+
+
     public static string Serialize(AppleNotification notification)
     {
-        var bytes = JsonSerializer.SerializeToUtf8Bytes(notification, PushJsonSerializerContext.Default.AppleNotification);
+        var bytes = JsonSerializer.SerializeToUtf8Bytes(notification, JsonContext.AppleNotification);
         return Encoding.UTF8.GetString(bytes);
     }
 
 
     public static string Serialize(GoogleNotification notification)
     {
-        var bytes = JsonSerializer.SerializeToUtf8Bytes(notification, PushJsonSerializerContext.Default.GoogleNotification);
+        var bytes = JsonSerializer.SerializeToUtf8Bytes(notification, JsonContext.GoogleNotification);
         return Encoding.UTF8.GetString(bytes);
     }
 
     public static FcmResponse? DeserialzeFcmResponse(string content)
-        => JsonSerializer.Deserialize(content, PushJsonSerializerContext.Default.FcmResponse);
+        => JsonSerializer.Deserialize(content, JsonContext.FcmResponse);
 }
 
 
 //https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-source-generator/
-[JsonSerializable(typeof(AppleNotification), GenerationMode = JsonSourceGenerationMode.Serialization)]
-[JsonSerializable(typeof(GoogleNotification), GenerationMode = JsonSourceGenerationMode.Serialization)]
-[JsonSerializable(typeof(FcmResponse), GenerationMode = JsonSourceGenerationMode.Serialization)]
-[JsonSerializable(typeof(FcmResult), GenerationMode = JsonSourceGenerationMode.Serialization)]
+[JsonSerializable(typeof(AppleNotification))]
+[JsonSerializable(typeof(GoogleNotification))]
+[JsonSerializable(typeof(FcmResponse))]
+[JsonSerializable(typeof(FcmResult))]
+[JsonSerializable(typeof(GoogleAndroidConfig))]
+[JsonSerializable(typeof(GoogleAndroidNotificationDetails))]
 internal partial class PushJsonSerializerContext : JsonSerializerContext
 {
 }
