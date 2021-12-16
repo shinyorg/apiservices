@@ -13,15 +13,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\Shiny.Api.Push.Abstractions\Shiny.Api.Push.Abstractions.csproj" />
-	  <ProjectReference Include="..\..\src\Shiny.Api.Push.Ef\Shiny.Api.Push.Ef.csproj" />
-	  <ProjectReference Include="..\..\src\Shiny.Api.Push.GeoDispatching\Shiny.Api.Push.GeoDispatching.csproj" />
-	  <ProjectReference Include="..\..\src\Shiny.Api.Push\Shiny.Api.Push.csproj" />
-	  <ProjectReference Include="..\..\src\Shiny.Mail\Shiny.Mail.csproj" />
+	  <ProjectReference Include="..\..\src\Shiny.Extensions.Mail.Abstractions\Shiny.Extensions.Mail.Abstractions.csproj" />
+	  <ProjectReference Include="..\..\src\Shiny.Extensions.Mail\Shiny.Extensions.Mail.csproj" />
+	  <ProjectReference Include="..\..\src\Shiny.Extensions.Push.Abstractions\Shiny.Extensions.Push.Abstractions.csproj" />
+	  <ProjectReference Include="..\..\src\Shiny.Extensions.Push.Ef\Shiny.Extensions.Push.Ef.csproj" />
+	  <ProjectReference Include="..\..\src\Shiny.Extensions.Push\Shiny.Extensions.Push.csproj" />
 	  <ProjectReference Include="..\..\src\Shiny.Storage.AzureBlobStorage\Shiny.Storage.AzureBlobStorage.csproj" />
 	  <ProjectReference Include="..\..\src\Shiny.Storage.FtpClient\Shiny.Storage.FtpClient.csproj" />
 	  <ProjectReference Include="..\..\src\Shiny.Storage\Shiny.Storage.csproj" />
-	  <ProjectReference Include="..\..\tests\Shiny.Mail.Tests\Shiny.Mail.Tests.csproj" />
 	  <ProjectReference Include="..\SampleWeb.Contracts\SampleWeb.Contracts.csproj" />
 	</ItemGroup>
 	<ItemGroup>

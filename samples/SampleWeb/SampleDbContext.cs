@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Shiny.Api.Push.Ef;
-using Shiny.Api.Push.Ef.Infrastructure;
+using Shiny.Extensions.Push.Ef;
+using Shiny.Extensions.Push.Ef.Infrastructure;
 
 
 namespace SampleWeb

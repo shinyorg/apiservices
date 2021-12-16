@@ -2,16 +2,16 @@
   "solution": {
     "path": "Shiny.Api.sln",
     "projects": [
-      "src\\Shiny.Api.Push.Abstractions\\Shiny.Api.Push.Abstractions.csproj",
-      "src\\Shiny.Api.Push.Ef\\Shiny.Api.Push.Ef.csproj",
-      "src\\Shiny.Api.Push.GeoDispatching\\Shiny.Api.Push.GeoDispatching.csproj",
-      "src\\Shiny.Api.Push\\Shiny.Api.Push.csproj",
-      "src\\Shiny.Mail\\Shiny.Mail.csproj",
+      "src\\Shiny.Extensions.Mail.Abstractions\\Shiny.Extensions.Mail.Abstractions.csproj",
+      "src\\Shiny.Extensions.Mail\\Shiny.Extensions.Mail.csproj",
+      "src\\Shiny.Extensions.Push.Abstractions\\Shiny.Extensions.Push.Abstractions.csproj",
+      "src\\Shiny.Extensions.Push.Ef\\Shiny.Extensions.Push.Ef.csproj",
+      "src\\Shiny.Extensions.Push\\Shiny.Extensions.Push.csproj",
       "src\\Shiny.Push.Api\\Shiny.Push.Api.csproj",
       "src\\Shiny.Storage.AzureBlobStorage\\Shiny.Storage.AzureBlobStorage.csproj",
       "src\\Shiny.Storage.FtpClient\\Shiny.Storage.FtpClient.csproj",
       "src\\Shiny.Storage\\Shiny.Storage.csproj",
-      "tests\\Shiny.Mail.Tests\\Shiny.Mail.Tests.csproj",
+      "tests\\Shiny.Extensions.Mail.Tests\\Shiny.Extensions.Mail.Tests.csproj",
       "tests\\Shiny.Storage.Tests\\Shiny.Storage.Tests.csproj"
     ]
   }

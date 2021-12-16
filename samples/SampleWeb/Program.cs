@@ -1,15 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-
 using SampleWeb;
-using Shiny.Api.Push;
-using Shiny.Api.Push.Ef;
-using Shiny.Api.Push.Providers;
-using Shiny.Mail;
-using Shiny.Mail.Impl;
 using Shiny.Storage;
 using Shiny.Storage.AzureBlobStorage;
 using Shiny.Storage.FtpClient;
 using Shiny.Storage.Impl;
+using Shiny;
+using Shiny.Extensions.Mail;
+using Shiny.Extensions.Push;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,7 +21,7 @@ builder.Host.ConfigureServices(services =>
     services.AddSwaggerGen();
     services.AddControllersWithViews();
 
-    services.AddDbContextFactory<SampleDbContext>(x => 
+    services.AddDbContextFactory<SampleDbContext>(x =>
     {
         var connString = cfg.GetConnectionString("Main");
         x.UseSqlServer(connString);

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SampleWeb.Contracts;
-using Shiny.Mail;
+using Shiny.Extensions.Mail;
 using System.Net.Mail;
 
 

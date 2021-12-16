@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SampleWeb.Contracts;
-using Shiny.Api.Push;
+using Shiny.Extensions.Push;
 
 
 namespace SampleWeb.Controllers
@@ -30,7 +30,7 @@ namespace SampleWeb.Controllers
         public async Task<ActionResult> Send([FromBody] Contracts.Notification notification)
         {
             await this.pushManager.Send(
-                new Shiny.Api.Push.Notification
+                new Shiny.Extensions.Push.Notification
                 {
                     Title = notification.Title,
                     Message = notification.Message,
