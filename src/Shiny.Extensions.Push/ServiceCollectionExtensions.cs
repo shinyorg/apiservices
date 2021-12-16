@@ -20,11 +20,11 @@ public static class ServiceCollectionExtensions
     }
 
 
+    public static PushConfigurator AutoRemoveNoReceive(this PushConfigurator pushConfig)
+        => pushConfig.AddReporter<AutoCleanupNotificationReporter>();
+
     public static PushConfigurator AddPerformanceLogger(this PushConfigurator pushConfig)
-    {
-        pushConfig.Services.AddSingleton<INotificationReporter, BatchTimeNotificationReporter>();
-        return pushConfig;
-    }
+        => pushConfig.AddReporter<BatchTimeNotificationReporter>();
 
 
     public static PushConfigurator AddApplePush(this PushConfigurator pushConfig, AppleConfiguration configuration)

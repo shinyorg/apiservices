@@ -6,7 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C2DBA370-CD54-4F74-A99E-90D48DCBD708}"
 	ProjectSection(SolutionItems) = preProject
 		src\global.json = src\global.json
-		push_tables.sql = push_tables.sql
 		readme.md = readme.md
 	EndProjectSection
 EndProject
@@ -19,6 +18,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Storage.Tests", "tests\Shiny.Storage.Tests\Shiny.Storage.Tests.csproj", "{36EE7A3E-47B8-4A54-B3D0-6D4AD3F4CC41}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Push", "Push", "{8B31ACF0-86B8-4208-A054-940EA9378C1D}"
+	ProjectSection(SolutionItems) = preProject
+		push_tables.sql = push_tables.sql
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mail", "Mail", "{109FDCE7-7624-4A44-8BBD-4CA986C7A1D7}"
 EndProject

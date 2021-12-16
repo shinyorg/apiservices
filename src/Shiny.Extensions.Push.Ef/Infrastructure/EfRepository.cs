@@ -39,7 +39,7 @@ namespace Shiny.Extensions.Push.Ef.Infrastructure
                 result.DeviceToken = reg.DeviceToken;
                 result.Platform = reg.Platform;
                 result.UserId = reg.UserId;
-                result.DateExpiry = reg.DateExpiry;
+                result.DateUpdated = DateTimeOffset.UtcNow;
 
                 result.Tags.Clear();
                 if (reg.Tags != null)
@@ -73,7 +73,7 @@ namespace Shiny.Extensions.Push.Ef.Infrastructure
                     DeviceToken = x.DeviceToken,
                     Platform = x.Platform,
                     UserId = x.UserId,
-                    DateExpiry = x.DateExpiry,
+                    DateUpdated = x.DateUpdated,
                     DateCreated = x.DateCreated,
                     Tags = x.Tags.Select(x => x.Value).ToArray()
                 });
@@ -117,6 +117,19 @@ namespace Shiny.Extensions.Push.Ef.Infrastructure
                 query = query.Include(x => x.Tags);
 
             return query.ToListAsync();
+        }
+
+        public async Task RemoveBatch(params PushRegistration[] pushRegistrations)
+        {
+            using (var data = await this.contextFactory.CreateDbContextAsync().ConfigureAwait(false))
+            {
+                foreach (var reg in pushRegistrations)
+                {
+                    data.Attach(reg);
+                    data.Remove(reg);
+                }
+                await data.SaveChangesAsync().ConfigureAwait(false);
+            }
         }
     }
 }

@@ -8,5 +8,7 @@ namespace Shiny.Extensions.Push.Infrastructure
         Task<IEnumerable<PushRegistration>> Get(PushFilter? filter);
         Task Save(PushRegistration reg);
         Task Remove(PushFilter filter);
+
+        Task RemoveBatch(params PushRegistration[] pushRegistrations);
     }
 }

@@ -32,7 +32,7 @@ public interface INotificationReporter
     Task OnBatchCompleted(
         Guid batchId,
         IReadOnlyCollection<PushRegistration> success,
-        IReadOnlyCollection<(PushRegistration, Exception)> failures,
+        IReadOnlyCollection<(PushRegistration Registration, Exception Exception)> failures,
         Notification notification
     );
 }
