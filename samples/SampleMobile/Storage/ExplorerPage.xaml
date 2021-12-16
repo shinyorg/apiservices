@@ -21,10 +21,12 @@
                     TextColor="Black"
                     Grid.Row="0" />
 
-            <Label Text="{Binding CurrentPath}" 
+            <Label Text="{Binding CurrentPath}"
                    FontSize="Large"
+                   HorizontalOptions="FillAndExpand"
+                   BackgroundColor="Beige"
                    VerticalOptions="FillAndExpand"
-                   VerticalTextAlignment="Center" 
+                   VerticalTextAlignment="Center"
                    Grid.Row="1" />
 
             <CollectionView ItemsSource="{Binding List}"

@@ -12,24 +12,14 @@
             <sv:Section>
                 <sv:EntryCell Title="Template Name" ValueText="{Binding TemplateName}" />
                 <sv:CheckboxCell Title="Is High Priority" Checked="{Binding IsHighPriority}" />
-            </sv:Section>
-
-            <sv:Section Title="Reply To">
-                <sv:EntryCell Title="Display Name" ValueText="{Binding ReplyToDisplayName}" />
-                <sv:EntryCell Title="Address" ValueText="{Binding ReplyToAddress}" />
-            </sv:Section>
-
-            <sv:Section Title="To">
-                <sv:EntryCell Title="Display Name" ValueText="{Binding ToDisplayName}" />
-                <sv:EntryCell Title="Address" ValueText="{Binding ToAddress}" />
-            </sv:Section>
-
-            <sv:Section Title="Details">
+                <sv:EntryCell Title="TO Address" ValueText="{Binding ToAddress}" />
+                <sv:EntryCell Title="Reply-To Address" ValueText="{Binding ReplyToAddress}" />
                 <sv:EntryCell Title="Subject" ValueText="{Binding Subject}" />
                 <sv:EntryCell Title="Body Message" ValueText="{Binding Body}" />
             </sv:Section>
 
             <sv:Section>
+                <sv:CommandCell Title="Test Parse" Command="{Binding Parse}" />
                 <sv:CommandCell Title="Send" Command="{Binding Send}" />
             </sv:Section>
         </sv:SettingsView>

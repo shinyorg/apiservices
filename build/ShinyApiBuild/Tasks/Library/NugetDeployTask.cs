@@ -1,51 +1,48 @@
-﻿using System;
+﻿namespace ShinyBuild.Tasks.Library;
 
 using Cake.Common.Diagnostics;
 using Cake.Common.IO;
-using Cake.Common.Tools.DotNetCore;
+using Cake.Common.Tools.DotNet;
 using Cake.Common.Tools.DotNetCore.NuGet.Push;
 using Cake.Frosting;
 
 
-namespace ShinyBuild.Tasks.Library
+[TaskName("NugetDeploy")]
+[IsDependentOn(typeof(BuildTask))]
+//[IsDependeeOf(typeof(BasicTestsTask))]
+public sealed class NugetDeployTask : FrostingTask<BuildContext>
 {
-    [TaskName("NugetDeploy")]
-    [IsDependentOn(typeof(BuildTask))]
-    //[IsDependeeOf(typeof(BasicTestsTask))]
-    public sealed class NugetDeployTask : FrostingTask<BuildContext>
+    const string MainNuget = "https://api.nuget.org/v3/index.json";
+
+    public override bool ShouldRun(BuildContext context)
     {
-        const string MainNuget = "https://api.nuget.org/v3/index.json";
+        var result = context.IsNugetDeployBranch && context.IsRunningInCI;
+        if (result && String.IsNullOrWhiteSpace(context.NugetApiKey))
+            throw new ArgumentException("NugetApiKey is missing");
 
-        public override bool ShouldRun(BuildContext context)
+        return result;
+    }
+
+
+    public override void Run(BuildContext context)
+    {
+        var settings = new DotNetCoreNuGetPushSettings
         {
-            var result = context.IsNugetDeployBranch && context.IsRunningInCI;
-            if (result && String.IsNullOrWhiteSpace(context.NugetApiKey))
-                throw new ArgumentException("NugetApiKey is missing");
+            ApiKey = context.NugetApiKey,
+            Source = MainNuget,
+            SkipDuplicate = true
+        };
 
-            return result;
-        }
-
-
-        public override void Run(BuildContext context)
+        var packages = context.GetFiles("src/**/*.nupkg");
+        foreach (var package in packages)
         {
-            var settings = new DotNetCoreNuGetPushSettings
+            try
             {
-                ApiKey = context.NugetApiKey,
-                Source = MainNuget,
-                SkipDuplicate = true
-            };
-
-            var packages = context.GetFiles("src/**/*.nupkg");
-            foreach (var package in packages)
+                context.DotNetNuGetPush(package.FullPath, settings);
+            }
+            catch (Exception ex)
             {
-                try
-                {
-                    context.DotNetCoreNuGetPush(package.FullPath, settings);
-                }
-                catch (Exception ex)
-                {
-                    context.Warning($"Error Upload: {package.FullPath} - Exception: {ex}");
-                }
+                context.Warning($"Error Upload: {package.FullPath} - Exception: {ex}");
             }
         }
     }

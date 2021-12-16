@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using SampleWeb.Contracts;
 using Shiny;
 using System.Windows.Input;
 
@@ -8,56 +9,67 @@ namespace SampleMobile.Mail
 {
     public class CreateMailViewModel : ViewModel
     {
-        public CreateMailViewModel(ISampleApi api, IDialogs dialogs)
+        public CreateMailViewModel(AppSettings app, IDialogs dialogs)
         {
+            var valid = this.WhenAny(
+                x => x.TemplateName,
+                x => x.ToAddress,
+                x => x.Subject,
+                (template, to, subj) =>
+                {
+                    if (template.GetValue().IsEmpty())
+                        return false;
+
+                    if (to.GetValue().IsEmpty())
+                        return false;
+
+                    if (subj.GetValue().IsEmpty())
+                        return false;
+
+                    return true;
+                }
+            );
+
             this.Send = ReactiveCommand.CreateFromTask(
                 async () =>
                 {
-                    await api.SendMail(this.TemplateName, new SampleWeb.Contracts.SendMail
-                    {
-                        To = this.ToAddress
-                    });
+                    await app.ApiClient.SendMail(this.TemplateName, this.CreateMsg());
                     await dialogs.Snackbar("Sent E-Mail Successfully");
-                }
-                //this.WhenAny(
-                //    x => x.TemplateName,
-                //    x => x.ToAddress,
-                //    (template, from, replyTo, to) =>
-                //    {
-                //        if (template.GetValue().IsEmpty())
-                //            return false;
+                },
+                valid
+            );
 
-                //        if (from.GetValue().IsEmpty())
-                //            return false;
-
-                //        if (replyTo.GetValue().IsEmpty())
-                //            return false;
-
-                //        if (to.GetValue().IsEmpty())
-                //            return false;
-
-                //        return true;
-                //    }
-                //)
+            this.Parse = ReactiveCommand.CreateFromTask(
+                async () =>
+                {
+                    var response = await app.ApiClient.TestMailParse(this.TemplateName, this.CreateMsg());
+                    await dialogs.Alert(response);
+                },
+                valid
             );
         }
 
 
         public ICommand Send { get; }
+        public ICommand Parse { get; }
 
-        [Reactive] public string Subject { get; set; }
-        [Reactive] public string Body { get; set; }
+        [Reactive] public string Subject { get; set; } = "Test Subject";
+        [Reactive] public string Body { get; set; } = "Hello World";
 
         [Reactive] public string TemplateName { get; set; } = "test";
         [Reactive] public bool IsHighPriority { get; set; }
 
-        [Reactive] public string FromDisplayName { get; set; }
-        [Reactive] public string FromAddress { get; set; }
-
-        [Reactive] public string ToDisplayName { get; set; }
         [Reactive] public string ToAddress { get; set; }
-
-        [Reactive] public string ReplyToDisplayName { get; set; }
         [Reactive] public string ReplyToAddress { get; set; }
+
+
+        SendMail CreateMsg() => new SendMail
+        {
+            To = this.ToAddress,
+            Subject = this.Subject,
+            ReplyTo = this.ReplyToAddress,
+            AdditionalMessage = this.Body,
+            IsHighPriority = this.IsHighPriority
+        };
     }
 }

@@ -44,16 +44,6 @@ namespace SampleMobile
         {
             services.AddSingleton<AppSettings>();
             services.UsePush<MyPushDelegate>();
-            services.AddSingleton(sp =>
-            {
-                var settings = sp.GetRequiredService<AppSettings>();
-                var httpClient = new HttpClient();
-                settings
-                    .WhenAnyProperty(x => x.ApiBaseUrl)
-                    .Subscribe(x => httpClient.BaseAddress = new Uri(x));
-                return Refit.RestService.For<ISampleApi>(httpClient);
-            });
-
             services.UseXfMaterialDialogs();
             services.UseGlobalCommandExceptionHandler(x => x.AlertType = ErrorAlertType.FullError);
         }

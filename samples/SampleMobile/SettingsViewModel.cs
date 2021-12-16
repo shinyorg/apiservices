@@ -2,35 +2,33 @@
 using ReactiveUI.Fody.Helpers;
 using Shiny;
 using System;
-using System.Windows.Input; 
+using System.Windows.Input;
 
 
 namespace SampleMobile
 {
     public class SettingsViewModel : ViewModel
     {
-        public SettingsViewModel(ISampleApi api,
-                                 AppSettings settings,
-                                 IDialogs dialogs)
+        public SettingsViewModel(AppSettings app, IDialogs dialogs)
         {
-            this.ApiBaseUrl = settings.ApiBaseUrl;
+            this.ApiBaseUrl = app.ApiBaseUrl;
 
             this.Save = ReactiveCommand.CreateFromTask(
                 async () =>
                 {
-                    var prevUrl = settings.ApiBaseUrl;
+                    var prevUrl = app.ApiBaseUrl;
 
                     try
                     {
                         await dialogs.LoadingTask(async () => {
-                            settings.ApiBaseUrl = this.ApiBaseUrl;
-                            await api.GetFileProviders();
+                            app.ApiBaseUrl = this.ApiBaseUrl;
+                            await app.ApiClient.GetFileProviders();
                         });
-                        await dialogs.Snackbar("Swipe away the app to restart it");
+                        await dialogs.Snackbar("API URL updated");
                     }
                     catch
                     {
-                        settings.ApiBaseUrl = prevUrl;
+                        app.ApiBaseUrl = prevUrl;
                         throw;
                     }
                 },

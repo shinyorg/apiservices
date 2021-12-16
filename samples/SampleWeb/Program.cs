@@ -46,9 +46,7 @@ builder.Host.ConfigureServices(services =>
 });
 
 var app = builder.Build();
-if (!app.Environment.IsDevelopment())
-    app.UseHsts();
-
+app.UseDeveloperExceptionPage();
 app.UseRouting();
 app.MapControllerRoute(
     name: "default",

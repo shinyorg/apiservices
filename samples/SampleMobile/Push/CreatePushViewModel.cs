@@ -12,7 +12,7 @@ namespace SampleMobile.Push
 {
     public class CreatePushViewModel : ViewModel
     {
-        public CreatePushViewModel(ISampleApi api,
+        public CreatePushViewModel(AppSettings app,
                                    INavigationService navigator,
                                    IPushManager pushManager,
                                    IPlatform platform,
@@ -49,7 +49,7 @@ namespace SampleMobile.Push
                 }
                 else
                 {
-                    await api.Register(new SampleWeb.Contracts.Registration
+                    await app.ApiClient.Register(new Registration
                     {
                         DeviceToken = result.RegistrationToken!,
                         UserId = this.UserId,
@@ -83,7 +83,7 @@ namespace SampleMobile.Push
                     if (!this.DataKey.IsEmpty() && !this.DataValue.IsEmpty())
                         notification.Data = new Dictionary<string, string> {{ this.DataKey!, this.DataValue! }};
 
-                    await this.Dialogs.LoadingTask(() => api.Send(notification));
+                    await this.Dialogs.LoadingTask(() => app.ApiClient.Send(notification));
                     await dialogs.Snackbar("Notification Sent");
                 },
                 this.WhenAny(

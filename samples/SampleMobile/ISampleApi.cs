@@ -12,6 +12,10 @@ namespace SampleMobile
         Task SendMail(string templateName, [Body(BodySerializationMethod.Serialized)] SendMail mail);
 
 
+        [Post("/mail/parse/{templateName}")]
+        Task<string> TestMailParse(string templateName, [Body(BodySerializationMethod.Serialized)] SendMail mail);
+
+
         [Get("/storage/providers")]
         Task<string[]> GetFileProviders();
 

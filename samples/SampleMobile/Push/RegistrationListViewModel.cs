@@ -17,11 +17,11 @@ namespace SampleMobile.Push
         Registration? filter;
 
 
-        public RegistrationListViewModel(ISampleApi apiClient, IDialogs dialogs)
+        public RegistrationListViewModel(AppSettings app, IDialogs dialogs)
         {
             this.Load = this.LoadingCommand(async () =>
             {
-                this.Registrations = await apiClient.GetRegistrations(this.filter!);
+                this.Registrations = await app.ApiClient.GetRegistrations(this.filter!);
             });
             this.WhenAnyValue(x => x.SelectedReg)
                 .Skip(1)
@@ -32,7 +32,7 @@ namespace SampleMobile.Push
                     {
                         try
                         {
-                            await apiClient.UnRegister(x);
+                            await app.ApiClient.UnRegister(x);
                             this.Load.Execute(null);
                             await dialogs.Snackbar("Successfully removed registration");
                         }
