@@ -6,6 +6,8 @@ using SampleMobile.Mail;
 using SampleMobile.Push;
 using SampleMobile.Storage;
 using Shiny;
+using Shiny.Extensions.Dialogs;
+
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -45,7 +47,7 @@ namespace SampleMobile
             services.AddSingleton<AppSettings>();
             services.UsePush<MyPushDelegate>();
             //services.UseXfMaterialDialogs();
-            //services.AddSingleton<IDialogs, Shiny.Extensions.Dialogs.EmptyDialogs>();
+            services.AddSingleton<IDialogs, Shiny.Extensions.Dialogs.EmptyDialogs>();
             services.UseGlobalCommandExceptionHandler(x => x.AlertType = ErrorAlertType.FullError);
         }
     }
