@@ -39,7 +39,7 @@ namespace SampleMobile.Push
                     await this.Dialogs.Alert("Invalid Push Permission - " + result.Status);
             });
 
-            this.Register = ReactiveCommand.CreateFromTask(() => this.Dialogs.LoadingTask(async () =>
+            this.Register = this.LoadingCommand(async () =>
             {
                 var result = await pushManager.RequestAccess();
                 if (result.Status != AccessState.Available)
@@ -58,9 +58,9 @@ namespace SampleMobile.Push
                     });
                     await this.Dialogs.Snackbar("Successfully registered for push");
                 }
-            }));
+            });
 
-            this.UnRegister = ReactiveCommand.CreateFromTask(async () =>
+            this.UnRegister = this.LoadingCommand(async () =>
             {
                 if (pushManager.CurrentRegistrationToken == null)
                 {
@@ -75,7 +75,7 @@ namespace SampleMobile.Push
                 await this.Dialogs.Snackbar("UnRegistered successfully");
             });
 
-            this.Send = ReactiveCommand.CreateFromTask(
+            this.Send = this.LoadingCommand(
                 async () =>
                 {
                     var notification = new Notification
@@ -92,9 +92,11 @@ namespace SampleMobile.Push
                     if (!this.DataKey.IsEmpty() && !this.DataValue.IsEmpty())
                         notification.Data = new Dictionary<string, string> {{ this.DataKey!, this.DataValue! }};
 
-                    await this.Dialogs.LoadingTask(() => app.ApiClient.Send(notification));
+                    await app.ApiClient.Send(notification);
                     await this.Dialogs.Snackbar("Notification Sent");
                 },
+                "Loading...",
+                true,
                 this.WhenAny(
                     x => x.NotificationMessage,
                     x => x.SendToAndroid,

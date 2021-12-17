@@ -9,9 +9,9 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="API Base Url" />
-            <Entry Text="{Binding ApiBaseUrl}" />
+            <Entry Text="{Binding ApiBaseUrl}" Keyboard="Url" />
 
-            <Button Text="Save Settings" 
+            <Button Text="Save Settings"
                     Command="{Binding Save}" />
         </StackLayout>
     </ContentPage.Content>
