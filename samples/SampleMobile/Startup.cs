@@ -44,7 +44,8 @@ namespace SampleMobile
         {
             services.AddSingleton<AppSettings>();
             services.UsePush<MyPushDelegate>();
-            services.UseXfMaterialDialogs();
+            //services.UseXfMaterialDialogs();
+            //services.AddSingleton<IDialogs, Shiny.Extensions.Dialogs.EmptyDialogs>();
             services.UseGlobalCommandExceptionHandler(x => x.AlertType = ErrorAlertType.FullError);
         }
     }

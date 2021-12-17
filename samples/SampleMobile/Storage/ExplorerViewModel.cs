@@ -14,7 +14,7 @@ namespace SampleMobile.Storage
 {
     public class ExplorerViewModel : ViewModel
     {
-        public ExplorerViewModel(AppSettings app, IDialogs dialogs)
+        public ExplorerViewModel(AppSettings app)
         {
             this.Load = this.LoadingCommand(async () =>
             {
@@ -34,7 +34,7 @@ namespace SampleMobile.Storage
                 else
                 {
                     var content = await app.ApiClient.ViewFile(args);
-                    await dialogs.Alert(content, "File - " + item.Name);
+                    await this.Dialogs.Alert(content, "File - " + item.Name);
                 }
             });
 

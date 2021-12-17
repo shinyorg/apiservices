@@ -1,6 +1,8 @@
 ﻿using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Shiny;
+using Shiny.Extensions.Dialogs;
+
 using System;
 using System.Windows.Input;
 
@@ -9,7 +11,7 @@ namespace SampleMobile
 {
     public class SettingsViewModel : ViewModel
     {
-        public SettingsViewModel(AppSettings app, IDialogs dialogs)
+        public SettingsViewModel(AppSettings app)
         {
             this.ApiBaseUrl = app.ApiBaseUrl;
 
@@ -20,11 +22,11 @@ namespace SampleMobile
 
                     try
                     {
-                        await dialogs.LoadingTask(async () => {
+                        await this.Dialogs.LoadingTask(async () => {
                             app.ApiBaseUrl = this.ApiBaseUrl;
                             await app.ApiClient.GetFileProviders();
                         });
-                        await dialogs.Snackbar("API URL updated");
+                        await this.Dialogs.Snackbar("API URL updated");
                     }
                     catch
                     {

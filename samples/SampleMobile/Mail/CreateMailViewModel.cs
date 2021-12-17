@@ -9,7 +9,7 @@ namespace SampleMobile.Mail
 {
     public class CreateMailViewModel : ViewModel
     {
-        public CreateMailViewModel(AppSettings app, IDialogs dialogs)
+        public CreateMailViewModel(AppSettings app)
         {
             var valid = this.WhenAny(
                 x => x.TemplateName,
@@ -34,7 +34,7 @@ namespace SampleMobile.Mail
                 async () =>
                 {
                     await app.ApiClient.SendMail(this.TemplateName, this.CreateMsg());
-                    await dialogs.Snackbar("Sent E-Mail Successfully");
+                    await this.Dialogs.Snackbar("Sent E-Mail Successfully");
                 },
                 valid
             );
@@ -43,7 +43,7 @@ namespace SampleMobile.Mail
                 async () =>
                 {
                     var response = await app.ApiClient.TestMailParse(this.TemplateName, this.CreateMsg());
-                    await dialogs.Alert(response);
+                    await this.Dialogs.Alert(response);
                 },
                 valid
             );

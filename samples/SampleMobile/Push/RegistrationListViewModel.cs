@@ -17,7 +17,7 @@ namespace SampleMobile.Push
         Registration? filter;
 
 
-        public RegistrationListViewModel(AppSettings app, IDialogs dialogs)
+        public RegistrationListViewModel(AppSettings app)
         {
             this.Load = this.LoadingCommand(async () =>
             {
@@ -27,7 +27,7 @@ namespace SampleMobile.Push
                 .Skip(1)
                 .SubscribeAsync(async reg =>
                 {
-                    var result = await dialogs.Confirm("Remove this registration?");
+                    var result = await this.Dialogs.Confirm("Remove this registration?");
                     if (result)
                     {
                         try
@@ -35,11 +35,11 @@ namespace SampleMobile.Push
                             var platform = reg.UseApple ? "apple" : "google";
                             await app.ApiClient.UnRegisterPush(platform, reg.DeviceToken!);
                             this.Load.Execute(null);
-                            await dialogs.Snackbar("Successfully removed registration");
+                            await this.Dialogs.Snackbar("Successfully removed registration");
                         }
                         catch (Exception ex)
                         {
-                            await dialogs.Alert(ex.ToString());
+                            await this.Dialogs.Alert(ex.ToString());
                         }
                     }
                 })

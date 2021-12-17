@@ -6,7 +6,7 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Prism.Navigation;
 using SampleWeb.Contracts;
-
+using Shiny.Extensions.Dialogs;
 
 namespace SampleMobile.Push
 {
@@ -15,8 +15,7 @@ namespace SampleMobile.Push
         public CreatePushViewModel(AppSettings app,
                                    INavigationService navigator,
                                    IPushManager pushManager,
-                                   IPlatform platform,
-                                   IDialogs dialogs)
+                                   IPlatform platform)
         {
             this.ShowRegistrations = navigator.NavigateCommand(nameof(RegistrationListPage), p =>
             {
@@ -40,7 +39,7 @@ namespace SampleMobile.Push
                     await this.Dialogs.Alert("Invalid Push Permission - " + result.Status);
             });
 
-            this.Register = ReactiveCommand.CreateFromTask(() => dialogs.LoadingTask(async () =>
+            this.Register = ReactiveCommand.CreateFromTask(() => this.Dialogs.LoadingTask(async () =>
             {
                 var result = await pushManager.RequestAccess();
                 if (result.Status != AccessState.Available)
@@ -57,7 +56,7 @@ namespace SampleMobile.Push
                         UseApple = platform.IsIos(),
                         Tags = this.Tags?.Split(',')
                     });
-                    await dialogs.Snackbar("Successfully registered for push");
+                    await this.Dialogs.Snackbar("Successfully registered for push");
                 }
             }));
 
@@ -65,7 +64,7 @@ namespace SampleMobile.Push
             {
                 if (pushManager.CurrentRegistrationToken == null)
                 {
-                    await dialogs.Snackbar("Not currently registered for push");
+                    await this.Dialogs.Snackbar("Not currently registered for push");
                     return;
                 }
                 await app.ApiClient.UnRegisterPush(
@@ -73,7 +72,7 @@ namespace SampleMobile.Push
                     pushManager.CurrentRegistrationToken
                 );
                 await pushManager.UnRegister();
-                await dialogs.Snackbar("UnRegistered successfully");
+                await this.Dialogs.Snackbar("UnRegistered successfully");
             });
 
             this.Send = ReactiveCommand.CreateFromTask(
@@ -94,7 +93,7 @@ namespace SampleMobile.Push
                         notification.Data = new Dictionary<string, string> {{ this.DataKey!, this.DataValue! }};
 
                     await this.Dialogs.LoadingTask(() => app.ApiClient.Send(notification));
-                    await dialogs.Snackbar("Notification Sent");
+                    await this.Dialogs.Snackbar("Notification Sent");
                 },
                 this.WhenAny(
                     x => x.NotificationMessage,

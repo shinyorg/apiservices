@@ -31,7 +31,7 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.shiny.sample</string>
+	<string>com.shinyorg.sample</string>
 	<key>CFBundleDisplayName</key>
 	<string>API Services</string>
 </dict>
