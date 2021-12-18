@@ -1,9 +1,9 @@
-﻿# Shiny Services for .NET 
+﻿# SHINY SERVICE EXTENSIONS FOR .NET
 <img src="https://github.com/shinyorg/shiny/raw/master/art/logo.png" width="100" /> 
 
 ## COMING SOON
 
-## Features
+## FEATURES
 * Push Notification Management without a 3rd Party (think Azure Notification Hubs for your on-prem servers)
 * Mail Templating On Steroids!
 * Async File Providers
@@ -11,11 +11,11 @@
 	* Azure Blob Storage
 	* FTP
 
-## Links
+## LINKS
 * [Samples](https://github.com/shinyorg/apservices/tree/master/samples)
 * [Community Support](https://github.com/shinyorg/shiny/discussions)
 
-## Support Shiny!
+## SUPPORT SHINY
 
 While Shiny is free and will continue to be so, maintenance and support takes a heavy toll on sustainability. If you or your company have the resources, please consider becoming a GitHub Sponsor. GitHub Sponsorships help to make Open Source Development more sustainable.
 
@@ -28,13 +28,14 @@ Depending on your Sponsorship Tier, you may also get access to some great benefi
 
 How about some [Shiny Gear](https://www.redbubble.com/shop/ap/45038461)
 
-## Builds
+## BUILDS
 
 Branch|Status
 ------|------
 Master|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/master?style=for-the-badge)|
 Dev|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/dev?style=for-the-badge)|
 Preview|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/preview?style=for-the-badge)|
+
 
 
 ### DOCS TODO
@@ -56,3 +57,6 @@ Preview|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Bu
 	* File System
 	* Azure Blob Storage
 	* FTP Client
+
+* [Firebase Cloud Messaging Documentation](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages)
+* [Apple Notification Documentation](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification)

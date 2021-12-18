@@ -1,47 +1,52 @@
-﻿namespace Shiny.Extensions.Push.Infrastructure;
-
-using Shiny.Extensions.Push.Providers;
+﻿using Shiny.Extensions.Push.Providers;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 
-internal static class Serializer
+namespace Shiny.Extensions.Push.Infrastructure
 {
-    static readonly PushJsonSerializerContext JsonContext = new(new JsonSerializerOptions
+    internal static class Serializer
     {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-    });
+        static readonly PushJsonSerializerContext JsonContext = new(new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+        });
 
 
-    public static string Serialize(AppleNotification notification)
-    {
-        var bytes = JsonSerializer.SerializeToUtf8Bytes(notification, JsonContext.AppleNotification);
-        return Encoding.UTF8.GetString(bytes);
+        public static string Serialize(AppleNotification notification)
+        {
+            var bytes = JsonSerializer.SerializeToUtf8Bytes(notification, JsonContext.AppleNotification);
+            return Encoding.UTF8.GetString(bytes);
+        }
+
+
+        public static string Serialize(GoogleNotification notification)
+        {
+            var bytes = JsonSerializer.SerializeToUtf8Bytes(notification, JsonContext.GoogleNotification);
+            return Encoding.UTF8.GetString(bytes);
+        }
+
+        public static FcmResponse? DeserialzeFcmResponse(string content)
+            => JsonSerializer.Deserialize(content, JsonContext.FcmResponse);
+
+        public static ApnResponse? DeserialzeAppleResponse(string content)
+            => JsonSerializer.Deserialize(content, JsonContext.ApnResponse);
     }
 
 
-    public static string Serialize(GoogleNotification notification)
+    //https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-source-generator/
+    [JsonSerializable(typeof(AppleNotification))]
+    [JsonSerializable(typeof(GoogleNotification))]
+    [JsonSerializable(typeof(FcmResponse))]
+    [JsonSerializable(typeof(FcmResult))]
+    [JsonSerializable(typeof(GoogleAndroidConfig))]
+    [JsonSerializable(typeof(GoogleAndroidNotificationDetails))]
+    [JsonSerializable(typeof(ApnResponse))]
+    internal partial class PushJsonSerializerContext : JsonSerializerContext
     {
-        var bytes = JsonSerializer.SerializeToUtf8Bytes(notification, JsonContext.GoogleNotification);
-        return Encoding.UTF8.GetString(bytes);
     }
-
-    public static FcmResponse? DeserialzeFcmResponse(string content)
-        => JsonSerializer.Deserialize(content, JsonContext.FcmResponse);
-}
-
-
-//https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-source-generator/
-[JsonSerializable(typeof(AppleNotification))]
-[JsonSerializable(typeof(GoogleNotification))]
-[JsonSerializable(typeof(FcmResponse))]
-[JsonSerializable(typeof(FcmResult))]
-[JsonSerializable(typeof(GoogleAndroidConfig))]
-[JsonSerializable(typeof(GoogleAndroidNotificationDetails))]
-internal partial class PushJsonSerializerContext : JsonSerializerContext
-{
 }
 //Person person = new() { FirstName = "Jane", LastName = "Doe" };
 //byte[] utf8Json = JsonSerializer.SerializeToUtf8Bytes(person, MyJsonContext.Default.Person);

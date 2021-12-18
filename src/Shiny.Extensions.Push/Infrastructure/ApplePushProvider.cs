@@ -60,7 +60,7 @@ namespace Shiny.Extensions.Push.Infrastructure
         }
 
 
-        public async Task Send(string deviceToken, Notification notification, AppleNotification native, CancellationToken cancelToken = default)
+        public async Task<bool> Send(string deviceToken, Notification notification, AppleNotification native, CancellationToken cancelToken = default)
         {
             var path = "/3/device/" + deviceToken;
             var url = (this.config.IsProduction ? ProdUrl : DevUrl) + path;
@@ -83,13 +83,27 @@ namespace Shiny.Extensions.Push.Infrastructure
 
             var silentPush = native.Aps.Alert == null && native.Aps.ContentAvailable == 1;
             request.Headers.Add("apns-priority", silentPush ? "5" : "10");
-            request.Headers.Add("apns-push-type", silentPush ? "background" : "alert"); // for iOS 13 required
+
+            // for iOS 13 required - TODO: more new types here, need a way to configure headers as well - perhaps non-serialized props in native notification?
+            request.Headers.Add("apns-push-type", silentPush ? "background" : "alert"); 
 
             var response = await this.httpClient.SendAsync(request, cancelToken).ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
+                return true;
 
-            var content = await response.Content.ReadAsStringAsync();
-            // TODO: parse content
+            var content = await response.Content.ReadAsStringAsync(cancelToken).ConfigureAwait(false);
+            var apnResponse = Serializer.DeserialzeAppleResponse(content);
+            var reason = apnResponse?.Reason;
+            
+            if (reason == "BadDeviceToken" || reason == "Unregistered")
+                return false;
+
+            throw new ApnException(reason);
+            // TODO: retry reasons
+                // ExpiredProviderToken
+                // InternalServerError,
+                // ServiceUnavailable,
+                // Shutdown, 
         }
 
 
@@ -153,3 +167,32 @@ namespace Shiny.Extensions.Push.Infrastructure
         }
     }
 }
+
+//BadCollapseId,
+//        BadDeviceToken,
+//        BadExpirationDate,
+//        BadMessageId,
+//        BadPriority,
+//        BadTopic,
+//        DeviceTokenNotForTopic,
+//        DuplicateHeaders,
+//        IdleTimeout,
+//        MissingDeviceToken,
+//        MissingTopic,
+//        PayloadEmpty,
+//        TopicDisallowed,
+//        BadCertificate,
+//        BadCertificateEnvironment,
+//        ExpiredProviderToken,
+//        Forbidden,
+//        InvalidProviderToken,
+//        MissingProviderToken,
+//        BadPath,
+//        MethodNotAllowed,
+//        Unregistered,
+//        PayloadTooLarge,
+//        TooManyProviderTokenUpdates,
+//        TooManyRequests,
+//        InternalServerError,
+//        ServiceUnavailable,
+//        Shutdown, 
