@@ -1,4 +1,9 @@
-﻿namespace Shiny.Storage.AzureBlobStorage
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+
+
+namespace Shiny.Storage.AzureBlobStorage
 {
     public class AzureBlobFile : IFile
     {

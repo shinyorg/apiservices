@@ -1,4 +1,7 @@
-﻿using System.Net.Mail;
+﻿using System;
+using System.Net.Mail;
+using System.Threading.Tasks;
+
 
 namespace Shiny.Extensions.Mail.Impl
 {
@@ -7,7 +10,6 @@ namespace Shiny.Extensions.Mail.Impl
         readonly SmtpConfig config;
         public SmtpMailSender(SmtpConfig config)
             => this.config = config ?? throw new ArgumentNullException(nameof(config));
-
 
 
         public async Task Send(MailMessage mail)

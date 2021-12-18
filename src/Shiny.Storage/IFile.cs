@@ -1,4 +1,7 @@
-﻿namespace Shiny.Storage
+﻿using System.IO;
+using System.Threading.Tasks;
+
+namespace Shiny.Storage
 {
     public interface IFile : IFilePath
     {

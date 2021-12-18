@@ -1,6 +1,9 @@
 ﻿using SendGrid;
 using SendGrid.Helpers.Mail;
+using System;
+using System.IO;
 using System.Net.Mail;
+using System.Threading.Tasks;
 
 
 namespace Shiny.Extensions.Mail.Impl

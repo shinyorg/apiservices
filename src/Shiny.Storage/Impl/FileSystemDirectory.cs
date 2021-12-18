@@ -1,4 +1,7 @@
-﻿namespace Shiny.Storage.Impl
+﻿using System;
+using System.IO;
+
+namespace Shiny.Storage.Impl
 {
     public class FileSystemDirectory : IDirectory
     {

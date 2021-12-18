@@ -1,6 +1,8 @@
 ﻿using RazorEngine.Configuration;
 using RazorEngine.Templating;
 using Shiny.Extensions.Mail.Impl.Helpers;
+using System;
+using System.Threading.Tasks;
 
 
 namespace Shiny.Extensions.Mail.Impl

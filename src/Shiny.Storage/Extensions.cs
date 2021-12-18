@@ -1,4 +1,8 @@
-﻿namespace Shiny.Storage
+﻿using System.IO;
+using System.Threading.Tasks;
+
+
+namespace Shiny.Storage
 {
     public static class Extensions
     {
@@ -8,7 +12,7 @@
 
         public static async Task<string> ReadFileAsString(this IFile file)
         {
-            using (var stream = await file.OpenStream(false))
+            using (var stream = await file.OpenStream(false).ConfigureAwait(false))
                 using (var reader = new StreamReader(stream))
                     return await reader.ReadToEndAsync();
         }

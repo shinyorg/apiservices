@@ -1,4 +1,9 @@
-﻿using System.Net.Mail;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net.Mail;
+using System.Threading.Tasks;
+
 
 namespace Shiny.Extensions.Mail.Impl
 {

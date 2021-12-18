@@ -1,4 +1,10 @@
-﻿namespace Shiny.Storage.FtpClient
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Shiny.Storage.FtpClient
 {
     public class FtpAsyncFileProvider : IAsyncFileProvider
     {
@@ -31,6 +37,7 @@
             }
             return Enumerable.Empty<IFilePath>();
         }
+
 
         public Task<IFile> GetFile(string path)
         {

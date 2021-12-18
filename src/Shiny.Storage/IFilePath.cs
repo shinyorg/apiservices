@@ -1,4 +1,6 @@
-﻿namespace Shiny.Storage
+﻿using System;
+
+namespace Shiny.Storage
 {
     public interface IFilePath
     {

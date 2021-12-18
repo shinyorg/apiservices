@@ -1,4 +1,7 @@
-﻿namespace Shiny.Extensions.Mail
+﻿using System.Threading.Tasks;
+
+
+namespace Shiny.Extensions.Mail
 {
     public interface ITemplateLoader
     {

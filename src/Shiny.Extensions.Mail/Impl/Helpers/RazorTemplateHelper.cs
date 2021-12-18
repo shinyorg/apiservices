@@ -1,4 +1,8 @@
-﻿namespace Shiny.Extensions.Mail.Impl.Helpers
+﻿using System;
+using System.Collections.Generic;
+
+
+namespace Shiny.Extensions.Mail.Impl.Helpers
 {
     public static class RazorTemplateHelper
     {

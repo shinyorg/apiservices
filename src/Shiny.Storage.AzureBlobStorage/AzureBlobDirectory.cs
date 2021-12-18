@@ -1,4 +1,6 @@
-﻿namespace Shiny.Storage.AzureBlobStorage
+﻿using System;
+
+namespace Shiny.Storage.AzureBlobStorage
 {
     public class AzureBlobDirectory : IDirectory
     {

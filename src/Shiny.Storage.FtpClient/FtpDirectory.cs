@@ -1,4 +1,6 @@
-﻿namespace Shiny.Storage.FtpClient
+﻿using System;
+
+namespace Shiny.Storage.FtpClient
 {
     public class FtpDirectory : IDirectory
     {

@@ -1,4 +1,8 @@
-﻿namespace Shiny.Storage.FtpClient
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace Shiny.Storage.FtpClient
 {
     public class FtpFile : IFile
     {

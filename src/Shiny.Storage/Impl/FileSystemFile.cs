@@ -1,4 +1,8 @@
-﻿namespace Shiny.Storage.Impl
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace Shiny.Storage.Impl
 {
     public class FileSystemFile : IFile
     {

@@ -1,4 +1,8 @@
-﻿
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+
+
 namespace Shiny.Extensions.Mail.Impl
 {
     public class FileTemplateLoader : ITemplateLoader
