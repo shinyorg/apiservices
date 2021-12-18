@@ -1,4 +1,8 @@
-﻿namespace Shiny.Extensions.Push.Ef.Infrastructure
+﻿using System;
+using System.Collections.Generic;
+
+
+namespace Shiny.Extensions.Push.Ef.Infrastructure
 {
     public class DbPushRegistration
     {
@@ -8,7 +12,6 @@
         public string? UserId { get; set; }
         public DateTimeOffset DateUpdated { get; set; }
         public DateTimeOffset DateCreated { get; set; }
-
         public ICollection<DbPushTag> Tags { get; set; }
     }
 }

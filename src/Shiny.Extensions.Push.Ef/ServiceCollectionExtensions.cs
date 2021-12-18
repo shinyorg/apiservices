@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
 using Shiny.Extensions.Push;
 using Shiny.Extensions.Push.Ef;
 using Shiny.Extensions.Push.Ef.Infrastructure;
