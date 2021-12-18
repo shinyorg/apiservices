@@ -45,6 +45,7 @@ Preview|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Bu
 	* Contextual Decorators
 	* Notification Reporters
 	* Repository
+* Localization
 * Mail Templates
 	* General Setup
 	* Processor
