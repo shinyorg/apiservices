@@ -1,6 +1,7 @@
 ﻿using Shiny.Storage;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -21,7 +22,7 @@ namespace Shiny.Extensions.Mail.Impl
         }
 
 
-        public async Task<string> Load(string templateName)
+        public async Task<string> Load(string templateName, CancellationToken cancellationToken = default)
         {
             var fullPath = this.rootPath + templateName + this.extension;
 

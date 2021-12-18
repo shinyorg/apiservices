@@ -2,6 +2,7 @@
 using RazorEngine.Templating;
 using Shiny.Extensions.Mail.Impl.Helpers;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -21,7 +22,7 @@ namespace Shiny.Extensions.Mail.Impl
         }
 
 
-        public Task<string> Parse(string content, object args)
+        public Task<string> Parse(string content, object args, CancellationToken cancellationToken = default)
         {
             var newContent = this.service.RunCompile(content, Guid.NewGuid().ToString(), null, args);
             return Task.FromResult(newContent);

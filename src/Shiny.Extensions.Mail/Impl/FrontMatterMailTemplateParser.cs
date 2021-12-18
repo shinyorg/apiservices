@@ -2,15 +2,15 @@
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Threading;
 using System.Threading.Tasks;
 
 
 namespace Shiny.Extensions.Mail.Impl
 {
-    // TODO: consider YAML parser in the future
     public class FrontMatterMailTemplateParser : IMailTemplateParser
     {
-        public async Task<MailMessage> Parse(string content)
+        public async Task<MailMessage> Parse(string content, CancellationToken cancellationToken = default)
         {
             var mail = new MailMessage
             {

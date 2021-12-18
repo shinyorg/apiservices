@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Mail;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -12,7 +13,7 @@ namespace Shiny.Extensions.Mail.Impl
             => this.config = config ?? throw new ArgumentNullException(nameof(config));
 
 
-        public async Task Send(MailMessage mail)
+        public async Task Send(MailMessage mail, CancellationToken cancellationToken = default)
         {
             using (var smtp = new SmtpClient())
             {

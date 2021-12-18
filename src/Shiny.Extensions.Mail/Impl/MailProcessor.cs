@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Mail;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -23,25 +24,26 @@ namespace Shiny.Extensions.Mail.Impl
             this.templateParser = templateParser;
         }
 
+
         public IMailSender Sender { get; }
 
 
-        public async Task<MailMessage> Parse(string templateName, object args)
+        public async Task<MailMessage> Parse(string templateName, object args, CancellationToken cancellationToken = default)
         {
-            var content = await this.templateLoader.Load(templateName).ConfigureAwait(false);
-            content = await this.templateParser.Parse(content, args).ConfigureAwait(false);
-            var mail = await this.mailTemplateParser.Parse(content).ConfigureAwait(false);
+            var content = await this.templateLoader.Load(templateName, cancellationToken).ConfigureAwait(false);
+            content = await this.templateParser.Parse(content, args, cancellationToken).ConfigureAwait(false);
+            var mail = await this.mailTemplateParser.Parse(content, cancellationToken).ConfigureAwait(false);
             return mail;
         }
 
 
-        public async Task<MailMessage> Send(string templateName, object args, Action<MailMessage>? beforeSend = null)
+        public async Task<MailMessage> Send(string templateName, object args, Action<MailMessage>? beforeSend = null, CancellationToken cancellationToken = default)
         {
-            var mail = await this.Parse(templateName, args).ConfigureAwait(false);
+            var mail = await this.Parse(templateName, args, cancellationToken).ConfigureAwait(false);
             beforeSend?.Invoke(mail);
 
             // could validate email here as the template may not have had address in it
-            await this.Sender.Send(mail).ConfigureAwait(false);
+            await this.Sender.Send(mail, cancellationToken).ConfigureAwait(false);
             return mail;
         }
     }

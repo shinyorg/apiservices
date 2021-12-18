@@ -13,7 +13,7 @@ namespace Shiny.Storage.AzureBlobStorage
         readonly Lazy<BlobClient> client;
 
 
-        public AzureBlobAsyncFileProvider(AzureBlobConfiguration config)
+        public AzureBlobAsyncFileProvider(AzureBlobConfiguration config, CancellationToken cancellationToken = default)
         {
             //new BlobContainerClient("", "").Create
             this.client = new Lazy<BlobClient>(() => new BlobClient(
@@ -23,7 +23,7 @@ namespace Shiny.Storage.AzureBlobStorage
             ));
         }
 
-        public Task<IDirectory> CreateDirectory(string path)
+        public Task<IDirectory> CreateDirectory(string path, CancellationToken cancellationToken = default)
         {
             //BlobContainerClient containerClient = await blobServiceClient.CreateBlobContainerAsync(containerName);
             //this.client.OpenReadAsync(new Azure.Storage.Blobs.Models.BlobOpenReadOptions()
@@ -38,7 +38,7 @@ namespace Shiny.Storage.AzureBlobStorage
             throw new NotImplementedException();
         }
 
-        public Task<IFile> GetFile(string path)
+        public Task<IFile> GetFile(string path, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

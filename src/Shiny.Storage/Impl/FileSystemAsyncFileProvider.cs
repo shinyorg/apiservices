@@ -9,14 +9,14 @@ namespace Shiny.Storage.Impl
 {
     public class FileSystemAsyncFileProvider : IAsyncFileProvider
     {
-        public Task<IDirectory> CreateDirectory(string path)
+        public Task<IDirectory> CreateDirectory(string path, CancellationToken cancellationToken = default)
         {
             var dir = Directory.CreateDirectory(path);
             return Task.FromResult<IDirectory>(new FileSystemDirectory(dir));
         }
 
 
-        public Task<IEnumerable<IFilePath>> GetDirectoryContents(string path, CancellationToken cancelToken) => Task.Run<IEnumerable<IFilePath>>(() =>
+        public Task<IEnumerable<IFilePath>> GetDirectoryContents(string path, CancellationToken cancelToken = default) => Task.Run<IEnumerable<IFilePath>>(() =>
         {
             var list = new List<IFilePath>();
             var entries = Directory
@@ -42,7 +42,7 @@ namespace Shiny.Storage.Impl
         });
 
 
-        public Task<IFile> GetFile(string path)
+        public Task<IFile> GetFile(string path, CancellationToken cancellationToken = default)
         {
             var native = new FileInfo(path);
             IFile file = new FileSystemFile(native);
@@ -50,21 +50,21 @@ namespace Shiny.Storage.Impl
         }
 
 
-        public Task CopyTo(string sourcePath, string destrinationPath)
+        public Task CopyTo(string sourcePath, string destrinationPath, CancellationToken cancellationToken = default)
         {
             //Directory.Move() or File
             throw new NotImplementedException();
         }
 
 
-        public Task Delete(string path)
+        public Task Delete(string path, CancellationToken cancellationToken = default)
         {
             //Directory or File Delete
             throw new NotImplementedException();
         }
 
 
-        public Task MoveTo(string sourcePath, string destinationPath)
+        public Task MoveTo(string sourcePath, string destinationPath, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

@@ -16,10 +16,13 @@ namespace Shiny.Storage.FtpClient
             this.client = new FluentFTP.FtpClient("123.123.123.123", "david", "pass123");
 
         }
-        public Task<IDirectory> CreateDirectory(string path)
+
+
+        public Task<IDirectory> CreateDirectory(string path, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
+
 
         public async Task<IEnumerable<IFilePath>> GetDirectoryContents(string path, CancellationToken cancelToken = default)
         {
@@ -39,7 +42,7 @@ namespace Shiny.Storage.FtpClient
         }
 
 
-        public Task<IFile> GetFile(string path)
+        public Task<IFile> GetFile(string path, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

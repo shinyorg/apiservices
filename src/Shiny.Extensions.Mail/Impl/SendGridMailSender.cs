@@ -3,6 +3,7 @@ using SendGrid.Helpers.Mail;
 using System;
 using System.IO;
 using System.Net.Mail;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -14,7 +15,7 @@ namespace Shiny.Extensions.Mail.Impl
         public SendGridMailSender(string apiKey) => this.apiKey = apiKey;
 
 
-        public async Task Send(MailMessage mail)
+        public async Task Send(MailMessage mail, CancellationToken cancellationToken = default)
         {
             var client = new SendGridClient(this.apiKey);
             var msg = new SendGridMessage();
@@ -55,7 +56,7 @@ namespace Shiny.Extensions.Mail.Impl
             }
 
             var response = await client
-                .SendEmailAsync(msg)
+                .SendEmailAsync(msg, cancellationToken)
                 .ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
