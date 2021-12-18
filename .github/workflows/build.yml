@@ -13,21 +13,17 @@ on:
     - "src/**"
     - "docs/**"
     - "build/**"
-  #pull_request:
-  #  branches: [ master, main, dev ]
-  #  paths:
-  #  - "src/**"
 
 env:
-  DocsDeployGitHubToken: ${{ secrets.DOCS_GITHUB_TOKEN }}
   NugetApiKey: ${{secrets.NUGETAPIKEY}}
-  TwitterConsumerKey: ${{secrets.TWITTER_CONSUMER_KEY}}
-  TwitterConsumerSecret: ${{secrets.TWITTER_CONSUMER_SECRET}}
-  TwitterAccessToken: ${{secrets.TWITTER_ACCESS_TOKEN}}
-  TwitterAccessTokenSecret: ${{secrets.TWITTER_ACCESS_TOKEN_SECRET}}
-  DiscordToken: ${{secrets.DISCORD_TOKEN}}
-  DiscordGuildId: '679761126598115336'
-  DiscordChannelId: '803717285986566174'
+  DotNetVersion: 6.0.100
+  #TwitterConsumerKey: ${{secrets.TWITTER_CONSUMER_KEY}}
+  #TwitterConsumerSecret: ${{secrets.TWITTER_CONSUMER_SECRET}}
+  #TwitterAccessToken: ${{secrets.TWITTER_ACCESS_TOKEN}}
+  #TwitterAccessTokenSecret: ${{secrets.TWITTER_ACCESS_TOKEN_SECRET}}
+  #DiscordToken: ${{secrets.DISCORD_TOKEN}}
+  #DiscordGuildId: '679761126598115336'
+  #DiscordChannelId: '803717285986566174'
 
 jobs:
   build:
@@ -40,7 +36,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0
+        dotnet-version: ${{ env.DotNetVersion }}
 
     - name: Generate Build Number
       id: buildnumber
