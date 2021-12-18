@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Shiny.Extensions.Mail.Impl
 {
-    public class FrontMatterMailTemplateParser : IMailTemplateParser
+    public class FrontMatterMailTemplateConverter : IMailTemplateConverter
     {
-        public async Task<MailMessage> Parse(string content, CancellationToken cancellationToken = default)
+        public async Task<MailMessage> Convert(string content, CultureInfo? culture = null, CancellationToken cancellationToken = default)
         {
             var mail = new MailMessage
             {

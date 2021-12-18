@@ -1,5 +1,6 @@
 ﻿using Shiny.Storage;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,8 +23,9 @@ namespace Shiny.Extensions.Mail.Impl
         }
 
 
-        public async Task<string> Load(string templateName, CancellationToken cancellationToken = default)
+        public async Task<string> Load(string templateName, CultureInfo? culture = null, CancellationToken cancellationToken = default)
         {
+            // TODO: factor in culture
             var fullPath = this.rootPath + templateName + this.extension;
 
             var file = await this.storage

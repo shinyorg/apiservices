@@ -8,6 +8,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Shiny.Extensions.Mail.Abstractions\Shiny.Extensions.Mail.Abstractions.csproj" />
 		<ProjectReference Include="..\Shiny.Storage\Shiny.Storage.csproj" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="4.0.0" />
 		<PackageReference Include="RazorEngine.NetCore" Version="3.1.0" />
 		<PackageReference Include="SendGrid" Version="9.25.1" />
 	</ItemGroup>

@@ -2,16 +2,16 @@
 
 
 namespace Shiny.Extensions.Mail
-{ 
+{
     public class MailConfigurator
     {
         public MailConfigurator(IServiceCollection services) => this.Services = services;
         public IServiceCollection Services { get; }
 
 
-        public MailConfigurator UseMailTemplateParser<TImpl>() where TImpl : class, IMailTemplateParser
+        public MailConfigurator UseMailTemplateConverter<TImpl>() where TImpl : class, IMailTemplateConverter
         {
-            this.Services.AddSingleton<IMailTemplateParser, TImpl>();
+            this.Services.AddSingleton<IMailTemplateConverter, TImpl>();
             return this;
         }
 

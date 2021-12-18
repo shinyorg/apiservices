@@ -1,17 +1,15 @@
 using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-
 using Shiny.Extensions.Mail.Impl;
-
 using Xunit;
 
 
 namespace Shiny.Extensions.Mail.Tests
 {
-    public class FrontMatterMailTemplateParserTests
+    public class FrontMatterMailTemplateConverterTests
     {
-        readonly FrontMatterMailTemplateParser parser = new FrontMatterMailTemplateParser();
+        readonly FrontMatterMailTemplateConverter parser = new FrontMatterMailTemplateConverter();
 
 
         [Fact]
@@ -19,7 +17,7 @@ namespace Shiny.Extensions.Mail.Tests
         {
             try
             {
-                await this.parser.Parse(@"
+                await this.parser.Convert(@"
 to: test@shinylib.net
 test: fail!
 ---
@@ -38,7 +36,7 @@ test
         [Fact]
         public async Task Variables_IgnoresUnset()
         {
-            var mail = await this.parser.Parse(@"
+            var mail = await this.parser.Convert(@"
 to: 
 ---
 test
@@ -50,7 +48,7 @@ test
         [Fact]
         public async Task Variables_EmailDisplayName()
         {
-            var mail = await this.parser.Parse(@"
+            var mail = await this.parser.Convert(@"
 from: Shiny Library <test@shinylib.net>
 ---
 test
@@ -63,7 +61,7 @@ test
         [Fact]
         public async Task Variables_MultipleAddress()
         {
-            var mail = await this.parser.Parse(@"
+            var mail = await this.parser.Convert(@"
 to: Shiny Library <test@shinylib.net>; hello@shinylib.net; GitHub <hello@github.com>
 ---
 test
@@ -78,7 +76,7 @@ test
         [Fact]
         public async Task Missing_FrontMatter()
         {
-            var mail = await this.parser.Parse(@"
+            var mail = await this.parser.Convert(@"
 this is body only
 ");
         }
@@ -87,7 +85,7 @@ this is body only
         [Fact]
         public async Task Missing_Body()
         {
-            var mail = await this.parser.Parse(@"
+            var mail = await this.parser.Convert(@"
 subject: test
 ---
 ");
@@ -107,7 +105,7 @@ subject: test
         [InlineData(false)]
         public async Task Body_IsHtml(bool expected)
         {
-            var result = await this.parser.Parse(@$"
+            var result = await this.parser.Convert(@$"
 subject: test
 html: {expected}
 ---

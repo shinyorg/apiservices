@@ -15,7 +15,7 @@ namespace Shiny
             configAction.Invoke(config);
 
             services.TryAddSingleton<ITemplateParser, RazorTemplateParser>();
-            services.TryAddSingleton<IMailTemplateParser, FrontMatterMailTemplateParser>();
+            services.TryAddSingleton<IMailTemplateConverter, FrontMatterMailTemplateConverter>();
             services.TryAddSingleton<IMailProcessor, MailProcessor>();
         }
 
@@ -44,6 +44,13 @@ namespace Shiny
         public static MailConfigurator UseFileTemplateLoader(this MailConfigurator cfg, string path, string ext = "mailtemplate")
         {
             cfg.Services.AddSingleton<ITemplateLoader>(_ => new FileTemplateLoader(path, ext));
+            return cfg;
+        }
+
+
+        public static MailConfigurator UseSqlServerTemplateLoader(this MailConfigurator cfg, string connectionString)
+        {
+            cfg.Services.AddSingleton<ITemplateLoader>(_ => new SqlServerTemplateLoader(connectionString));
             return cfg;
         }
     }

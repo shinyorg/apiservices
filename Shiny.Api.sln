@@ -19,10 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Storage.Tests", "test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Push", "Push", "{8B31ACF0-86B8-4208-A054-940EA9378C1D}"
 	ProjectSection(SolutionItems) = preProject
-		push_tables.sql = push_tables.sql
+		db\push_tables.sql = db\push_tables.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mail", "Mail", "{109FDCE7-7624-4A44-8BBD-4CA986C7A1D7}"
+	ProjectSection(SolutionItems) = preProject
+		db\mail_table.sql = db\mail_table.sql
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storage", "Storage", "{CB07DEE0-7625-45A5-9452-2C5A5946DC96}"
 EndProject
