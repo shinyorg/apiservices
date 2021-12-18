@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+		<Description>Manage your push notification without Azure Notification Hubs.  Adds logging, registration, tagging, etc to Apple and Google push.  Great for small apps on ASP.NET Core or bigger apps on an Azure Function</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -9,7 +10,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.15.0" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.0" />
-		<PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />		
+		<PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
 	</ItemGroup>
 
 	<ItemGroup>

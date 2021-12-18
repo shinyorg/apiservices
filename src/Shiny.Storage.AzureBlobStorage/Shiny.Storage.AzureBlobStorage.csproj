@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+		<Description>Abstract Asynchronous File Providers for Azure Blob Storage</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

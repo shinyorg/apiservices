@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
+		<Description>Entity Framework Core Repository for Shiny.Extensions.Push</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
