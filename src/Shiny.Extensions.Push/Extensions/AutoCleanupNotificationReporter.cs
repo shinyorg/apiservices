@@ -3,6 +3,7 @@ using Shiny.Extensions.Push.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -21,7 +22,13 @@ namespace Shiny.Extensions.Push.Extensions
         }
 
 
-        public override async Task OnBatchCompleted(Guid batchId, IReadOnlyCollection<PushRegistration> success, IReadOnlyCollection<(PushRegistration Registration, Exception Exception)> failures, Notification notification)
+        public override async Task OnBatchCompleted(
+            Guid batchId, 
+            IReadOnlyCollection<PushRegistration> success, 
+            IReadOnlyCollection<(PushRegistration Registration, Exception Exception)> failures, 
+            Notification notification, 
+            CancellationToken cancelToken = default
+        )
         {
             var noSends = failures
                 .Where(x => x.Exception is NoSendException)
@@ -33,7 +40,7 @@ namespace Shiny.Extensions.Push.Extensions
                 try
                 {
                     this.logger.LogInformation("Removing {0} failed senders", noSends.Length);
-                    await this.repository.RemoveBatch(noSends).ConfigureAwait(false);
+                    await this.repository.RemoveBatch(noSends, cancelToken).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {

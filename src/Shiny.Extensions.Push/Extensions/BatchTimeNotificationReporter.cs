@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -15,7 +16,7 @@ namespace Shiny.Extensions.Push.Extensions
         public BatchTimeNotificationReporter(ILogger<BatchTimeNotificationReporter> logger) => this.logger = logger;
 
 
-        public override Task OnBatchStart(Guid batchId, IReadOnlyCollection<PushRegistration> registrations, Notification notification)
+        public override Task OnBatchStart(Guid batchId, IReadOnlyCollection<PushRegistration> registrations, Notification notification, CancellationToken cancelToken = default)
         {
             lock (this.timers)
             {
@@ -27,7 +28,13 @@ namespace Shiny.Extensions.Push.Extensions
         }
 
 
-        public override Task OnBatchCompleted(Guid batchId, IReadOnlyCollection<PushRegistration> success, IReadOnlyCollection<(PushRegistration Registration, Exception Exception)> failures, Notification notification)
+        public override Task OnBatchCompleted(
+            Guid batchId, 
+            IReadOnlyCollection<PushRegistration> success, 
+            IReadOnlyCollection<(PushRegistration Registration, Exception Exception)> failures, 
+            Notification notification,
+            CancellationToken cancelToken = default
+        )
         {
             if (this.timers.ContainsKey(batchId))
             {

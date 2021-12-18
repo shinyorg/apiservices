@@ -1,38 +1,44 @@
-﻿namespace Shiny.Extensions.Push;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 
-public interface INotificationReporter
-{
-    Task OnBatchStart(
-        Guid batchId,
-        IReadOnlyCollection<PushRegistration> registrations,
-        Notification notification
-    );
+namespace Shiny.Extensions.Push
+{ 
+    public interface INotificationReporter
+    {
+        Task OnBatchStart(
+            Guid batchId,
+            IReadOnlyCollection<PushRegistration> registrations,
+            Notification notification,
+            CancellationToken cancelToken
+        );
 
 
-    Task OnNotificationSuccess(
-        Guid batchId,
-        PushRegistration registration,
-        Notification notification
-    );
+        Task OnNotificationSuccess(
+            Guid batchId,
+            PushRegistration registration,
+            Notification notification,
+            CancellationToken cancelToken
+        );
 
 
-    Task OnNotificationError(
-        Guid batchId,
-        PushRegistration registration,
-        Notification notification,
-        Exception exception
-    );
+        Task OnNotificationError(
+            Guid batchId,
+            PushRegistration registration,
+            Notification notification,
+            Exception exception,
+            CancellationToken cancelToken
+        );
 
 
-    Task OnBatchCompleted(
-        Guid batchId,
-        IReadOnlyCollection<PushRegistration> success,
-        IReadOnlyCollection<(PushRegistration Registration, Exception Exception)> failures,
-        Notification notification
-    );
+        Task OnBatchCompleted(
+            Guid batchId,
+            IReadOnlyCollection<PushRegistration> success,
+            IReadOnlyCollection<(PushRegistration Registration, Exception Exception)> failures,
+            Notification notification,
+            CancellationToken cancelToken
+        );
+    }
 }

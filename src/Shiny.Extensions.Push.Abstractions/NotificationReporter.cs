@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -10,14 +11,16 @@ namespace Shiny.Extensions.Push
         public virtual Task OnBatchStart(
             Guid batchId,
             IReadOnlyCollection<PushRegistration> registrations,
-            Notification notification
+            Notification notification,
+            CancellationToken cancelToken
         ) => Task.CompletedTask;
 
 
         public virtual Task OnNotificationSuccess(
             Guid batchId,
             PushRegistration registration,
-            Notification notification
+            Notification notification,
+            CancellationToken cancelToken
         ) => Task.CompletedTask;
 
 
@@ -25,7 +28,8 @@ namespace Shiny.Extensions.Push
             Guid batchId,
             PushRegistration registration,
             Notification notification,
-            Exception exception
+            Exception exception,
+            CancellationToken cancelToken
         ) => Task.CompletedTask;
 
 
@@ -33,7 +37,8 @@ namespace Shiny.Extensions.Push
             Guid batchId,
             IReadOnlyCollection<PushRegistration> success,
             IReadOnlyCollection<(PushRegistration Registration, Exception Exception)> failures,
-            Notification notification
+            Notification notification,
+            CancellationToken cancelToken
         ) => Task.CompletedTask;
     }
 }

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Shiny.Extensions.Push.Providers;
@@ -41,25 +42,25 @@ public class PushManager : IPushManager
     }
 
 
-    public Task<IEnumerable<PushRegistration>> GetRegistrations(PushFilter? filter)
-        => this.repository.Get(filter);
+    public Task<IEnumerable<PushRegistration>> GetRegistrations(PushFilter? filter, CancellationToken cancelToken = default)
+        => this.repository.Get(filter, cancelToken);
 
 
-    public Task Register(PushRegistration registration)
+    public Task Register(PushRegistration registration, CancellationToken cancelToken = default)
     {
         if (registration.Platform == PushPlatforms.All)
             throw new ArgumentException("You can only register a single platform at a time");
 
-        return this.repository.Save(registration);
+        return this.repository.Save(registration, cancelToken);
     }
 
 
-    public async Task Send(Notification notification, PushFilter? filter)
+    public async Task Send(Notification notification, PushFilter? filter, CancellationToken cancelToken = default)
     {
         notification = notification ?? throw new ArgumentException("Notification is null");
 
-        var context = new NotificationBatchContext(this.logger, this.reporters, notification);
-        var registrations = (await this.repository.Get(filter).ConfigureAwait(false)).ToArray();
+        var context = new NotificationBatchContext(this.logger, this.reporters, notification, cancelToken);
+        var registrations = (await this.repository.Get(filter, cancelToken).ConfigureAwait(false)).ToArray();
         await context.OnBatchStart(registrations).ConfigureAwait(false);
 
         foreach (var registration in registrations)
@@ -69,11 +70,11 @@ public class PushManager : IPushManager
                 switch (registration.Platform)
                 {
                     case PushPlatforms.Apple:
-                        await this.DoApple(registration, notification).ConfigureAwait(false);
+                        await this.DoApple(registration, notification, cancelToken).ConfigureAwait(false);
                         break;
 
                     case PushPlatforms.Google:
-                        await this.DoGoogle(registration, notification).ConfigureAwait(false);
+                        await this.DoGoogle(registration, notification, cancelToken).ConfigureAwait(false);
                         break;
                 }
                 await context
@@ -93,7 +94,7 @@ public class PushManager : IPushManager
     }
 
 
-    public Task UnRegister(PushPlatforms platform, string deviceToken)
+    public Task UnRegister(PushPlatforms platform, string deviceToken, CancellationToken cancelToken = default)
     {
         if (String.IsNullOrEmpty(deviceToken))
             throw new ArgumentNullException(nameof(deviceToken));
@@ -101,24 +102,27 @@ public class PushManager : IPushManager
         if (platform == PushPlatforms.All)
             throw new ArgumentException("You can only unregister on one platform when using device token");
 
-        return this.repository.Remove(new PushFilter
-        {
-            Platform = platform,
-            DeviceToken = deviceToken
-        });
+        return this.repository.Remove(
+            new PushFilter
+            {
+                Platform = platform,
+                DeviceToken = deviceToken
+            }, 
+            cancelToken
+        );
     }
 
 
-    public Task UnRegisterByUser(string userId)
+    public Task UnRegisterByUser(string userId, CancellationToken cancelToken = default)
     {
         if (String.IsNullOrEmpty(userId))
             throw new ArgumentNullException(nameof(userId));
 
-        return this.repository.Remove(new PushFilter { UserId = userId });
+        return this.repository.Remove(new PushFilter { UserId = userId }, cancelToken);
     }
 
 
-    async Task DoApple(PushRegistration registration, Notification notification)
+    async Task DoApple(PushRegistration registration, Notification notification, CancellationToken cancelToken)
     {
         if (this.apple == null)
             throw new ArgumentException("Apple Push is not registered with this manager");
@@ -126,7 +130,7 @@ public class PushManager : IPushManager
         var appleNative = this.apple.CreateNativeNotification(notification);
         await Task
             .WhenAll(this.appleDecorators
-                .Select(x => x.Decorate(registration, notification!, appleNative))
+                .Select(x => x.Decorate(registration, notification!, appleNative, cancelToken))
                 .ToArray()
             )
             .ConfigureAwait(false);
@@ -135,12 +139,12 @@ public class PushManager : IPushManager
             await notification.DecorateApple.Invoke(registration, appleNative);
 
         await this.apple
-            .Send(registration.DeviceToken, notification, appleNative)
+            .Send(registration.DeviceToken, notification, appleNative, cancelToken)
             .ConfigureAwait(false);
     }
 
 
-    async Task DoGoogle(PushRegistration registration, Notification notification)
+    async Task DoGoogle(PushRegistration registration, Notification notification, CancellationToken cancelToken = default)
     {
         if (this.google == null)
             throw new ArgumentException("No Google provider is registered with this manager");
@@ -148,7 +152,7 @@ public class PushManager : IPushManager
         var googleNative = this.google.CreateNativeNotification(notification);
         await Task
             .WhenAll(this.googleDecorators
-                .Select(x => x.Decorate(registration, notification!, googleNative))
+                .Select(x => x.Decorate(registration, notification!, googleNative, cancelToken))
                 .ToArray()
             )
             .ConfigureAwait(false);
@@ -157,7 +161,7 @@ public class PushManager : IPushManager
             await notification.DecorateGoogle.Invoke(registration, googleNative);
 
         await this.google
-            .Send(registration.DeviceToken, notification, googleNative)
+            .Send(registration.DeviceToken, notification, googleNative, cancelToken)
             .ConfigureAwait(false);
     }
 }

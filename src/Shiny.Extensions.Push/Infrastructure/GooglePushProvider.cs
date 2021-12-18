@@ -44,8 +44,7 @@ public class GooglePushProvider : IGooglePushProvider
     }
 
 
-    //POST https://fcm.googleapis.com/v1/{parent=projects/*}/messages:send
-    public async Task Send(string deviceToken, Notification notification, GoogleNotification native)
+    public async Task Send(string deviceToken, Notification notification, GoogleNotification native, CancellationToken cancelToken = default)
     {
         native.To = deviceToken;
         native.Token = deviceToken;
@@ -57,17 +56,16 @@ public class GooglePushProvider : IGooglePushProvider
             request.Headers.Add("Sender", $"id = {this.configuration.SenderId}");
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await this.httpClient.SendAsync(request, CancellationToken.None);
-            var responseString = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("Response: " + json);
-            //var result = Serializer.DeserialzeFcmResponse(responseString);
-
-            // TODO: logging
-            //if (result == null)
-            //    throw new ArgumentException("Invalid response from Firebase - result was empty");
-
+            var response = await this.httpClient.SendAsync(request, cancelToken).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            // TODO: log/process result
+
+            var responseString = await response.Content.ReadAsStringAsync(cancelToken).ConfigureAwait(false);
+            if (String.IsNullOrWhiteSpace(responseString))
+                throw new ArgumentException("No response from firebase");
+
+            var result = Serializer.DeserialzeFcmResponse(responseString)!;
+            if (result.Success == 0 && result.Failure == 0)
+                throw new NoSendException();
         }
     }
 }

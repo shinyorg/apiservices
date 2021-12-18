@@ -9,9 +9,8 @@
 
         // TODO: file system watcher? possible for ftp or azure blobs?
 
-        //Exists(string path)
-        //Delete(string path)
-        //MoveTo(string source, string destination)
-        //CopyTo(string source, string destrination)
+        //Task Delete(string path);
+        //Task MoveTo(string sourcePath, string destinationPath);
+        //Task CopyTo(string sourcePath, string destrinationPath);
     }
 }

@@ -41,5 +41,25 @@
             IFile file = new FileSystemFile(native);
             return Task.FromResult(file);
         }
+
+
+        public Task CopyTo(string sourcePath, string destrinationPath)
+        {
+            //Directory.Move() or File
+            throw new NotImplementedException();
+        }
+
+
+        public Task Delete(string path)
+        {
+            //Directory or File Delete
+            throw new NotImplementedException();
+        }
+
+
+        public Task MoveTo(string sourcePath, string destinationPath)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

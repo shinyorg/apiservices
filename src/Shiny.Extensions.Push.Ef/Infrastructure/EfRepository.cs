@@ -14,16 +14,16 @@ namespace Shiny.Extensions.Push.Ef.Infrastructure
         }
 
 
-        public async Task Save(PushRegistration reg)
+        public async Task Save(PushRegistration reg, CancellationToken cancelToken = default)
         {
-            using (var data = await this.contextFactory.CreateDbContextAsync().ConfigureAwait(false))
+            using (var data = await this.contextFactory.CreateDbContextAsync(cancelToken).ConfigureAwait(false))
             {
                 var result = await data
                     .Set<DbPushRegistration>()
                     .Include(x => x.Tags)
-                    .FirstOrDefaultAsync(x =>
-                        x.DeviceToken == reg.DeviceToken &&
-                        x.Platform == reg.Platform
+                    .FirstOrDefaultAsync(
+                        x => x.DeviceToken == reg.DeviceToken && x.Platform == reg.Platform,
+                        cancelToken
                     )
                     .ConfigureAwait(false);
 
@@ -54,18 +54,18 @@ namespace Shiny.Extensions.Push.Ef.Infrastructure
                 }
 
                 await data
-                    .SaveChangesAsync()
+                    .SaveChangesAsync(cancelToken)
                     .ConfigureAwait(false);
             }
         }
 
 
-        public async Task<IEnumerable<PushRegistration>> Get(PushFilter? filter)
+        public async Task<IEnumerable<PushRegistration>> Get(PushFilter? filter, CancellationToken cancelToken = default)
         {
             using (var data = await this.contextFactory.CreateDbContextAsync().ConfigureAwait(false))
             {
                 var regs = await this
-                    .FindRegistrations(data, filter, true)
+                    .FindRegistrations(data, filter, true, cancelToken)
                     .ConfigureAwait(false);
 
                 return regs.Select(x => new PushRegistration
@@ -81,24 +81,42 @@ namespace Shiny.Extensions.Push.Ef.Infrastructure
         }
 
 
-        public async Task Remove(PushFilter filter)
+        public async Task Remove(PushFilter filter, CancellationToken cancelToken = default)
         {
-            using (var data = await this.contextFactory.CreateDbContextAsync().ConfigureAwait(false))
+            using (var data = await this.contextFactory.CreateDbContextAsync(cancelToken).ConfigureAwait(false))
             {
                 var tokens = await this
-                    .FindRegistrations(data, filter, false)
+                    .FindRegistrations(data, filter, false, cancelToken)
                     .ConfigureAwait(false);
 
                 if (tokens.Count > 0)
                 {
                     data.RemoveRange(tokens);
-                    await data.SaveChangesAsync().ConfigureAwait(false);
+                    await data
+                        .SaveChangesAsync(cancelToken)
+                        .ConfigureAwait(false);
                 }
             }
         }
 
 
-        Task<List<DbPushRegistration>> FindRegistrations(TDbContext data, PushFilter? filter, bool includeTags)
+        public async Task RemoveBatch(PushRegistration[] pushRegistrations, CancellationToken cancelToken = default)
+        {
+            using (var data = await this.contextFactory.CreateDbContextAsync(cancelToken).ConfigureAwait(false))
+            {
+                foreach (var reg in pushRegistrations)
+                {
+                    data.Attach(reg);
+                    data.Remove(reg);
+                }
+                await data
+                    .SaveChangesAsync(cancelToken)
+                    .ConfigureAwait(false);
+            }
+        }
+
+
+        Task<List<DbPushRegistration>> FindRegistrations(TDbContext data, PushFilter? filter, bool includeTags, CancellationToken cancelToken)
         {
             var query = data.Set<DbPushRegistration>().AsQueryable();
             if (!String.IsNullOrWhiteSpace(filter?.UserId))
@@ -116,20 +134,7 @@ namespace Shiny.Extensions.Push.Ef.Infrastructure
             if (includeTags)
                 query = query.Include(x => x.Tags);
 
-            return query.ToListAsync();
-        }
-
-        public async Task RemoveBatch(params PushRegistration[] pushRegistrations)
-        {
-            using (var data = await this.contextFactory.CreateDbContextAsync().ConfigureAwait(false))
-            {
-                foreach (var reg in pushRegistrations)
-                {
-                    data.Attach(reg);
-                    data.Remove(reg);
-                }
-                await data.SaveChangesAsync().ConfigureAwait(false);
-            }
+            return query.ToListAsync(cancelToken);
         }
     }
 }
