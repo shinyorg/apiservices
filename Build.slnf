@@ -2,6 +2,7 @@
   "solution": {
     "path": "Shiny.Api.sln",
     "projects": [
+      "src\\Shiny.Extensions.Localization.SqlServer\\Shiny.Extensions.Localization.SqlServer.csproj",
       "src\\Shiny.Extensions.Localization\\Shiny.Extensions.Localization.csproj",
       "src\\Shiny.Extensions.Mail.Abstractions\\Shiny.Extensions.Mail.Abstractions.csproj",
       "src\\Shiny.Extensions.Mail\\Shiny.Extensions.Mail.csproj",

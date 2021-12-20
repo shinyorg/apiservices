@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -22,7 +22,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\src\Shiny.Extensions.Localization.SqlServer\Shiny.Extensions.Localization.SqlServer.csproj" />
 		<ProjectReference Include="..\..\src\Shiny.Extensions.Localization\Shiny.Extensions.Localization.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\Strings2.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Strings1.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
 	</ItemGroup>
 
 </Project>

@@ -90,12 +90,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShinyApiBuild", "build\ShinyApiBuild.csproj", "{97519414-7330-44A9-B883-B7696A1B7231}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Localization", "Localization", "{6540A716-8851-4D2C-935F-0A787DA3ED78}"
+	ProjectSection(SolutionItems) = preProject
+		db\localization_table.sql = db\localization_table.sql
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.Localization", "src\Shiny.Extensions.Localization\Shiny.Extensions.Localization.csproj", "{65B25406-EA97-45F1-BEBA-477322B0BA26}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.Localization.Tests", "tests\Shiny.Extensions.Localization.Tests\Shiny.Extensions.Localization.Tests.csproj", "{37BC3559-E588-417F-A5DB-6B23369BCBBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shiny.Extensions.Localization.SqlServer", "src\Shiny.Extensions.Localization.SqlServer\Shiny.Extensions.Localization.SqlServer.csproj", "{340F139F-7034-4416-BD6A-2F4770B68E41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.Localization.SqlServer", "src\Shiny.Extensions.Localization.SqlServer\Shiny.Extensions.Localization.SqlServer.csproj", "{340F139F-7034-4416-BD6A-2F4770B68E41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
