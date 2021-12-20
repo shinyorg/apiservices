@@ -7,18 +7,20 @@ namespace Shiny.Extensions.Localization.Impl
     {
         readonly string baseName;
         readonly Assembly assembly;
+        readonly string? alias;
 
 
-        public ResxLocalizationProvider(string baseName, Assembly assembly)
+        public ResxLocalizationProvider(string baseName, Assembly assembly, string? alias)
         {
             this.baseName = baseName;
             this.assembly = assembly;
+            this.alias = alias;
         }
 
 
         public ILocalizationSource[] Load() => new []
         {
-            new ResxLocalizationSource(this.baseName, this.assembly)
+            new ResxLocalizationSource(this.baseName, this.assembly, this.alias)
         };
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Resources;
 
@@ -9,9 +10,10 @@ namespace Shiny.Extensions.Localization.Impl
     {
         readonly ResourceManager resources;
 
-        public ResxLocalizationSource(string baseName, Assembly assembly)
+
+        public ResxLocalizationSource(string baseName, Assembly assembly, string? alias)
         {
-            this.Name = baseName;
+            this.Name = alias ?? baseName;
             this.resources = new ResourceManager(baseName, assembly);
         }
 
@@ -25,8 +27,23 @@ namespace Shiny.Extensions.Localization.Impl
             return value;
         }
 
+        public IReadOnlyDictionary<string, string> GetValues(CultureInfo culture)
+        {
+            var dict = new Dictionary<string, string>();
+            var resSet = this.resources.GetResourceSet(culture, true, true).GetEnumerator();
+            while (resSet.MoveNext())
+            {
+                if (resSet.Value is string value)
+                { 
+                    var key = (string)resSet.Entry.Key;
+                    dict.Add(key, value);
+                }
+            }
+            return dict;
+        }
 
         public string Name { get; }
+
         public string? this[string key] => this.GetString(key);
     }
 }

@@ -30,6 +30,12 @@
 		<EmbeddedResource Update="Resources\Strings2.resx">
 			<Generator></Generator>
 		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Strings1.fr-CA.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Strings1.fr.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
 		<EmbeddedResource Update="Resources\Strings1.resx">
 			<Generator></Generator>
 		</EmbeddedResource>

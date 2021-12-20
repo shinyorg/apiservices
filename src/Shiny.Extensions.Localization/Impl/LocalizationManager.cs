@@ -15,6 +15,7 @@ namespace Shiny.Extensions.Localization.Impl
 
 
         public string? this[string key] => this.GetString(key);
+        public IReadOnlyCollection<ILocalizationSource> Sections => this.localizeSet.Values;
 
 
         public ILocalizationSource? GetSection(string sectionName)

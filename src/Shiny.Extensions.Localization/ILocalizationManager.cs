@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 
 namespace Shiny.Extensions.Localization
 {
@@ -7,5 +8,6 @@ namespace Shiny.Extensions.Localization
         string? this[string key] { get; }
         string? GetString(string key, CultureInfo? culture = null);
         ILocalizationSource? GetSection(string sectionName);
+        IReadOnlyCollection<ILocalizationSource> Sections { get; }
     }
 }

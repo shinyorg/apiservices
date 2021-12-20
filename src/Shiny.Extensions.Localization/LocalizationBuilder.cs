@@ -18,8 +18,12 @@ namespace Shiny.Extensions.Localization
         }
 
 
-        public LocalizationBuilder AddResource(string baseName, Assembly assembly)
-            => this.Add(new ResxLocalizationProvider(baseName, assembly));
+        public LocalizationBuilder AddResource(string baseName, Assembly assembly, string? alias = null)
+            => this.Add(new ResxLocalizationProvider(baseName, assembly, alias));
+
+
+        public LocalizationBuilder AddAssemblyResources(Assembly assembly, bool trimAssemblyNames)
+            => this.Add(new AssemblyResxLocalizationProvider(assembly, trimAssemblyNames));
 
 
         public ILocalizationManager Build()

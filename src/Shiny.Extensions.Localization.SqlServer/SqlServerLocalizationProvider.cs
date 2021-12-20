@@ -24,6 +24,7 @@ namespace Shiny.Extensions.Localization.SqlServer
                     using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         var section = "";
+                        List<string>? currentKeys = null;
                         Dictionary<string, string>? currentValues = null;
 
                         while (reader.Read())
@@ -37,9 +38,13 @@ namespace Shiny.Extensions.Localization.SqlServer
                             {
                                 current = section;
                                 currentValues = new Dictionary<string, string>();
-                                var source = new SqlServerLocalizationSource(current, currentValues);
+                                currentKeys = new List<string>();
+                                var source = new SqlServerLocalizationSource(current, currentKeys, currentValues);
                                 list.Add(source);
                             }
+                            if (!currentKeys!.Contains(key))
+                                currentKeys.Add(key);
+
                             currentValues!.Add($"{key}_{culture}", value);
                         }
                     }

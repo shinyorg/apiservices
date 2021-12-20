@@ -6,12 +6,14 @@ namespace Shiny.Extensions.Localization.SqlServer
 {
     public class SqlServerLocalizationSource : ILocalizationSource
     {
+        readonly IList<string> rawKeys;
         readonly Dictionary<string, string> values;
 
 
-        public SqlServerLocalizationSource(string section, Dictionary<string, string> values)
+        public SqlServerLocalizationSource(string section, IList<string> rawKeys, Dictionary<string, string> values)
         { 
             this.Name = section;
+            this.rawKeys = rawKeys;
             this.values = values;
         }
 
@@ -32,6 +34,18 @@ namespace Shiny.Extensions.Localization.SqlServer
         {
             var fullKey = $"{key}_{code}";
             return this.values.ContainsKey(fullKey) ? this.values[fullKey] : null;
+        }
+
+
+        public IReadOnlyDictionary<string, string> GetValues(CultureInfo culture)
+        {
+            var dict = new Dictionary<string, string>();
+            foreach (var key in this.rawKeys)
+            {
+                var value = this.GetString(key, culture);
+                dict.Add(key, value);
+            }
+            return dict;
         }
     }
 }

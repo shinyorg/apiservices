@@ -1,4 +1,7 @@
-﻿namespace Shiny.Extensions.Localization
+﻿using Shiny.Extensions.Localization.SqlServer;
+
+
+namespace Shiny.Extensions.Localization
 {
     public static class Extensions
     {
