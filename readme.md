@@ -36,7 +36,16 @@ Master|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Bui
 Dev|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/dev?style=for-the-badge)|
 Preview|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/preview?style=for-the-badge)|
 
+## NUGETS
 
+Name|Stable|Preview
+----|------|-------
+Shiny.Extensions.Push|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.push?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.push?style=for-the-badge)
+Shiny.Extensions.Push.Ef|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.push.ef?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.push.ef?style=for-the-badge)
+Shiny.Extensions.Mail|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.mail?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.mail?style=for-the-badge)
+Shiny.Extensions.Localization|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.localization?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.localization?style=for-the-badge)
+Shiny.Extensions.Localization.SqlServer|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.localization.sqlserver?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.localization.sqlserver?style=for-the-badge)
+Shiny.Storage|![Nuget](https://img.shields.io/nuget/v/shiny.storage?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.storage?style=for-the-badge)
 
 ### DOCS TODO
 * Push Notification Management
@@ -45,19 +54,22 @@ Preview|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Bu
 	* Contextual Decorators
 	* Notification Reporters
 	* Repository
+	* Vendor Documentation
+		* [Firebase Cloud Messaging Documentation](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages)
+		* [Apple Notification Documentation](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification)
 * Localization
+	* General Setup
+	* Resource Files
+	* Database
 * Mail Templates
 	* General Setup
 	* Processor
 	* Template Loader
 	* Template Parser
-	* Front Matter Parser
+	* Mail Template Converter
 	* Sender
 * Async File Providers
 	* General Setup
 	* File System
 	* Azure Blob Storage
 	* FTP Client
-
-* [Firebase Cloud Messaging Documentation](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages)
-* [Apple Notification Documentation](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification)
