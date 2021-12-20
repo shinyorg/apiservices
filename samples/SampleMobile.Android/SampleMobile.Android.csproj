@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.GooglePlayServices.Basement" Version="117.6.0" />
-    <PackageReference Include="Xamarin.GooglePlayServices.Tasks" Version="117.2.1" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Tasks" Version="117.2.1.3" />
     <GoogleServicesJson Include="google-services.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </GoogleServicesJson>
