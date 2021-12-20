@@ -8,30 +8,35 @@ namespace Shiny.Extensions.Localization
 {
     public class LocalizationBuilder
     {
-        readonly Dictionary<string, ILocalizationSource> sources = new();
+        readonly IList<ILocalizationProvider> providers = new List<ILocalizationProvider>();
 
 
-        // TODO: ie. a source could potential yield multiple resx files
-        public LocalizationBuilder AddSource(ILocalizationSource source)
+        public LocalizationBuilder Add(ILocalizationProvider provider)
         {
-            if (this.sources.ContainsKey(source.Name))
-                throw new ArgumentException("There is already a source defined called " + source.Name);
-
-            this.sources.Add(source.Name, source);
+            this.providers.Add(provider);
             return this;
         }
 
 
         public LocalizationBuilder AddResource(string baseName, Assembly assembly)
-            => this.AddSource(new ResxLocalizationSource(baseName, assembly));
+            => this.Add(new ResxLocalizationProvider(baseName, assembly));
 
 
         public ILocalizationManager Build()
         {
-            foreach (var source in this.sources)
-                source.Value.Load();
+            var sources = new Dictionary<string, ILocalizationSource>();
+            foreach (var provider in this.providers)
+            {
+                var loadedSources = provider.Load();
+                foreach (var source in loadedSources)
+                {
+                    if (sources.ContainsKey(source.Name))
+                        throw new ArgumentException("This localize source already exists");
 
-            return new LocalizationManager(this.sources);
+                    sources.Add(source.Name, source);
+                }
+            }
+            return new LocalizationManager(sources);
         }
     }
 }

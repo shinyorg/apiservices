@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Reflection;
 using System.Resources;
 
@@ -28,7 +27,6 @@ namespace Shiny.Extensions.Localization.Impl
 
 
         public string Name { get; }
-        public void Load() {}
         public string? this[string key] => this.GetString(key);
     }
 }
