@@ -12,6 +12,7 @@
 	* FTP
 
 ## LINKS
+* [Documentation](https://shinylib.net/apiservices)
 * [Samples](https://github.com/shinyorg/apservices/tree/master/samples)
 * [Community Support](https://github.com/shinyorg/shiny/discussions)
 
