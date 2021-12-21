@@ -3,10 +3,10 @@
     {
       "src": [
         {
+          "cwd": "../",
           "files": [
-            "**.csproj"
-          ],
-          "src": "C:\\dev\\shinyapi\\src"
+            "src/**.csproj"
+          ]
         }
       ],
       "dest": "api",
@@ -24,8 +24,8 @@
       },
       {
         "files": [
-          "articles/**.md",
-          "articles/**/toc.yml",
+          "documentation/**.md",
+          "documentation/**/toc.yml",
           "toc.yml",
           "*.md"
         ]
@@ -34,6 +34,7 @@
     "resource": [
       {
         "files": [
+          "logo.svg",
           "images/**"
         ]
       }
@@ -53,7 +54,7 @@
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
-      "default"
+      "default", "material/material"
     ],
     "postProcessors": [],
     "markdownEngineName": "markdig",

@@ -53,3 +53,14 @@ jobs:
         name: nugets
         path: ${{ github.workspace }}/artifacts
         retention-days: 5
+
+    #- name: Build Docs
+    #   run: dotnet build -p:BuildDocFx=true
+
+    - name: Deploy Docs
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/preview' }}
+      with:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+        BRANCH: gh-pages
+        FOLDER: _site

@@ -14,11 +14,10 @@ body:
       label: Component
       description: The component you are filing against
       options:
-        - Push Management
-        - Async File Provider (File System)
-        - Async File Provider (FTP)
-        - Async File Provider (Azure Blob Storage)
-        - Mail Templates
+        - Push Notification Management
+        - Mail Template Engine
+        - Localization
+        - Storage (Async File Provider)
     validations:
       required: true
   - type: textarea

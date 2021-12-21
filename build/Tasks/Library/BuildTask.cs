@@ -1,7 +1,4 @@
-﻿using System;
-
-using Cake.Common;
-using Cake.Common.IO;
+﻿using Cake.Common.IO;
 using Cake.Common.Tools.MSBuild;
 using Cake.Frosting;
 
@@ -9,6 +6,7 @@ using Cake.Frosting;
 namespace ShinyBuild.Tasks.Library
 {
     [TaskName("Build")]
+    [IsDependentOn(typeof(BuildTask))]
     public sealed class BuildTask : FrostingTask<BuildContext>
     {
         public override bool ShouldRun(BuildContext context)

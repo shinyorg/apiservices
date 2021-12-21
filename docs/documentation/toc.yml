@@ -1,0 +1,15 @@
+- name: Push Notification Management
+  href: push/index.md
+  items:
+    - name: Managing Registrations
+      href: push/managing.md
+    - name: Notification Reporters
+      href: push/notificationreporters.md
+    - name: Decorators
+      href: push/decorators.md
+- name: Mail Templating
+  href: email.md
+- name: Localization
+  href: localization.md
+- name: Storage (Async File Providers)
+  href: storage.md
