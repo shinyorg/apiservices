@@ -6,7 +6,6 @@ using Cake.Frosting;
 namespace ShinyBuild.Tasks.Library
 {
     [TaskName("Build")]
-    [IsDependentOn(typeof(BuildTask))]
     public sealed class BuildTask : FrostingTask<BuildContext>
     {
         public override bool ShouldRun(BuildContext context)
