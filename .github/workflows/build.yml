@@ -54,8 +54,10 @@ jobs:
         path: ${{ github.workspace }}/artifacts
         retention-days: 5
 
-    #- name: Build Docs
-    #   run: dotnet build -p:BuildDocFx=true
+    - uses: nikeee/docfx-action@v1.0.0
+      name: Build Documentation
+      with:
+        args: docs/docfx.json
 
     - name: Deploy Docs
       uses: JamesIves/github-pages-deploy-action@releases/v3
