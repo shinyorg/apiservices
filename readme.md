@@ -1,7 +1,8 @@
 ﻿# SHINY SERVICE EXTENSIONS FOR .NET
 <img src="https://github.com/shinyorg/shiny/raw/master/art/logo.png" width="100" /> 
 
-## COMING SOON
+The initial previews of these libraries are out in the wild on NuGet.  Please note that we are not accepting issues or questions just yet.  This will change closer to the release.
+
 
 ## FEATURES
 * Push Notification Management without a 3rd Party (think Azure Notification Hubs for your on-prem servers)
