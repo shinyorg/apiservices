@@ -7,7 +7,7 @@ using Shiny.Storage.Impl;
 using Shiny;
 using Shiny.Extensions.Mail;
 using Shiny.Extensions.Push;
-
+using Shiny.Extensions.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +20,10 @@ builder.Host.ConfigureServices(services =>
 {
     var cfg = builder.Configuration;
 
+    services.AddSingleton(new LocalizationBuilder()
+        .AddAssemblyResources(typeof(SampleDbContext).Assembly, true)
+        .Build()
+    );
     services.AddEndpointsApiExplorer();
     services.AddSwaggerGen();
     services.AddControllersWithViews();
