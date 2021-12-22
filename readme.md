@@ -5,7 +5,13 @@
 
 ## FEATURES
 * Push Notification Management without a 3rd Party (think Azure Notification Hubs for your on-prem servers)
-* Mail Templating On Steroids!
+* Mail Templating On Steroids!  Loaders, parsers, converters, & senders!
+* Localization done right
+	* Looks like Microsoft.Extensions.Configuration
+	* Loads from a database, resx files, and more out of the box
+	* Allows you to serialize to JSON easily for your frontend
+	* Existing strongly typed classes generated for RESX, no worries - we have solutions for that too!
+	* Want to use in your XAML, yup - we got that covered properly too
 * Async File Providers
 	* Local File System
 	* Azure Blob Storage
@@ -13,7 +19,7 @@
 
 ## LINKS
 * [Documentation](https://shinylib.net/apiservices)
-* [Samples](https://github.com/shinyorg/apservices/tree/master/samples)
+* [Samples](https://github.com/shinyorg/apiservices/tree/master/samples)
 * [Community Support](https://github.com/shinyorg/shiny/discussions)
 
 ## SUPPORT SHINY
