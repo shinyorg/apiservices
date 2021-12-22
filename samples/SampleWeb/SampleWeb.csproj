@@ -13,6 +13,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\src\Shiny.Extensions.Localization.SqlServer\Shiny.Extensions.Localization.SqlServer.csproj" />
+		<ProjectReference Include="..\..\src\Shiny.Extensions.Localization\Shiny.Extensions.Localization.csproj" />
 		<ProjectReference Include="..\..\src\Shiny.Extensions.Mail.Abstractions\Shiny.Extensions.Mail.Abstractions.csproj" />
 		<ProjectReference Include="..\..\src\Shiny.Extensions.Mail\Shiny.Extensions.Mail.csproj" />
 		<ProjectReference Include="..\..\src\Shiny.Extensions.Push.Abstractions\Shiny.Extensions.Push.Abstractions.csproj" />
