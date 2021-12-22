@@ -13,7 +13,7 @@
 
 ## LINKS
 * [Documentation](https://shinylib.net/apiservices)
-* [Samples](https://github.com/shinyorg/apservices/tree/master/samples)
+* [Samples](https://github.com/shinyorg/apiservices/tree/master/samples)
 * [Community Support](https://github.com/shinyorg/shiny/discussions)
 
 ## SUPPORT SHINY
