@@ -28,8 +28,7 @@ env:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -55,6 +54,10 @@ jobs:
         path: ${{ github.workspace }}/artifacts
         retention-days: 5
 
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
     - uses: nikeee/docfx-action@v1.0.0
       name: Build Documentation
       with:
