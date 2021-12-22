@@ -9,7 +9,6 @@
       "src\\Shiny.Extensions.Push.Abstractions\\Shiny.Extensions.Push.Abstractions.csproj",
       "src\\Shiny.Extensions.Push.Ef\\Shiny.Extensions.Push.Ef.csproj",
       "src\\Shiny.Extensions.Push\\Shiny.Extensions.Push.csproj",
-      "src\\Shiny.Push.Api\\Shiny.Push.Api.csproj",
       "src\\Shiny.Storage.AzureBlobStorage\\Shiny.Storage.AzureBlobStorage.csproj",
       "src\\Shiny.Storage.FtpClient\\Shiny.Storage.FtpClient.csproj",
       "src\\Shiny.Storage\\Shiny.Storage.csproj"
