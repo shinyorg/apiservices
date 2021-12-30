@@ -46,7 +46,10 @@ var manager = new LocalizationBuilder()
     .AddSqlServer("Your Connection String")
     .Build();
 
-manager.Bind()
+var obj = new YourStronglyTypedClass();
+manager.Bind(obj);
+
+var nowSet = obj.YourKey;
 
 ```
 

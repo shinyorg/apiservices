@@ -54,30 +54,3 @@ Shiny.Extensions.Mail|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.m
 Shiny.Extensions.Localization|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.localization?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.localization?style=for-the-badge)
 Shiny.Extensions.Localization.SqlServer|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.localization.sqlserver?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.localization.sqlserver?style=for-the-badge)
 Shiny.Storage|![Nuget](https://img.shields.io/nuget/v/shiny.storage?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.storage?style=for-the-badge)
-
-### DOCS TODO
-* Push Notification Management
-	* General Setup
-	* Global Decorators
-	* Contextual Decorators
-	* Notification Reporters
-	* Repository
-	* Vendor Documentation
-		* [Firebase Cloud Messaging Documentation](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages)
-		* [Apple Notification Documentation](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification)
-* Localization
-	* General Setup
-	* Resource Files
-	* Database
-* Mail Templates
-	* General Setup
-	* Processor
-	* Template Loader
-	* Template Parser
-	* Mail Template Converter
-	* Sender
-* Async File Providers
-	* General Setup
-	* File System
-	* Azure Blob Storage
-	* FTP Client
