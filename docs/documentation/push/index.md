@@ -6,7 +6,6 @@ Currently, this library supports Apple Notifications and Google Firebase Messagi
     * [Firebase Cloud Messaging Documentation](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages)
     * [Apple Notification Documentation](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification)
 
-
 However, there is a bunch of things that they don't offer
 1. General purpose push notification abilities
 2. Management of the registration base (tokens, which user owns the token, etc)

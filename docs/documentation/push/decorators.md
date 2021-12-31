@@ -4,6 +4,9 @@ While our general push "Notification" object handles a fair bit in a nice cross 
 
 Enter "Decorators".  Decorators offer you a way to see the "ready to send" native message alongside the push registration info (user, tags, platform, etc) as well as the notification object you used to establish any additional context that you want to add to the native notification.
 
+> [!WARN]
+> The more logic in your decorators, the slower batches will run.  A decorator will be run per notification in a batch.
+
 ## Creating a Decorator
 
 Below is an example of an Apple and a Google notification decorator.  Note that you can alter the native notification however you deem fit here.
@@ -43,5 +46,5 @@ build.Services.AddPushManagement(x => x
 );
 ```
 
-[!NOTE]
-You can have multiple decorators per notification platform
+> [!NOTE]
+> You can have multiple decorators per notification platform

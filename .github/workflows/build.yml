@@ -1,4 +1,4 @@
-name: Build
+name: Build Libraries
 
 on:
   workflow_dispatch:
@@ -11,7 +11,6 @@ on:
     branches: [ master, main, dev, preview ]
     paths:
     - "src/**"
-    - "docs/**"
     - "build/**"
     - ".github/workflows/**"
 
@@ -53,27 +52,3 @@ jobs:
         name: nugets
         path: ${{ github.workspace }}/artifacts
         retention-days: 5
-
-  docs:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.DotNetVersion }}
-
-    - uses: nikeee/docfx-action@v1.0.0
-      name: Build Documentation
-      with:
-        args: docs/docfx.json
-
-    - name: Deploy Docs
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/preview' }}
-      with:
-        GITHUB_TOKEN: ${{ secrets.github_token }}
-        BRANCH: gh-pages
-        FOLDER: ./docs/_site

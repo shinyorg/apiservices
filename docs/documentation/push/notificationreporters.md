@@ -35,11 +35,11 @@ public class MyCustomReporter : Shiny.Extensions.Push.INotificationReporter
 }
 ```
 
-[!NOTE]
-You can also use the `Shiny.Extensions.Push.NotificationReporter` class and use override instead of implementing the entire interface.
+> [!NOTE]
+> You can also use the `Shiny.Extensions.Push.NotificationReporter` class and use override instead of implementing the entire interface.
 
-[!NOTE]
-You can have multiple reporters
+> [!NOTE]
+> You can have multiple reporters
 
 Next thing to do is register this with the extension during startup
 
@@ -51,11 +51,11 @@ builder.Services.AddPushManagement(x => x
 );
 ```
 
-[!WARNING]
-The reporter is registered as a singleton
+> [!WARNING]
+> The reporter is registered as a singleton
 
-[!WARNING]
-It isn't good to do a lot of logic inside notification error or notification success as they run per notifcation in a batch.  It is better to use OnBatchStart and OnBatchCompleted to process.  This will allow your notification batches to finish quicker.
+> [!WARNING]
+> It isn't good to do a lot of logic inside notification error or notification success as they run per notifcation in a batch.  It is better to use OnBatchStart and OnBatchCompleted to process.  This will allow your notification batches to finish quicker.
 
 ## Out of the Box Reporters
 * **BatchTimeNotificationReporter** - this will log how long a batch takes to process.  You can use this to tune your queries or even determine that you may need to move your push functions to a more resilient platform like Azure Functions instead of directly in your Web API.
