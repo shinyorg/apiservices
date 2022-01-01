@@ -29,7 +29,7 @@ namespace Shiny.Extensions.Mail.Impl
             var fullPath = this.rootPath + templateName + this.extension;
 
             var file = await this.storage
-                .GetFile(fullPath)
+                .GetFileInfo(fullPath)
                 .ConfigureAwait(false);
 
             if (!file.Exists)

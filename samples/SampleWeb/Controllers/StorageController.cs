@@ -27,8 +27,8 @@ namespace SampleWeb.Controllers
                 .Select(x => new StorageItem
                 {
                     Name = x.Name,
-                    FullName = x.FullName,
-                    IsDirectory = x.IsDirectory()
+                    Path = x.Path,
+                    IsDirectory = x.IsDirectory
                 })
                 .ToList();
 
@@ -40,7 +40,7 @@ namespace SampleWeb.Controllers
         public async Task<ActionResult<string>> ViewFile([FromBody] ListStorage contract)
         {
             var provider = this.GetProvider(contract.ProviderName);
-            var file = await provider.GetFile(contract.Path);
+            var file = await provider.GetFileInfo(contract.Path);
             if (file == null || !file.Exists)
                 return this.NotFound("File not found");
 

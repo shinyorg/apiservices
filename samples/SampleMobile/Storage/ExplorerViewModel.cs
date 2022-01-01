@@ -24,7 +24,7 @@ namespace SampleMobile.Storage
                 var args = new ListStorage
                 {
                     ProviderName = this.SelectedProvider!,
-                    Path = item?.FullName ?? "."
+                    Path = item?.Path ?? "."
                 };
 
                 if (item?.IsDirectory ?? true)

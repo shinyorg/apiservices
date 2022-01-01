@@ -18,7 +18,7 @@ namespace Shiny.Storage.FtpClient
         }
 
 
-        public Task<IDirectory> CreateDirectory(string path, CancellationToken cancellationToken = default)
+        public Task<IFileInfo> CreateDirectory(string path, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -26,23 +26,14 @@ namespace Shiny.Storage.FtpClient
 
         public async Task<IEnumerable<IFileInfo>> GetDirectoryContents(string path, CancellationToken cancelToken = default)
         {
-            await this.client.AutoConnectAsync(cancelToken);
-
-            await this.client.SetWorkingDirectoryAsync(path, cancelToken);
-            var listing = await this.client.GetListingAsync(cancelToken);
-            foreach (var item in listing)
-            {
-                // TODO: ignore links?
-                if (item.Type == FluentFTP.FtpFileSystemObjectType.Directory)
-                {
-
-                }
-            }
-            return Enumerable.Empty<IFileInfo>();
+            await this.client.AutoConnectAsync(cancelToken).ConfigureAwait(false);
+            await this.client.SetWorkingDirectoryAsync(path, cancelToken).ConfigureAwait(false);
+            var listing = await this.client.GetListingAsync(cancelToken).ConfigureAwait(false);
+            return listing.Select(x => new FtpFileInfo(x));
         }
 
 
-        public Task<IFile> GetFile(string path, CancellationToken cancellationToken = default)
+        public Task<IFileInfo> GetFileInfo(string path, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

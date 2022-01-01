@@ -23,7 +23,7 @@ namespace Shiny.Storage.AzureBlobStorage
             ));
         }
 
-        public Task<IDirectory> CreateDirectory(string path, CancellationToken cancellationToken = default)
+        public Task<IFileInfo> CreateDirectory(string path, CancellationToken cancellationToken = default)
         {
             //BlobContainerClient containerClient = await blobServiceClient.CreateBlobContainerAsync(containerName);
             //this.client.OpenReadAsync(new Azure.Storage.Blobs.Models.BlobOpenReadOptions()
@@ -38,7 +38,7 @@ namespace Shiny.Storage.AzureBlobStorage
             throw new NotImplementedException();
         }
 
-        public Task<IFile> GetFile(string path, CancellationToken cancellationToken = default)
+        public Task<IFileInfo> GetFileInfo(string path, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

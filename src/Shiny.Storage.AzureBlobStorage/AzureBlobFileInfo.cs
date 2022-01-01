@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 
 namespace Shiny.Storage.AzureBlobStorage
 {
-    public class AzureBlobFile : IFile
+    public class AzureBlobFileInfo : IFileInfo
     {
-        public long Size => throw new NotImplementedException();
+        public long? Size => throw new NotImplementedException();
 
         public string Name => throw new NotImplementedException();
 
-        public string FullName => throw new NotImplementedException();
+        public string Path => throw new NotImplementedException();
+        
+        public bool IsDirectory => throw new NotImplementedException();
 
         public bool Exists => throw new NotImplementedException();
 

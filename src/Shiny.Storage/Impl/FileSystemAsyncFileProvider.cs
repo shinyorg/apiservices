@@ -9,10 +9,10 @@ namespace Shiny.Storage.Impl
 {
     public class FileSystemAsyncFileProvider : IAsyncFileProvider
     {
-        public Task<IDirectory> CreateDirectory(string path, CancellationToken cancellationToken = default)
+        public Task<IFileInfo> CreateDirectory(string path, CancellationToken cancellationToken = default)
         {
             var dir = Directory.CreateDirectory(path);
-            return Task.FromResult<IDirectory>(new FileSystemDirectory(dir));
+            return Task.FromResult<IFileInfo>(new FileSystemFileInfo(path));
         }
 
 
@@ -32,13 +32,8 @@ namespace Shiny.Storage.Impl
         });
 
 
-        public Task<IFileInfo> GetFile(string path, CancellationToken cancellationToken = default)
-        {
-
-            var native = new FileInfo(path);
-            var file = new FileSystemFileInfo(native);
-            return Task.FromResult(file);
-        }
+        public Task<IFileInfo> GetFileInfo(string path, CancellationToken cancellationToken = default)
+            => Task.FromResult<IFileInfo>(new FileSystemFileInfo(path));
 
 
         public Task CopyTo(string sourcePath, string destrinationPath, CancellationToken cancellationToken = default)

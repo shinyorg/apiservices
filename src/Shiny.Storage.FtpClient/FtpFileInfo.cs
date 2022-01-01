@@ -1,24 +1,25 @@
-﻿using System;
+﻿using FluentFTP;
+
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
+
 namespace Shiny.Storage.FtpClient
 {
-    public class FtpFile : IFile
+    public class FtpFileInfo : IFileInfo
     {
-        public FtpFile()
-        {
-
-        }
+        readonly FtpListItem item;
+        public FtpFileInfo(FtpListItem item) => this.item = item;
 
 
-        public long Size => throw new NotImplementedException();
-
-        public string Name => throw new NotImplementedException();
-
-        public string FullName => throw new NotImplementedException();
+        public long? Size => this.item.Size;
+        public string Name => this.item.Name;
+        public string Path => this.item.FullName;
 
         public bool Exists => throw new NotImplementedException();
+
+        public bool IsDirectory => this.item.Type == FtpFileSystemObjectType.Directory;
 
         public DateTimeOffset? LastAccessTime => throw new NotImplementedException();
 
