@@ -1,5 +1,7 @@
 # Mail Templating
 
+[[!NugetShield(Shiny.Extensions.Mail)]]
+
 There are tons of email engines out there, but we didn't see anything as comphrehensive as what we've made here.
 
 ## The Engine Layers

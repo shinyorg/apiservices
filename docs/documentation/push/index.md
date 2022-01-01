@@ -1,5 +1,10 @@
 # Push Notification Management
 
+|Name|Nuget|
+|----|-----|
+|Push|[!NugetShield(Shiny.Extensions.Push)]|
+|EF Repository|[!NugetShield(Shiny.Extensions.Push.Ef)]|
+
 There are tons of push management systems out there - Azure Notification Hubs, Amazon SQS, OneSignal, Firebase, etc, but what if you want to run this stuff local?  That also exists - PushSharp and others exist in the .NET ecosystem.
 
 Currently, this library supports Apple Notifications and Google Firebase Messaging.  It is important you understand the native API's before using this library

@@ -1,5 +1,9 @@
 # Localization
 
+|Name|Nuget||
+|Main Library|[!NugetShield(Shiny.Extensions.Localization)]|
+|SQL Server Plugin|[!NugetShield(Shiny.Extensions.Localization.SqlServer)]
+
 Everyone has to do localization at some point in there career.  It can be tedious and time consuming.  Most of us .NET folk are accumstumed to using RESX resource files.  They're fast, efficient, and work well for general purpose localization efforts 
 
 UNTIL THEY DON'T.. 
