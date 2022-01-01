@@ -4,7 +4,7 @@ You will rarely ever work directly with the repository object, but Shiny uses it
 
 ## Entity Framework
 
-Out of the box, Shiny offers only one data store mechanism based on Microsoft's Entity Framework.
+Out of the box, Shiny offers only one data store mechanism based on Microsoft's Entity Framework.  Just install the following package [!NugetShield(Shiny.Extensions.Push.Ef)]
 
 To setup the Entity Framework storage you must do the following, first - add the following to your EF Data Context.
 

@@ -63,3 +63,10 @@ builder.Services.AddPushManagement(x => x
 * **AutoCleanupNotificationReporter** - This reporter will remove any notification errors that occur because no notification was sent.  This usually means the user uninstalled your app (therefore never unregistered using your app) or has unregistered from notifications but it never hit your server.  It happens.  This will catch the exceptions and unregister the device for you.  To Setup, use the following during the extension registration
 
 ```csharp
+builder.Services.AddPushManagement(x => x
+    .AddApplePush(...)
+    .AddGooglePush(...)
+    .AddPerformanceLogger()
+    .AddAutoRemoveNoReceive()
+);
+```

@@ -20,7 +20,7 @@
         }
 
 
-        public static PushConfigurator AutoRemoveNoReceive(this PushConfigurator pushConfig)
+        public static PushConfigurator AddAutoRemoveNoReceive(this PushConfigurator pushConfig)
             => pushConfig.AddReporter<AutoCleanupNotificationReporter>();
 
         public static PushConfigurator AddPerformanceLogger(this PushConfigurator pushConfig)
