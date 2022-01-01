@@ -12,9 +12,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="AiForms.SettingsView" Version="1.3.29" />
-		<PackageReference Include="ReactiveUI.Fody" Version="17.1.9" />
+		<PackageReference Include="ReactiveUI.Fody" Version="17.1.17" />
 		<PackageReference Include="Refit" Version="6.1.15" />
-		<PackageReference Include="Shiny.Framework" Version="2.0.0.119-preview" />
+		<PackageReference Include="Shiny.Framework" Version="2.0.0.125-preview" />
 		<PackageReference Include="Shiny.Push" Version="2.5.0.2985-preview" />
 		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />
 	</ItemGroup>

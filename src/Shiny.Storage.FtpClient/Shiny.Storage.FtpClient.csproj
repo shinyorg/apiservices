@@ -6,7 +6,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FluentFTP" Version="35.2.2" />
+		<PackageReference Include="FluentFTP" Version="35.2.3" />
 	</ItemGroup>
 
 	<ItemGroup>
