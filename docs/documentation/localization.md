@@ -1,6 +1,7 @@
 # Localization
 
-|Name|Nuget||
+|Name|Nuget|
+|----|-----|
 |Main Library|[!NugetShield(Shiny.Extensions.Localization)]|
 |SQL Server Plugin|[!NugetShield(Shiny.Extensions.Localization.SqlServer)]
 
