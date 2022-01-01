@@ -2,18 +2,23 @@
 using System.IO;
 using System.Threading.Tasks;
 
+
 namespace Shiny.Storage.Impl
 {
-    public class FileSystemFile : IFile
+    public class FileSystemFileInfo : IFileInfo
     {
         readonly FileInfo file;
-        public FileSystemFile(FileInfo file) => this.file = file;
+        public FileSystemFileInfo(string path)
+        {
+
+        }
 
 
-        public long Size => this.file.Length;
+        public long? Size => this.file.Length;
         public string Name => this.file.Name;
-        public string FullName => this.file.FullName;
+        public string Path => this.file.FullName;
         public bool Exists => this.file.Exists;
+        public bool IsDirectory => false;
         public DateTimeOffset? LastAccessTime => this.file.LastAccessTimeUtc;
         public DateTimeOffset? LastWriteTime => this.file.LastAccessTimeUtc;
         public DateTimeOffset? CreationTime => this.file.CreationTimeUtc;

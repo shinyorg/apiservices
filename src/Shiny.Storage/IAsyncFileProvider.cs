@@ -7,9 +7,9 @@ namespace Shiny.Storage
 {
     public interface IAsyncFileProvider
     {
-        Task<IEnumerable<IFilePath>> GetDirectoryContents(string path, CancellationToken cancelToken = default);
-        Task<IFile> GetFile(string path, CancellationToken cancellationToken = default);
-        Task<IDirectory> CreateDirectory(string path, CancellationToken cancellationToken = default);
+        Task<IEnumerable<IFileInfo>> GetDirectoryContents(string path, CancellationToken cancelToken = default);
+        Task<IFileInfo> GetFileInfo(string path, CancellationToken cancellationToken = default);
+        Task<IFileInfo> CreateDirectory(string path, CancellationToken cancellationToken = default);
 
         // TODO: file system watcher? possible for ftp or azure blobs?
 

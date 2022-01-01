@@ -24,7 +24,7 @@ namespace Shiny.Storage.FtpClient
         }
 
 
-        public async Task<IEnumerable<IFilePath>> GetDirectoryContents(string path, CancellationToken cancelToken = default)
+        public async Task<IEnumerable<IFileInfo>> GetDirectoryContents(string path, CancellationToken cancelToken = default)
         {
             await this.client.AutoConnectAsync(cancelToken);
 
@@ -38,7 +38,7 @@ namespace Shiny.Storage.FtpClient
 
                 }
             }
-            return Enumerable.Empty<IFilePath>();
+            return Enumerable.Empty<IFileInfo>();
         }
 
 

@@ -33,7 +33,7 @@ namespace Shiny.Storage.AzureBlobStorage
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<IFilePath>> GetDirectoryContents(string path, CancellationToken cancelToken = default)
+        public Task<IEnumerable<IFileInfo>> GetDirectoryContents(string path, CancellationToken cancelToken = default)
         {
             throw new NotImplementedException();
         }

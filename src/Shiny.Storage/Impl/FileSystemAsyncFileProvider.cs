@@ -16,9 +16,9 @@ namespace Shiny.Storage.Impl
         }
 
 
-        public Task<IEnumerable<IFilePath>> GetDirectoryContents(string path, CancellationToken cancelToken = default) => Task.Run<IEnumerable<IFilePath>>(() =>
+        public Task<IEnumerable<IFileInfo>> GetDirectoryContents(string path, CancellationToken cancelToken = default) => Task.Run<IEnumerable<IFileInfo>>(() =>
         {
-            var list = new List<IFilePath>();
+            var list = new List<IFileInfo>();
             var entries = Directory
                 .EnumerateFileSystemEntries(path)
                 .GetEnumerator();
@@ -26,26 +26,17 @@ namespace Shiny.Storage.Impl
             while (entries.MoveNext() && !cancelToken.IsCancellationRequested)
             {
                 var entry = entries.Current;
-                var att = File.GetAttributes(entry);
-                if ((att & FileAttributes.Directory) == FileAttributes.Directory)
-                {
-                    var native = new DirectoryInfo(entry);
-                    list.Add(new FileSystemDirectory(native));
-                }
-                else
-                {
-                    var native = new FileInfo(entry);
-                    list.Add(new FileSystemFile(native));
-                }
+
             }
             return list;
         });
 
 
-        public Task<IFile> GetFile(string path, CancellationToken cancellationToken = default)
+        public Task<IFileInfo> GetFile(string path, CancellationToken cancellationToken = default)
         {
+
             var native = new FileInfo(path);
-            IFile file = new FileSystemFile(native);
+            var file = new FileSystemFileInfo(native);
             return Task.FromResult(file);
         }
 

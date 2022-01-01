@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -6,11 +7,17 @@ namespace Shiny.Storage
 {
     public static class Extensions
     {
-        public static bool IsFile(this IFilePath path) => path is IFile;
-        public static bool IsDirectory(this IFilePath path) => path is IDirectory;
+        public static async Task<Stream> CreateFile(this IAsyncFileProvider provider, string path, CancellationToken cancellationToken = default)
+        {
+            var file = await provider.GetFileInfo(path, cancellationToken).ConfigureAwait(false);
+            if (file.Exists)
+            {
+                // TODO?
+            }
+            return await file.OpenStream(true).ConfigureAwait(false);
+        }
 
-
-        public static async Task<string> ReadFileAsString(this IFile file)
+        public static async Task<string> ReadFileAsString(this IFileInfo file)
         {
             using (var stream = await file.OpenStream(false).ConfigureAwait(false))
                 using (var reader = new StreamReader(stream))
