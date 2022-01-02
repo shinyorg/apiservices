@@ -1,5 +1,6 @@
 - name: Documentation
   href: documentation/
+  homepage: documentation/index.md
 - name: API
   href: api/
 - name: Mobile Project

@@ -97,3 +97,42 @@ public async Task Order() {
     });
 }
 ```
+
+## SQL Server Template Loader
+
+```csharp
+protected override void ConfigureServices(IServiceCollection services) 
+{
+    services.AddMailProcessor(x => x
+        .UseSmtpSender(Configuration.GetSection("Mail:Smtp").Get<SmtpConfig>())
+        .UseSqlServerTemplateLoader(Configuration.GetConnectionString("ConnectionString"))
+    );
+}
+```
+
+```sql
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[MailTemplates](
+	[MailTemplateId] [uniqueidentifier] NOT NULL,
+	[TemplateName] [nvarchar](255) NOT NULL,
+	[CultureCode] [varchar](5) NULL,
+	[Content] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_MailTemplates] PRIMARY KEY CLUSTERED
+(
+	[MailTemplateId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [UK_MailTemplates] UNIQUE NONCLUSTERED
+(
+	[TemplateName] ASC,
+	[CultureCode] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+```
