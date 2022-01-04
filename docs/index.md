@@ -7,4 +7,3 @@ The set of libraries offered here are:
 * [Push Notification Management](documentation/push/index.md)
 * [Email Template Engine](documentation/email.md)
 * [Localization Abstraction](documentation/localization.md)
-* [Storage Provider (Async File Providers)](documentation/storage.md)

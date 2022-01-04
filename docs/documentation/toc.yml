@@ -13,5 +13,3 @@
   href: email.md
 - name: Localization
   href: localization.md
-- name: Storage (Async File Providers)
-  href: storage.md
