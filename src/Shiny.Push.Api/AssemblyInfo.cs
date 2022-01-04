@@ -1,1 +1,0 @@
-﻿[assembly: Shiny.Attributes.NoAutoStartup("You must use services.UsePushApi<YourPushDelegate>(yourRegUrl, yourUnRegUrl, YourHttpClientIfYouNeedToIntercept)")]

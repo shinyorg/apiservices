@@ -19,7 +19,6 @@
         <RepositoryType>git</RepositoryType>
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
-		<AndroidTargetFramework>monoandroid11.0</AndroidTargetFramework>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' AND '$(OS)' == 'WINDOWS_NT' ">

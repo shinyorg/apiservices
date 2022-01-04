@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Storage.Net" Version="9.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Shiny.Extensions.Mail.Abstractions\Shiny.Extensions.Mail.Abstractions.csproj" />
+	</ItemGroup>
+
+</Project>

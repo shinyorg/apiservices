@@ -4,10 +4,8 @@ using Prism.Ioc;
 using Prism.Navigation;
 using SampleMobile.Mail;
 using SampleMobile.Push;
-using SampleMobile.Storage;
 using Shiny;
 using Shiny.Extensions.Dialogs;
-
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -26,7 +24,6 @@ namespace SampleMobile
 
             containerRegistry.RegisterForNavigation<CreateMailPage, CreateMailViewModel>();
             containerRegistry.RegisterForNavigation<RegistrationListPage, RegistrationListViewModel>();
-            containerRegistry.RegisterForNavigation<ExplorerPage, ExplorerViewModel>();
             containerRegistry.RegisterForNavigation<CreatePushPage, CreatePushViewModel>();
         }
 
@@ -35,10 +32,9 @@ namespace SampleMobile
         {
             var start = $"{KnownNavigationParameters.CreateTab}={nameof(NavigationPage)}|";
             var tab1 = start + nameof(CreatePushPage);
-            var tab2 = start + nameof(ExplorerPage);
-            var tab3 = start + nameof(CreateMailPage);
-            var tab4 = start + nameof(SettingsPage);
-            return navigator.Navigate($"TabbedPage?{tab1}&{tab2}&{tab3}&{tab4}");
+            var tab2 = start + nameof(CreateMailPage);
+            var tab3 = start + nameof(SettingsPage);
+            return navigator.Navigate($"TabbedPage?{tab1}&{tab2}&{tab3}");
         }
 
 

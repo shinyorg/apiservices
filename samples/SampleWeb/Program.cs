@@ -1,9 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using SampleWeb;
-using Shiny.Storage;
-using Shiny.Storage.AzureBlobStorage;
-using Shiny.Storage.FtpClient;
-using Shiny.Storage.Impl;
 using Shiny;
 using Shiny.Extensions.Mail;
 using Shiny.Extensions.Push;
@@ -47,10 +43,6 @@ builder.Host.ConfigureServices(services =>
         //.UseSendGridSender(cfg["Mail:SendGridApiKey"])
         // mail processor, razor parser, and front matter parser loaded automatically
     );
-
-    services.AddSingleton<IAsyncFileProvider, FileSystemAsyncFileProvider>();
-    //services.AddSingleton<IAsyncFileProvider>(_ => new AzureBlobAsyncFileProvider())
-    //services.AddSingleton<IAsyncFileProvider>(_ => new FtpAsyncFileProvider());
 });
 
 var app = builder.Build();

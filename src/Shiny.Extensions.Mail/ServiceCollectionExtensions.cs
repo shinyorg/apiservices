@@ -34,13 +34,6 @@ namespace Shiny
         }
 
 
-        public static MailConfigurator UseShinyStoreTemplateLoader(this MailConfigurator cfg)
-        {
-            cfg.Services.AddSingleton<ITemplateLoader, ShinyStorageTemplateLoader>();
-            return cfg;
-        }
-
-
         public static MailConfigurator UseFileTemplateLoader(this MailConfigurator cfg, string path, string ext = "mailtemplate")
         {
             cfg.Services.AddSingleton<ITemplateLoader>(_ => new FileTemplateLoader(path, ext));
