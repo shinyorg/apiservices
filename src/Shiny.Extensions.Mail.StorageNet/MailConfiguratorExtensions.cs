@@ -7,7 +7,7 @@ using Storage.Net.Blobs;
 
 namespace Shiny
 {
-    public static class ServiceCollectionExtensions
+    public static class MailConfiguratorExtensions
     {
         public static MailConfigurator UseStorageNetTemplateLoader(this MailConfigurator cfg, IBlobStorage blobStorage)
         {

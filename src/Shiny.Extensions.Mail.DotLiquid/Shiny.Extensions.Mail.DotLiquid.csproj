@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Description>Shiny.Extensions.Mail dotliquid template parser</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DotLiquid" Version="2.2.585" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Shiny.Extensions.Mail.Abstractions\Shiny.Extensions.Mail.Abstractions.csproj" />
+	</ItemGroup>
+
+</Project>
