@@ -58,9 +58,21 @@ namespace Shiny.Extensions.Push.Infrastructure
         public async Task Send(Notification notification, PushFilter? filter, CancellationToken cancelToken = default)
         {
             notification = notification ?? throw new ArgumentException("Notification is null");
+            var registrations = (await this.repository.Get(filter, cancelToken)
+                .ConfigureAwait(false))
+                .ToArray();
+
+            await this
+                .Send(notification, registrations, cancelToken)
+                .ConfigureAwait(false);
+        }
+
+
+        public async Task Send(Notification notification, PushRegistration[] registrations, CancellationToken cancelToken = default)
+        {
+            notification = notification ?? throw new ArgumentException("Notification is null");
 
             var context = new NotificationBatchContext(this.logger, this.reporters, notification, cancelToken);
-            var registrations = (await this.repository.Get(filter, cancelToken).ConfigureAwait(false)).ToArray();
             await context.OnBatchStart(registrations).ConfigureAwait(false);
 
             foreach (var registration in registrations)

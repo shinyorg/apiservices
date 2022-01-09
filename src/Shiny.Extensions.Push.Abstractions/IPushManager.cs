@@ -8,6 +8,7 @@ namespace Shiny.Extensions.Push
     public interface IPushManager
     {
         Task Send(Notification notification, PushFilter? filter, CancellationToken cancelToken = default);
+        Task Send(Notification notification, PushRegistration[] registrations, CancellationToken cancelToken = default);
         Task<IEnumerable<PushRegistration>> GetRegistrations(PushFilter? filter, CancellationToken cancelToken = default);
 
         Task Register(PushRegistration registration, CancellationToken cancelToken = default);
