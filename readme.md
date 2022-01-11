@@ -11,10 +11,6 @@
 	* Allows you to serialize to JSON easily for your frontend
 	* Existing strongly typed classes generated for RESX, no worries - we have solutions for that too!
 	* Want to use in your XAML, yup - we got that covered properly too
-* Async File Providers
-	* Local File System
-	* Azure Blob Storage
-	* FTP
 
 ## LINKS
 * [Documentation](https://shinylib.net/apiservices)
