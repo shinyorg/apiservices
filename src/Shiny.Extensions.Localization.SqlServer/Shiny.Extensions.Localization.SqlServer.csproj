@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
+		<Description>A localization provider using SQL Server for use by Shiny.Extensions.Localization</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
 		<RootNamespace>Shiny.Extensions.Push</RootNamespace>
+		<Description>The collection of abstractions used by Shiny.Push.Extensions and addon libraries</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
