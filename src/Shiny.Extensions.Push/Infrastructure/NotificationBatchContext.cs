@@ -33,6 +33,10 @@ namespace Shiny.Extensions.Push.Infrastructure
         }
 
 
+        public GoogleConfiguration? GoogleConfiguration { get; internal set; }
+        public AppleConfiguration? AppleConfiguration { get; internal set; }
+
+
         public async Task OnBatchStart(IEnumerable<PushRegistration> registrations)
         {
             var list = registrations.ToList();

@@ -27,16 +27,32 @@
             => pushConfig.AddReporter<BatchTimeNotificationReporter>();
 
 
+        public static PushConfigurator AddAppleConfigurationProvider<TConfigProvider>(this PushConfigurator pushConfig) where TConfigProvider : class, IAppleConfigurationProvider
+        {
+            pushConfig.Services.AddScoped<IAppleConfigurationProvider, TConfigProvider>();
+            return pushConfig;
+        }
+
+
         public static PushConfigurator AddApplePush(this PushConfigurator pushConfig, AppleConfiguration configuration)
         {
-            pushConfig.Services.AddSingleton<IApplePushProvider>(x => new ApplePushProvider(configuration));
+            pushConfig.Services.AddSingleton<IAppleConfigurationProvider>(new ConfiguredAppleConfigurationProvider(configuration));
+            pushConfig.Services.AddScoped<IApplePushProvider, ApplePushProvider>();
+            return pushConfig;
+        }
+
+
+        public static PushConfigurator AddGoogleConfigurationProvider<TConfigProvider>(this PushConfigurator pushConfig) where TConfigProvider : class, IGoogleConfigurationProvider
+        {
+            pushConfig.Services.AddScoped<IGoogleConfigurationProvider, TConfigProvider>();
             return pushConfig;
         }
 
 
         public static PushConfigurator AddGooglePush(this PushConfigurator pushConfig, GoogleConfiguration configuration)
         {
-            pushConfig.Services.AddSingleton<IGooglePushProvider>(x => new GooglePushProvider(configuration));
+            pushConfig.Services.AddSingleton<IGoogleConfigurationProvider>(new ConfiguredGoogleConfigurationProvider(configuration));
+            pushConfig.Services.AddScoped<IGooglePushProvider, GooglePushProvider>();
             return pushConfig;
         }
     }

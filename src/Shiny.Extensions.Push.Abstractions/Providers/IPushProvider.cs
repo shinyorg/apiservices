@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 
 namespace Shiny.Extensions.Push.Providers
 {
-    public interface IPushProvider<TNative> where TNative : class
+    public interface IPushProvider<TConfig, TNative> 
+        where TConfig : class
+        where TNative : class
     {
-        TNative CreateNativeNotification(Notification notification);
+        TNative CreateNativeNotification(TConfig config, Notification notification);
 
         /// <summary>
         /// Sends to the notification to the native platform
@@ -16,6 +18,6 @@ namespace Shiny.Extensions.Push.Providers
         /// <param name="native">The full native configuration to send</param>
         /// <param name="cancelToken"></param>
         /// <returns>True if send is detected, false if the provider reports no result - false does not indicate an error</returns>
-        Task<bool> Send(string token, Notification notification, TNative native, CancellationToken cancelToken);
+        Task<bool> Send(TConfig config, string token, Notification notification, TNative native, CancellationToken cancelToken);
     }
 }

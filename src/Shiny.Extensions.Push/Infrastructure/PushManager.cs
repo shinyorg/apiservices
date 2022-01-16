@@ -14,6 +14,8 @@ namespace Shiny.Extensions.Push.Infrastructure
         readonly IRepository repository;
         readonly IApplePushProvider? apple;
         readonly IGooglePushProvider? google;
+        readonly IAppleConfigurationProvider? appleConfigurationProvider = null;
+        readonly IGoogleConfigurationProvider? googleConfigurationProvider = null;
         readonly List<IAppleNotificationDecorator> appleDecorators;
         readonly List<IGoogleNotificationDecorator> googleDecorators;
         readonly List<INotificationReporter> reporters;
@@ -25,11 +27,19 @@ namespace Shiny.Extensions.Push.Infrastructure
                            IEnumerable<INotificationReporter> reporters,
                            IEnumerable<IAppleNotificationDecorator> appleDecorators,
                            IEnumerable<IGoogleNotificationDecorator> googleDecorators,
+                           IAppleConfigurationProvider? appleConfigurationProvider = null,
+                           IGoogleConfigurationProvider? googleConfigurationProvider = null,
                            IApplePushProvider? apple = null,
                            IGooglePushProvider? google = null)
         {
             if (apple == null && google == null)
                 throw new ArgumentException("No push provider has been registered");
+
+            if (apple != null && appleConfigurationProvider == null)
+                throw new ArgumentException("Apple Push Provider has been registered without an Apple Configuration Provider has been registered");
+
+            if (google != null && googleConfigurationProvider == null)
+                throw new ArgumentException("Google Push Provider has been registered without an Google Configuration Provider has been registered");
 
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -38,6 +48,8 @@ namespace Shiny.Extensions.Push.Infrastructure
             this.google = google;
             this.appleDecorators = appleDecorators.ToList();
             this.googleDecorators = googleDecorators.ToList();
+            this.appleConfigurationProvider = appleConfigurationProvider;
+            this.googleConfigurationProvider = googleConfigurationProvider;
             this.reporters = reporters.ToList();
         }
 
@@ -71,7 +83,6 @@ namespace Shiny.Extensions.Push.Infrastructure
         public async Task Send(Notification notification, PushRegistration[] registrations, CancellationToken cancelToken = default)
         {
             notification = notification ?? throw new ArgumentException("Notification is null");
-
             var context = new NotificationBatchContext(this.logger, this.reporters, notification, cancelToken);
             await context.OnBatchStart(registrations).ConfigureAwait(false);
 
@@ -86,11 +97,11 @@ namespace Shiny.Extensions.Push.Infrastructure
                     switch (registration.Platform)
                     {
                         case PushPlatforms.Apple:
-                            result = await this.DoApple(registration, notification, cancelToken).ConfigureAwait(false);
+                            result = await this.DoApple(context, registration, notification, cancelToken).ConfigureAwait(false);
                             break;
 
                         case PushPlatforms.Google:
-                            result = await this.DoGoogle(registration, notification, cancelToken).ConfigureAwait(false);
+                            result = await this.DoGoogle(context, registration, notification, cancelToken).ConfigureAwait(false);
                             break;
                     }
                     if (result)
@@ -147,12 +158,16 @@ namespace Shiny.Extensions.Push.Infrastructure
         }
 
 
-        async Task<bool> DoApple(PushRegistration registration, Notification notification, CancellationToken cancelToken)
+        async Task<bool> DoApple(NotificationBatchContext context, PushRegistration registration, Notification notification, CancellationToken cancelToken)
         {
             if (this.apple == null)
                 throw new ArgumentException("Apple Push is not registered with this manager");
 
-            var appleNative = this.apple.CreateNativeNotification(notification);
+            context.AppleConfiguration ??= await this.appleConfigurationProvider!
+                .GetConfiguration(notification)
+                .ConfigureAwait(false);
+            var appleNative = this.apple.CreateNativeNotification(context.AppleConfiguration, notification);
+
             await Task
                 .WhenAll(this.appleDecorators
                     .Select(x => x.Decorate(registration, notification!, appleNative, cancelToken))
@@ -164,17 +179,21 @@ namespace Shiny.Extensions.Push.Infrastructure
                 await notification.DecorateApple.Invoke(registration, appleNative);
 
             return await this.apple
-                .Send(registration.DeviceToken, notification, appleNative, cancelToken)
+                .Send(context.AppleConfiguration, registration.DeviceToken, notification, appleNative, cancelToken)
                 .ConfigureAwait(false);
         }
 
 
-        async Task<bool> DoGoogle(PushRegistration registration, Notification notification, CancellationToken cancelToken = default)
+        async Task<bool> DoGoogle(NotificationBatchContext context, PushRegistration registration, Notification notification, CancellationToken cancelToken = default)
         {
             if (this.google == null)
                 throw new ArgumentException("No Google provider is registered with this manager");
 
-            var googleNative = this.google.CreateNativeNotification(notification);
+            context.GoogleConfiguration ??= await this.googleConfigurationProvider!
+                .GetConfiguration(notification)
+                .ConfigureAwait(false);
+
+            var googleNative = this.google.CreateNativeNotification(context.GoogleConfiguration, notification);
             await Task
                 .WhenAll(this.googleDecorators
                     .Select(x => x.Decorate(registration, notification!, googleNative, cancelToken))
@@ -186,7 +205,7 @@ namespace Shiny.Extensions.Push.Infrastructure
                 await notification.DecorateGoogle.Invoke(registration, googleNative);
 
             return await this.google
-                .Send(registration.DeviceToken, notification, googleNative, cancelToken)
+                .Send(context.GoogleConfiguration, registration.DeviceToken, notification, googleNative, cancelToken)
                 .ConfigureAwait(false);
         }
     }

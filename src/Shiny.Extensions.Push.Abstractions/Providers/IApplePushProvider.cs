@@ -2,7 +2,7 @@
 
 namespace Shiny.Extensions.Push.Providers
 {
-    public interface IApplePushProvider : IPushProvider<AppleNotification>
+    public interface IApplePushProvider : IPushProvider<AppleConfiguration, AppleNotification>
     {
     }
 }
