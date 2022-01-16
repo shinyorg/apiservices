@@ -24,6 +24,8 @@
       },
       {
         "files": [
+          "releases/**.md",
+          "releases/**/toc.yml",
           "documentation/**.md",
           "documentation/**/toc.yml",
           "toc.yml",

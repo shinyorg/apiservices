@@ -3,6 +3,8 @@
   homepage: documentation/index.md
 - name: API
   href: api/
+- name: Releases
+  href: releases/
 - name: Mobile Project
   href: https://shinylib.net
 - name: GitHub
