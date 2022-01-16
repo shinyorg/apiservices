@@ -120,7 +120,7 @@ namespace Shiny.Extensions.Push.Infrastructure
                     if (!this.tokens.ContainsKey(config.TeamId) || this.tokens[config.TeamId].Expires > DateTime.UtcNow)
                     {
                         var tokenValue = this.CreateJwtToken(config);
-                        this.tokens.Add(config.TeamId, new JwtToken(tokenValue, DateTime.UtcNow.AddMinutes(50)));
+                        this.tokens.Add(config.TeamId, new JwtToken(tokenValue, DateTime.UtcNow.AddMinutes(config.JwtExpiryMinutes)));
                     }
                 }
             }
