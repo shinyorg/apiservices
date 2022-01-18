@@ -27,6 +27,24 @@
             => pushConfig.AddReporter<BatchTimeNotificationReporter>();
 
 
+        public static PushConfigurator AddApplePushProvider(this PushConfigurator pushConfig)
+        {
+            pushConfig.Services.TryAddScoped<IApplePushProvider, ApplePushProvider>();
+            return pushConfig;
+        }
+
+
+        public static PushConfigurator AddGooglePushProvider(this PushConfigurator pushConfig)
+        {
+            pushConfig.Services.TryAddScoped<IGooglePushProvider, GooglePushProvider>();
+            return pushConfig;
+        }
+
+
+        public static PushConfigurator AddAllPushProviders(this PushConfigurator pushConfig) => pushConfig
+            .AddApplePushProvider()
+            .AddGooglePushProvider();
+
         public static PushConfigurator AddAppleConfigurationProvider<TConfigProvider>(this PushConfigurator pushConfig) where TConfigProvider : class, IAppleConfigurationProvider
         {
             pushConfig.Services.AddScoped<IAppleConfigurationProvider, TConfigProvider>();
@@ -37,23 +55,21 @@
         public static PushConfigurator AddApplePush(this PushConfigurator pushConfig, AppleConfiguration configuration)
         {
             pushConfig.Services.AddSingleton<IAppleConfigurationProvider>(new ConfiguredAppleConfigurationProvider(configuration));
-            pushConfig.Services.AddScoped<IApplePushProvider, ApplePushProvider>();
-            return pushConfig;
+            return pushConfig.AddApplePushProvider();
         }
 
 
         public static PushConfigurator AddGoogleConfigurationProvider<TConfigProvider>(this PushConfigurator pushConfig) where TConfigProvider : class, IGoogleConfigurationProvider
         {
             pushConfig.Services.AddScoped<IGoogleConfigurationProvider, TConfigProvider>();
-            return pushConfig;
+            return pushConfig.AddGooglePushProvider();
         }
 
 
         public static PushConfigurator AddGooglePush(this PushConfigurator pushConfig, GoogleConfiguration configuration)
         {
             pushConfig.Services.AddSingleton<IGoogleConfigurationProvider>(new ConfiguredGoogleConfigurationProvider(configuration));
-            pushConfig.Services.AddScoped<IGooglePushProvider, GooglePushProvider>();
-            return pushConfig;
+            return pushConfig.AddGooglePushProvider();
         }
     }
 }
