@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace Shiny.Extensions.Push.Ef.Infrastructure
+namespace Shiny.Extensions.Push.Ef
 {
     public class DbPushRegistration
     {

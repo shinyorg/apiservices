@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shiny.Extensions.Push.Ef.Infrastructure;
+using Shiny.Extensions.Push.Ef;
 
 
-namespace Shiny.Extensions.Push.Ef
+namespace Shiny.Extensions.Push
 {
     public interface IPushDbContext
     {

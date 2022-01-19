@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Shiny.Extensions.Mail;
 using Shiny.Extensions.Mail.DotLiquid;
 
 
-namespace Shiny
+namespace Shiny.Extensions.Mail
 {
     public static class ServiceCollectionExtensions
     {

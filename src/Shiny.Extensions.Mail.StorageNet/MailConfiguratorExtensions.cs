@@ -1,11 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Shiny.Extensions.Mail;
 using Shiny.Extensions.Mail.Impl;
 using Storage.Net;
 using Storage.Net.Blobs;
 
 
-namespace Shiny
+namespace Shiny.Extensions.Mail
 {
     public static class MailConfiguratorExtensions
     {

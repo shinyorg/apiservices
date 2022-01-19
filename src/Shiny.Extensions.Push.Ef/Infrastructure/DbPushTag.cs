@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Shiny.Extensions.Push.Ef.Infrastructure
+namespace Shiny.Extensions.Push.Ef
 {
     public class DbPushTag
     {

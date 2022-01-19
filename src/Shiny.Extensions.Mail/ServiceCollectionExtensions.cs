@@ -1,11 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Shiny.Extensions.Mail;
 using Shiny.Extensions.Mail.Impl;
 using System;
 
 
-namespace Shiny
+namespace Shiny.Extensions.Mail
 {
     public static class ServiceCollectionExtensions
     {

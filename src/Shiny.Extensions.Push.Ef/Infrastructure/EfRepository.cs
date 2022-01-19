@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Shiny.Extensions.Push.Ef.Infrastructure
+namespace Shiny.Extensions.Push.Ef
 {
     public class EfRepository<TDbContext> : IRepository where TDbContext : DbContext, IPushDbContext
     {
