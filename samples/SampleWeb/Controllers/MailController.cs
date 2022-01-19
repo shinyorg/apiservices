@@ -10,8 +10,8 @@ namespace SampleWeb.Controllers
     [Route("[controller]")]
     public class MailController : ControllerBase
     {
-        readonly IMailProcessor mailProcessor;
-        public MailController(IMailProcessor mailProcessor)
+        readonly IMailEngine mailProcessor;
+        public MailController(IMailEngine mailProcessor)
         {
             this.mailProcessor = mailProcessor;
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shiny.Extensions.Mail
 {
-    public interface IMailProcessor
+    public interface IMailEngine
     {
         IMailSender Sender { get; }
 

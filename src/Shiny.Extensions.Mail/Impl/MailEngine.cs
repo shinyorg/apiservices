@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Shiny.Extensions.Mail.Impl
 {
-    public class MailProcessor : IMailProcessor
+    public class MailEngine : IMailEngine
     {
         readonly IMailTemplateConverter mailTemplateConverter;
         readonly ITemplateLoader templateLoader;
@@ -16,7 +16,7 @@ namespace Shiny.Extensions.Mail.Impl
         readonly IMemoryCache? memCache;
 
 
-        public MailProcessor(IMailSender mailSender,
+        public MailEngine(IMailSender mailSender,
                              IMailTemplateConverter mailTemplateConverter,
                              ITemplateLoader templateLoader,
                              ITemplateParser templateParser,

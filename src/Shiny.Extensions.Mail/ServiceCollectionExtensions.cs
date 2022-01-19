@@ -9,41 +9,41 @@ namespace Shiny
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddMailProcessor(this IServiceCollection services, Action<MailConfigurator> configAction)
+        public static void AddMail(this IServiceCollection services, Action<MailConfigurator> configAction)
         {
             var config = new MailConfigurator(services);
             configAction.Invoke(config);
 
-            services.TryAddSingleton<ITemplateParser, RazorTemplateParser>();
-            services.TryAddSingleton<IMailTemplateConverter, FrontMatterMailTemplateConverter>();
-            services.TryAddSingleton<IMailProcessor, MailProcessor>();
+            services.TryAddScoped<ITemplateParser, RazorTemplateParser>();
+            services.TryAddScoped<IMailTemplateConverter, FrontMatterMailTemplateConverter>();
+            services.TryAddScoped<IMailEngine, MailEngine>();
         }
 
 
         public static MailConfigurator UseSmtpSender(this MailConfigurator cfg, SmtpConfig config)
         {
-            cfg.Services.AddSingleton<IMailSender>(_ => new SmtpMailSender(config));
+            cfg.Services.AddScoped<IMailSender>(_ => new SmtpMailSender(config));
             return cfg;
         }
 
 
         public static MailConfigurator UseSendGridSender(this MailConfigurator cfg, string apiKey)
         {
-            cfg.Services.AddSingleton<IMailSender>(_ => new SendGridMailSender(apiKey));
+            cfg.Services.AddScoped<IMailSender>(_ => new SendGridMailSender(apiKey));
             return cfg;
         }
 
 
         public static MailConfigurator UseFileTemplateLoader(this MailConfigurator cfg, string path, string ext = "mailtemplate")
         {
-            cfg.Services.AddSingleton<ITemplateLoader>(_ => new FileTemplateLoader(path, ext));
+            cfg.Services.AddScoped<ITemplateLoader>(_ => new FileTemplateLoader(path, ext));
             return cfg;
         }
 
 
         public static MailConfigurator UseSqlServerTemplateLoader(this MailConfigurator cfg, string connectionString)
         {
-            cfg.Services.AddSingleton<ITemplateLoader>(_ => new SqlServerTemplateLoader(connectionString));
+            cfg.Services.AddScoped<ITemplateLoader>(_ => new SqlServerTemplateLoader(connectionString));
             return cfg;
         }
     }

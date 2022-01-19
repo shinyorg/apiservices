@@ -37,7 +37,7 @@ builder.Host.ConfigureServices(services =>
         .UseEfRepository<SampleDbContext>()
     );
 
-    services.AddMailProcessor(x => x
+    services.AddMail(x => x
         .UseSmtpSender(cfg.GetSection("Mail:Smtp").Get<SmtpConfig>())
         .UseFileTemplateLoader("mailtemplates", "mailtemplate")
         //.UseSendGridSender(cfg["Mail:SendGridApiKey"])
