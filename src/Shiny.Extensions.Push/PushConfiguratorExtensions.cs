@@ -15,7 +15,7 @@ namespace Shiny.Extensions.Push
             var cfg = new PushConfigurator(services);
             configure(cfg);
 
-            services.TryAddSingleton<IPushManager, PushManager>();
+            services.TryAddScoped<IPushManager, PushManager>();
         }
 
 
@@ -25,7 +25,6 @@ namespace Shiny.Extensions.Push
 
         public static PushConfigurator AddPerformanceLogger(this PushConfigurator pushConfig)
             => pushConfig.AddReporter<BatchTimeNotificationReporter>();
-
 
 
         public static PushConfigurator AddAppleConfigurationProvider<TConfigProvider>(this PushConfigurator pushConfig) where TConfigProvider : class, IAppleConfigurationProvider
