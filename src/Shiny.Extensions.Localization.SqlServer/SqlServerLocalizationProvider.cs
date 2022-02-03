@@ -8,7 +8,14 @@ namespace Shiny.Extensions.Localization.SqlServer
     public class SqlServerLocalizationProvider : ILocalizationProvider
     {
         readonly string connectionString;
-        public SqlServerLocalizationProvider(string connectionString)  => this.connectionString = connectionString;
+        readonly string? appFilter;
+
+
+        public SqlServerLocalizationProvider(string connectionString, string? appFilter)
+        {
+            this.connectionString = connectionString;
+            this.appFilter = appFilter;
+        }
 
 
         public ILocalizationSource[] Load()
@@ -18,7 +25,7 @@ namespace Shiny.Extensions.Localization.SqlServer
             {
                 using (var command = conn.CreateCommand())
                 {
-                    command.CommandText = SQL;
+                    command.CommandText = this.GetSql();
                     conn.Open();
 
                     using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection))
@@ -54,6 +61,14 @@ namespace Shiny.Extensions.Localization.SqlServer
         }
 
 
-        const string SQL = "SELECT Section, ResourceKey, CultureCode, Value FROM Localizations ORDER BY Section, ResourceKey, CultureCode";
+        string? builtSql;
+        string GetSql()
+        {
+            this.builtSql ??= this.appFilter == null
+                ? "SELECT Section, ResourceKey, CultureCode, Value FROM Localizations ORDER BY Section, ResourceKey, CultureCode"
+                : $"SELECT Section, ResourceKey, CultureCode, Value FROM Localizations WHERE AppIdentifier = '{this.appFilter}' ORDER BY Section, ResourceKey, CultureCode"
+
+            return this.builtSql;
+        }
     }
 }
