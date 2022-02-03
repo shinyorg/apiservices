@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Shiny.Extensions.Mail.Impl;
 using System;
+using System.Linq;
 
 
 namespace Shiny.Extensions.Mail
@@ -16,6 +17,9 @@ namespace Shiny.Extensions.Mail
             services.TryAddScoped<ITemplateParser, RazorTemplateParser>();
             services.TryAddScoped<IMailTemplateConverter, FrontMatterMailTemplateConverter>();
             services.TryAddScoped<IMailEngine, MailEngine>();
+
+            if (!services.Any(x => x.ServiceType == typeof(ITemplateLoader)))
+                throw new InvalidOperationException("No ITemplateLoader service has been registered");
         }
 
 
