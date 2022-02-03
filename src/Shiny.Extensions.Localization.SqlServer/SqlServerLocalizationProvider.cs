@@ -66,7 +66,7 @@ namespace Shiny.Extensions.Localization.SqlServer
         {
             this.builtSql ??= this.appFilter == null
                 ? "SELECT Section, ResourceKey, CultureCode, Value FROM Localizations ORDER BY Section, ResourceKey, CultureCode"
-                : $"SELECT Section, ResourceKey, CultureCode, Value FROM Localizations WHERE AppIdentifier = '{this.appFilter}' ORDER BY Section, ResourceKey, CultureCode"
+                : $"SELECT Section, ResourceKey, CultureCode, Value FROM Localizations WHERE AppIdentifier = '{this.appFilter}' ORDER BY Section, ResourceKey, CultureCode";
 
             return this.builtSql;
         }
