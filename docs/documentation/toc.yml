@@ -7,8 +7,10 @@
       href: push/notificationreporters.md
     - name: Decorators
       href: push/decorators.md
-    - name: Custom Data Store
+    - name: Custom Data Store 
       href: push/datastore.md
+    - name: Configuration Providers
+      href: push/configurationproviders.md
 - name: Mail Templating
   href: email.md
 - name: Localization
