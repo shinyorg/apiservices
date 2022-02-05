@@ -11,7 +11,7 @@ namespace Shiny.Extensions.Localization.SqlServer
 
 
         public SqlServerLocalizationSource(string section, IList<string> rawKeys, Dictionary<string, string> values)
-        { 
+        {
             this.Name = section;
             this.rawKeys = rawKeys;
             this.values = values;
