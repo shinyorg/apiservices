@@ -91,7 +91,7 @@ public string this[string key] => this.manager.GetString(key);
 
 Now, in your XAML
 ```xml
-<Label Text="{Binding [MySection.YourKey]}" /> 
+<Label Text="{Binding [MySection:YourKey]}" /> 
 ```
 
 

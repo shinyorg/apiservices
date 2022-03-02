@@ -10,14 +10,18 @@ There are tons of email engines out there, but we didn't see anything as comphre
 These guys are responsible for going out and loading up your templates.  Templates can come from anywhere - a database, blob storage in azure, or even your local file system.  Why should it matter?
 
 Shiny.Extensions.Mail provides several out-of-the-box providers
-* FileSystem
-* SqlServer
-* Shiny.Storage - access to FTP, filesystem, Azure Blobs, etc - read more about it here: [Shiny.Storage](storage.md)
+|Name|Description|NuGet|
+|----|-----------|-----|
+|File System|Loads templates from the file system|[!NugetShield(Shiny.Extensions.Mail.FileSystem)]|
+|SQL Server|Loads templates from a SQL Server database|[!NugetShield(Shiny.Extensions.Mail.SqlServer)]|
+|Storage.NET|Loads templates from FTP, filesystem, Azure Blobs, etc - read more about Storage.NET here: [GitHub](https://github.com/aloneguid/storage)|[!NugetShield(Shiny.Extensions.Mail.StorageNet)]|
 
 ### Template Parsers
 Template parsers are responsible for providing logic & raw parsing capabilities before taking the content and creating a mail message.  Here, you can really customize your emails by customer such as looping through a list of order items.
 
-Shiny providers one parser out of the box - Razor
+Shiny providers two parsers
+* Razor (built-in to Shiny.Extensions.Mail)
+* DotLiquid (Shiny.Extensions.Mail.DotLiquid) - [!NugetShield(Shiny.Extensions.Mail.DotLiquid)]
 
 ### MailMessage Converters
 Mail message parsers are the last line before sending your message.  Here, we take the raw string after the loader and template parser have taken their runs and convert the content into a mail message.  This is where formatting of your template becomes more important.  Out of the box, we have what we call a "front matter mail template converter".  We will show you what this format looks like in the next section.

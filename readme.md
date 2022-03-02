@@ -45,10 +45,10 @@ Name|Stable|Preview
 Shiny.Extensions.Push|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.push?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.push?style=for-the-badge)
 Shiny.Extensions.Push.Ef|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.push.ef?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.push.ef?style=for-the-badge)
 Shiny.Extensions.Mail|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.mail?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.mail?style=for-the-badge)
+Shiny.Extensions.Mail.DotLiquid|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.mail.dotliquid?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.mail.dotliquid?style=for-the-badge)
+Shiny.Extensions.Mail.StorageNet|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.mail.storagenet.dotliquid?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.mail.storagenet.dotliquid?style=for-the-badge)
 Shiny.Extensions.Localization|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.localization?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.localization?style=for-the-badge)
 Shiny.Extensions.Localization.SqlServer|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.localization.sqlserver?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.localization.sqlserver?style=for-the-badge)
-Shiny.Storage|![Nuget](https://img.shields.io/nuget/v/shiny.storage?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.storage?style=for-the-badge)
-
 
 
 ## SQL Scripts
