@@ -1,9 +1,6 @@
-﻿using System;
-using System.IO;
-using Cake.Common;
+﻿using Cake.Common;
 using Cake.Common.Build;
 using Cake.Core;
-using Cake.Core.Diagnostics;
 using Cake.Core.IO;
 using Cake.Frosting;
 using Cake.Git;
@@ -28,21 +25,12 @@ namespace ShinyBuild
 #endif
             this.Branch = context.GitBranchCurrent(".");
 
-            var version = $"{this.MajorMinorVersion}.{this.BuildNumber}";
-            if (!this.IsMainBranch)
-                version += "-preview";
-
-            this.Log.Information("Shiny API Version: " + version);
-            this.NugetVersion = version;
         }
 
 
-        public string MajorMinorVersion => this.ArgumentOrEnvironment("ShinyVersion", Constants.MajorMinorVersion);
-        public int BuildNumber => this.ArgumentOrEnvironment("BuildNumber", 0);
         public string MsBuildConfiguration => this.ArgumentOrEnvironment("configuration", Constants.DefaultBuildConfiguration);
         public string NugetApiKey => this.ArgumentOrEnvironment<string>("NugetApiKey");
         public GitBranch Branch { get; }
-        public string NugetVersion { get; }
 
         public T ArgumentOrEnvironment<T>(string name, T defaultValue = default)
             => this.HasArgument(name) ? this.Argument<T>(name) : this.EnvironmentVariable<T>(name, defaultValue);

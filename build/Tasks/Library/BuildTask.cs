@@ -8,15 +8,6 @@ namespace ShinyBuild.Tasks.Library
     [TaskName("Build")]
     public sealed class BuildTask : FrostingTask<BuildContext>
     {
-        public override bool ShouldRun(BuildContext context)
-        {
-            if (context.IsRunningInCI && context.BuildNumber == 0)
-                throw new ArgumentException("BuildNumber argument is missing");
-
-            return true;
-        }
-
-
         public override void Run(BuildContext context)
         {
             context.CleanDirectories($"./src/**/obj/");
@@ -26,7 +17,7 @@ namespace ShinyBuild.Tasks.Library
                 .WithRestore()
                 .WithTarget("Clean")
                 .WithTarget("Build")
-                .WithProperty("ShinyVersion", context.NugetVersion)
+                .WithProperty("PublicRelease", "true")
                 .WithProperty("CI", context.IsRunningInCI ? "true" : "")
                 .SetConfiguration(context.MsBuildConfiguration)
             );

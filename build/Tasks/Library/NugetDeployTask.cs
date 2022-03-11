@@ -3,7 +3,7 @@
 using Cake.Common.Diagnostics;
 using Cake.Common.IO;
 using Cake.Common.Tools.DotNet;
-using Cake.Common.Tools.DotNetCore.NuGet.Push;
+using Cake.Common.Tools.DotNet.NuGet.Push;
 using Cake.Frosting;
 
 
@@ -26,7 +26,7 @@ public sealed class NugetDeployTask : FrostingTask<BuildContext>
 
     public override void Run(BuildContext context)
     {
-        var settings = new DotNetCoreNuGetPushSettings
+        var settings = new DotNetNuGetPushSettings
         {
             ApiKey = context.NugetApiKey,
             Source = MainNuget,
