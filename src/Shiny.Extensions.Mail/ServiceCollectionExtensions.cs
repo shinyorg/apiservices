@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Shiny.Extensions.Mail.Impl;
 using System;
+using System.Data.Common;
 using System.Linq;
 
 
@@ -46,7 +48,14 @@ namespace Shiny.Extensions.Mail
 
         public static MailConfigurator UseSqlServerTemplateLoader(this MailConfigurator cfg, string connectionString)
         {
-            cfg.Services.AddScoped<ITemplateLoader>(_ => new SqlServerTemplateLoader(connectionString));
+            cfg.Services.AddScoped<ITemplateLoader>(_ => new AdoNetTemplateLoader<SqlConnection>(connectionString));
+            return cfg;
+        }
+
+
+        public static MailConfigurator UseAdoNetTemplateLoader<TDbConnection>(this MailConfigurator cfg, string connectionString) where TDbConnection : DbConnection, new()
+        {
+            cfg.Services.AddScoped<ITemplateLoader>(_ => new AdoNetTemplateLoader<TDbConnection>(connectionString));
             return cfg;
         }
     }

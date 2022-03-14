@@ -1,17 +1,18 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 
 
-namespace Shiny.Extensions.Localization.SqlServer
+namespace Shiny.Extensions.Localization.AdoNet
 {
-    public class SqlServerLocalizationProvider : ILocalizationProvider
+    public class AdoNetLocalizationProvider<TDbConnection> : ILocalizationProvider where TDbConnection : DbConnection, new()
     {
         readonly string connectionString;
         readonly string? appFilter;
 
 
-        public SqlServerLocalizationProvider(string connectionString, string? appFilter)
+        public AdoNetLocalizationProvider(string connectionString, string? appFilter)
         {
             this.connectionString = connectionString;
             this.appFilter = appFilter;
@@ -21,8 +22,11 @@ namespace Shiny.Extensions.Localization.SqlServer
         public ILocalizationSource[] Load()
         {
             var list = new List<ILocalizationSource>();
-            using (var conn = new SqlConnection(this.connectionString))
+
+            using (var conn = new TDbConnection())
             {
+                conn.ConnectionString = this.connectionString;
+
                 using (var command = conn.CreateCommand())
                 {
                     command.CommandText = this.GetSql();
@@ -44,9 +48,10 @@ namespace Shiny.Extensions.Localization.SqlServer
                             if (current != section)
                             {
                                 current = section;
-                                currentValues = new Dictionary<string, string>();
+                                currentValues = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
                                 currentKeys = new List<string>();
-                                var source = new SqlServerLocalizationSource(current, currentKeys, currentValues);
+
+                                var source = new AdoNetLocalizationSource<TDbConnection>(current, currentKeys, currentValues);
                                 list.Add(source);
                             }
                             if (!currentKeys!.Contains(key))

@@ -2,14 +2,18 @@
   "solution": {
     "path": "Shiny.Api.sln",
     "projects": [
-      "src\\Shiny.Extensions.Localization.SqlServer\\Shiny.Extensions.Localization.SqlServer.csproj",
+      "build\\ShinyApiBuild.csproj",
+      "src\\Shiny.Extensions.Localization.AdoNet\\Shiny.Extensions.Localization.AdoNet.csproj",
       "src\\Shiny.Extensions.Localization\\Shiny.Extensions.Localization.csproj",
       "src\\Shiny.Extensions.Mail.Abstractions\\Shiny.Extensions.Mail.Abstractions.csproj",
+      "src\\Shiny.Extensions.Mail.DotLiquid\\Shiny.Extensions.Mail.DotLiquid.csproj",
       "src\\Shiny.Extensions.Mail.StorageNet\\Shiny.Extensions.Mail.StorageNet.csproj",
       "src\\Shiny.Extensions.Mail\\Shiny.Extensions.Mail.csproj",
       "src\\Shiny.Extensions.Push.Abstractions\\Shiny.Extensions.Push.Abstractions.csproj",
       "src\\Shiny.Extensions.Push.Ef\\Shiny.Extensions.Push.Ef.csproj",
-      "src\\Shiny.Extensions.Push\\Shiny.Extensions.Push.csproj"
+      "src\\Shiny.Extensions.Push\\Shiny.Extensions.Push.csproj",
+      "tests\\Shiny.Extensions.Localization.Tests\\Shiny.Extensions.Localization.Tests.csproj",
+      "tests\\Shiny.Extensions.Mail.Tests\\Shiny.Extensions.Mail.Tests.csproj"
     ]
   }
 }

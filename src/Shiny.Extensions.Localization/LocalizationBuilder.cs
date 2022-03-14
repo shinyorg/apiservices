@@ -28,7 +28,8 @@ namespace Shiny.Extensions.Localization
 
         public ILocalizationManager Build()
         {
-            var sources = new Dictionary<string, ILocalizationSource>();
+            var sources = new Dictionary<string, ILocalizationSource>(StringComparer.InvariantCultureIgnoreCase);
+
             foreach (var provider in this.providers)
             {
                 var loadedSources = provider.Load();

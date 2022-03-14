@@ -22,7 +22,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Shiny.Extensions.Localization.SqlServer\Shiny.Extensions.Localization.SqlServer.csproj" />
 		<ProjectReference Include="..\..\src\Shiny.Extensions.Localization\Shiny.Extensions.Localization.csproj" />
 	</ItemGroup>
 

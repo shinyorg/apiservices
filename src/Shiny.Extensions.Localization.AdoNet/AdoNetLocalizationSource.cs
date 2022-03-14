@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Data.Common;
 using System.Globalization;
 
 
-namespace Shiny.Extensions.Localization.SqlServer
+namespace Shiny.Extensions.Localization.AdoNet
 {
-    public class SqlServerLocalizationSource : ILocalizationSource
+    public class AdoNetLocalizationSource<TDbConnection> : ILocalizationSource where TDbConnection : DbConnection, new()
     {
         readonly IList<string> rawKeys;
         readonly Dictionary<string, string> values;
 
 
-        public SqlServerLocalizationSource(string section, IList<string> rawKeys, Dictionary<string, string> values)
+        public AdoNetLocalizationSource(string section, IList<string> rawKeys, Dictionary<string, string> values)
         {
             this.Name = section;
             this.rawKeys = rawKeys;
