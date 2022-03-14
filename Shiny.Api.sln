@@ -46,6 +46,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{651C11E3
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\build.yml = .github\workflows\build.yml
 		.github\workflows\docs.yml = .github\workflows\docs.yml
+		src\version.json = src\version.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{FBA41A83-81AC-41C6-A656-6F697E377B00}"
@@ -92,7 +93,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.Localizati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.Mail.StorageNet", "src\Shiny.Extensions.Mail.StorageNet\Shiny.Extensions.Mail.StorageNet.csproj", "{E57E68D0-37AE-4ED2-8C60-3A15FD66453E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shiny.Extensions.Mail.DotLiquid", "src\Shiny.Extensions.Mail.DotLiquid\Shiny.Extensions.Mail.DotLiquid.csproj", "{E13A95DE-743F-4DFE-834F-2CAF80D2B20B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.Mail.DotLiquid", "src\Shiny.Extensions.Mail.DotLiquid\Shiny.Extensions.Mail.DotLiquid.csproj", "{E13A95DE-743F-4DFE-834F-2CAF80D2B20B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

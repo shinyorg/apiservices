@@ -17,7 +17,6 @@ namespace ShinyBuild.Tasks.Library
                 .WithRestore()
                 .WithTarget("Clean")
                 .WithTarget("Build")
-                .WithProperty("PublicRelease", "true")
                 .WithProperty("CI", context.IsRunningInCI ? "true" : "")
                 .SetConfiguration(context.MsBuildConfiguration)
             );
