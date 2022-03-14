@@ -3,7 +3,7 @@
 |Name|Nuget|
 |----|-----|
 |Main Library|[!NugetShield(Shiny.Extensions.Localization)]|
-|SQL Server Plugin|[!NugetShield(Shiny.Extensions.Localization.SqlServer)]
+|ADO.NET Database Plugin|[!NugetShield(Shiny.Extensions.Localization.AdoNet)]
 
 Everyone has to do localization at some point in there career.  It can be tedious and time consuming.  Most of us .NET folk are accumstumed to using RESX resource files.  They're fast, efficient, and work well for general purpose localization efforts 
 
@@ -30,6 +30,7 @@ using Shiny.Extensions.Localization;
 var manager = new LocalizationBuilder()
     .AddAssemblyResources(this.GetType().Assembly)
     .AddSqlServer("Your Connection String")
+    .AddAdoNet<YourDbConnectionType>("Your Connection String")
     .AddResource("YourNamespace.YourResourceFile", this.GetType().Assembly) // useful for adding a specific resource file
     .Add(new YourOwnCustomLocalizationProvider())
     .Build();
