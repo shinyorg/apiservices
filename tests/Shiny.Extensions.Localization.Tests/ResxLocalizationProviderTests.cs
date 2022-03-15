@@ -30,5 +30,16 @@ namespace Shiny.Extensions.Localization.Tests
             sources[0].Name.Should().Be(path1);
             sources[1].Name.Should().Be(path2);
         }
+
+
+        [Fact]
+        public void CaseInsensitive()
+        {
+            var cfg = new LocalizationBuilder()
+                .AddAssemblyResources(this.GetType().Assembly, true, true)
+                .Build();
+
+            cfg["strings1:helloworld"].Should().Be("Hello World");
+        }
     }
 }
