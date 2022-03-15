@@ -15,7 +15,7 @@ namespace Shiny.Extensions.Localization.Tests
         [InlineData(false)]
         public void Assembly_NoTrim_Names(bool trim)
         {
-            var provider = new AssemblyResxLocalizationProvider(this.GetType().Assembly, trim);
+            var provider = new AssemblyResxLocalizationProvider(this.GetType().Assembly, trim, true);
             var sources = provider.Load();
             sources.Length.Should().Be(2);
 
