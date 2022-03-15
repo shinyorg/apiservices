@@ -9,12 +9,14 @@ namespace Shiny.Extensions.Localization.Impl
     {
         readonly Assembly assembly;
         readonly bool trimAssemblyNames;
+        readonly bool ignoreCase;
 
 
-        public AssemblyResxLocalizationProvider(Assembly assembly, bool trimAssemblyNames) 
+        public AssemblyResxLocalizationProvider(Assembly assembly, bool trimAssemblyNames, bool ignoreCase)
         {
             this.assembly = assembly;
             this.trimAssemblyNames = trimAssemblyNames;
+            this.ignoreCase = ignoreCase;
         }
 
 
@@ -30,7 +32,12 @@ namespace Shiny.Extensions.Localization.Impl
                 if (this.trimAssemblyNames)
                     alias = alias.Split('.').Last();
 
-                var source = new ResxLocalizationSource(name, this.assembly, alias);
+                var source = new ResxLocalizationSource(
+                    name,
+                    this.assembly,
+                    alias,
+                    this.ignoreCase
+                );
                 sources.Add(source);
             }
             return sources.ToArray();

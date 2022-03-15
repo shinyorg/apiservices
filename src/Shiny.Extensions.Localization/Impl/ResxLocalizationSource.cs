@@ -11,10 +11,13 @@ namespace Shiny.Extensions.Localization.Impl
         readonly ResourceManager resources;
 
 
-        public ResxLocalizationSource(string baseName, Assembly assembly, string? alias)
+        public ResxLocalizationSource(string baseName, Assembly assembly, string? alias, bool ignoreCase)
         {
             this.Name = alias ?? baseName;
-            this.resources = new ResourceManager(baseName, assembly);
+            this.resources = new ResourceManager(baseName, assembly)
+            {
+                IgnoreCase = ignoreCase
+            };
         }
 
 
@@ -34,7 +37,7 @@ namespace Shiny.Extensions.Localization.Impl
             while (resSet.MoveNext())
             {
                 if (resSet.Value is string value)
-                { 
+                {
                     var key = (string)resSet.Entry.Key;
                     dict.Add(key, value);
                 }

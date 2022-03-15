@@ -15,5 +15,16 @@ namespace Shiny.Extensions.Localization.Tests
 
             manager["Strings1:HelloWorld"].Should().Be("Hello World");
         }
+
+
+        [Fact]
+        public void Keys_CaseInsensitive()
+        {
+            var manager = new LocalizationBuilder()
+                .AddAssemblyResources(this.GetType().Assembly, true)
+                .Build();
+
+            manager["Strings1:HelloWorld"].Should().Be("Hello World");
+        }
     }
 }

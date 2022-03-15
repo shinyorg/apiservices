@@ -8,6 +8,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="FluentAssertions" Version="6.5.1" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
 		<PackageReference Include="Moq" Version="4.17.2" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
 		<PackageReference Include="xunit" Version="2.4.1" />
@@ -22,6 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\src\Shiny.Extensions.Localization.AdoNet\Shiny.Extensions.Localization.AdoNet.csproj" />
 		<ProjectReference Include="..\..\src\Shiny.Extensions.Localization\Shiny.Extensions.Localization.csproj" />
 	</ItemGroup>
 
