@@ -9,5 +9,11 @@
         public string TeamId { get; set; }
         public string AppBundleIdentifier { get; set; }
         public bool IsProduction { get; set;}
+
+
+        public void AssertValid()
+        {
+
+        }
     }
 }

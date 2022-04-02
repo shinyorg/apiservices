@@ -4,6 +4,7 @@ using Shiny;
 using Shiny.Extensions.Mail;
 using Shiny.Extensions.Push;
 using Shiny.Extensions.Localization;
+using Shiny.Extensions.Push.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +35,8 @@ builder.Host.ConfigureServices(services =>
     services.AddPushManagement(x => x
         .AddApplePush(cfg.GetSection("Push:Apple").Get<AppleConfiguration>())
         .AddGooglePush(cfg.GetSection("Push:Google").Get<GoogleConfiguration>())
-        .UseEfRepository<SampleDbContext>()
+        .UseRepository<FilePushRepository>()
+        //.UseEfRepository<SampleDbContext>()
     );
 
     services.AddMail(x => x

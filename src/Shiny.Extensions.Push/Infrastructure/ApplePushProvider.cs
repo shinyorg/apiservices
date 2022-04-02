@@ -1,10 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.OpenSsl;
-
 using Shiny.Extensions.Push.Providers;
-
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -128,7 +125,7 @@ namespace Shiny.Extensions.Push.Infrastructure
 
         protected virtual string CreateJwtToken(AppleConfiguration config)
         {
-            var privateKey = this.GetECDsa(config.KeyId);
+            var privateKey = this.GetECDsa(config.Key);
             var securityKey = new ECDsaSecurityKey(privateKey) { KeyId = config.KeyId };
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.EcdsaSha256);
 
@@ -145,9 +142,9 @@ namespace Shiny.Extensions.Push.Infrastructure
         }
 
 
-        protected ECDsa GetECDsa(string keyId)
+        protected ECDsa GetECDsa(string key)
         {
-            var reader = new StringReader(keyId);
+            var reader = new StringReader(key);
             var pemReader = new PemReader(reader);
             var ecPrivateKeyParameters = (ECPrivateKeyParameters)pemReader.ReadObject();
 

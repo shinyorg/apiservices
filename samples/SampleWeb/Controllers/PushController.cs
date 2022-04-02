@@ -95,7 +95,8 @@ namespace SampleWeb.Controllers
             if (reg.UseApple)
                 return PushPlatforms.Apple;
 
-            throw new ArgumentException("Not platform set");
+            //throw new ArgumentException("Not platform set");
+            return PushPlatforms.All;
         }
     }
 }

@@ -12,6 +12,23 @@
         public IServiceCollection Services { get; }
 
 
+        /// <summary>
+        /// Register a singleton repository
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <returns></returns>
+        public PushConfigurator UseRepository(IRepository repository)
+        {
+            this.Services.AddSingleton(repository);
+            return this;
+        }
+
+
+        /// <summary>
+        /// Register a scoped repository
+        /// </summary>
+        /// <typeparam name="TRepository"></typeparam>
+        /// <returns></returns>
         public PushConfigurator UseRepository<TRepository>() where TRepository : class, IRepository
         {
             this.Services.AddScoped<IRepository, TRepository>();
@@ -19,6 +36,11 @@
         }
 
 
+        /// <summary>
+        /// Registers a scoped reporter
+        /// </summary>
+        /// <typeparam name="TReporter"></typeparam>
+        /// <returns></returns>
         public PushConfigurator AddReporter<TReporter>() where TReporter : class, INotificationReporter
         {
             this.Services.AddScoped<INotificationReporter, TReporter>();
