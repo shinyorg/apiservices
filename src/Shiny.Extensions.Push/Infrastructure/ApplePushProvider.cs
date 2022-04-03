@@ -56,6 +56,8 @@ namespace Shiny.Extensions.Push.Infrastructure
 
         public virtual async Task<bool> Send(AppleConfiguration config, string deviceToken, Notification notification, AppleNotification native, CancellationToken cancelToken = default)
         {
+            config.AssertValid();
+
             var path = "/3/device/" + deviceToken;
             var url = (config.IsProduction ? ProdUrl : DevUrl) + path;
             var json = Serializer.Serialize(native);

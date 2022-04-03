@@ -38,6 +38,8 @@ namespace Shiny.Extensions.Push.Infrastructure
 
         public virtual async Task<bool> Send(GoogleConfiguration configuration, string deviceToken, Notification notification, GoogleNotification native, CancellationToken cancelToken = default)
         {
+            configuration.AssertValid();
+
             native.To = deviceToken;
             native.Token = deviceToken;
             var json = Serializer.Serialize(native);

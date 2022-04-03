@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+		<TargetFramework>net6.0</TargetFramework>
 		<Description>Manage your push notification without Azure Notification Hubs.  Adds logging, registration, tagging, etc to Apple and Google push.  Great for small apps on ASP.NET Core or bigger apps on an Azure Function</Description>
 	</PropertyGroup>
 

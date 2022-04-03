@@ -37,6 +37,8 @@ namespace Shiny.Extensions.Push
 
         public static PushConfigurator AddApplePush(this PushConfigurator pushConfig, AppleConfiguration configuration)
         {
+            ArgumentNullException.ThrowIfNull(configuration);
+            configuration.AssertValid();
             pushConfig.Services.AddSingleton<IAppleConfigurationProvider>(new ConfiguredAppleConfigurationProvider(configuration));
             return pushConfig.AddApplePush();
         }
@@ -69,6 +71,9 @@ namespace Shiny.Extensions.Push
 
         public static PushConfigurator AddGooglePush(this PushConfigurator pushConfig, GoogleConfiguration configuration)
         {
+            ArgumentNullException.ThrowIfNull(configuration);
+            configuration.AssertValid();
+
             pushConfig.Services.AddSingleton<IGoogleConfigurationProvider>(new ConfiguredGoogleConfigurationProvider(configuration));
             return pushConfig.AddGooglePush();
         }
