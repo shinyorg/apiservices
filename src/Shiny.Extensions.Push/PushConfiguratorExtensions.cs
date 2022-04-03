@@ -15,6 +15,7 @@ namespace Shiny.Extensions.Push
             var cfg = new PushConfigurator(services);
             configure(cfg);
 
+            services.TryAddSingleton<IAppleAuthTokenProvider, AppleAuthTokenProvider>();
             services.TryAddScoped<IPushManager, PushManager>();
         }
 

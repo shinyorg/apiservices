@@ -1,14 +1,7 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using Org.BouncyCastle.Crypto.Parameters;
-using Org.BouncyCastle.OpenSsl;
-using Shiny.Extensions.Push.Providers;
+﻿using Shiny.Extensions.Push.Providers;
 using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +13,15 @@ namespace Shiny.Extensions.Push.Infrastructure
         const string DevUrl = "https://api.development.push.apple.com";
         const string ProdUrl = "https://api.push.apple.com";
 
-        readonly HttpClient httpClient = new HttpClient();
+        readonly HttpClient httpClient;
+        readonly IAppleAuthTokenProvider authTokenProvider;
+
+
+        public ApplePushProvider(IAppleAuthTokenProvider authTokenProvider)
+        {
+            this.httpClient = new HttpClient();
+            this.authTokenProvider = authTokenProvider;
+        }
 
 
         public virtual AppleNotification CreateNativeNotification(AppleConfiguration config, Notification notification)
@@ -65,7 +66,8 @@ namespace Shiny.Extensions.Push.Infrastructure
                 Content = new StringContent(json)
             };
 
-            request.Headers.Authorization = new AuthenticationHeaderValue("bearer", this.GetJwtToken(config));
+            var jwt = this.authTokenProvider.GetAuthToken(config);
+            request.Headers.Authorization = new AuthenticationHeaderValue("bearer", jwt);
             request.Headers.TryAddWithoutValidation(":method", "POST");
             request.Headers.TryAddWithoutValidation(":path", path);
             request.Headers.TryAddWithoutValidation("apns-id", Guid.NewGuid().ToString("D"));
@@ -97,65 +99,6 @@ namespace Shiny.Extensions.Push.Infrastructure
             // InternalServerError,
             // ServiceUnavailable,
             // Shutdown, 
-        }
-
-
-        //https://stackoverflow.com/questions/43870237/how-to-implement-apple-token-based-push-notifications-using-p8-file-in-c
-
-        readonly Dictionary<string, JwtToken> tokens = new Dictionary<string, JwtToken>();
-        object syncLock = new object();
-
-
-        protected virtual string GetJwtToken(AppleConfiguration config)
-        {
-            if (!this.tokens.ContainsKey(config.TeamId) || this.tokens[config.TeamId].Expires < DateTime.UtcNow)
-            {
-                lock (this.syncLock)
-                {
-                    if (!this.tokens.ContainsKey(config.TeamId) || this.tokens[config.TeamId].Expires < DateTime.UtcNow)
-                    {
-                        var tokenValue = this.CreateJwtToken(config);
-                        this.tokens.Add(config.TeamId, new JwtToken(tokenValue, DateTime.UtcNow.AddMinutes(config.JwtExpiryMinutes)));
-                    }
-                }
-            }
-            return this.tokens[config.TeamId].Value;
-        }
-
-
-        protected virtual string CreateJwtToken(AppleConfiguration config)
-        {
-            var privateKey = this.GetECDsa(config.Key);
-            var securityKey = new ECDsaSecurityKey(privateKey) { KeyId = config.KeyId };
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.EcdsaSha256);
-
-            var descriptor = new SecurityTokenDescriptor
-            {
-                IssuedAt = DateTime.Now,
-                Issuer = config.TeamId,
-                SigningCredentials = credentials
-            };
-
-            var handler = new JwtSecurityTokenHandler();
-            var encodedToken = handler.CreateEncodedJwt(descriptor);
-            return encodedToken;
-        }
-
-
-        protected ECDsa GetECDsa(string key)
-        {
-            var reader = new StringReader(key);
-            var pemReader = new PemReader(reader);
-            var ecPrivateKeyParameters = (ECPrivateKeyParameters)pemReader.ReadObject();
-
-            var q = ecPrivateKeyParameters.Parameters.G.Multiply(ecPrivateKeyParameters.D).Normalize();
-            var qx = q.AffineXCoord.GetEncoded();
-            var qy = q.AffineYCoord.GetEncoded();
-            var d = ecPrivateKeyParameters.D.ToByteArrayUnsigned();
-
-            // Convert the BouncyCastle key to a Native Key.
-            var msEcp = new ECParameters { Curve = ECCurve.NamedCurves.nistP256, Q = { X = qx, Y = qy }, D = d };
-            return ECDsa.Create(msEcp);
         }
     }
 }
