@@ -16,7 +16,7 @@
 		<PackageReference Include="Refit" Version="6.3.2" />
 		<PackageReference Include="Shiny.Framework" Version="2.2.1" />
 		<PackageReference Include="Shiny.Push" Version="2.5.0.2985-preview" />
-		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
 	</ItemGroup>
 
 	<ItemGroup>

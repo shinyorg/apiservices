@@ -4,6 +4,7 @@ using Cake.Core;
 using Cake.Core.IO;
 using Cake.Frosting;
 using Cake.Git;
+using Cake.GitVersioning;
 
 
 namespace ShinyBuild
@@ -76,7 +77,7 @@ namespace ShinyBuild
                     return false;
 
                 var bn = this.Branch.FriendlyName.ToLower();
-                return bn.Equals("main") || bn.Equals("master") || bn.Equals("preview");
+                return bn.Equals("main") || bn.Equals("master") || bn.StartsWith("v");
             }
         }
 
