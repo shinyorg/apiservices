@@ -24,10 +24,11 @@ namespace ShinyBuild
             }
 #endif
             this.Branch = context.GitBranchCurrent(".");
-
+            this.ReleaseVersion = this.GitVersioningGetVersion().NuGetPackageVersion;
         }
 
 
+        public string ReleaseVersion { get; }
         public string MsBuildConfiguration => this.ArgumentOrEnvironment("configuration", Constants.DefaultBuildConfiguration);
         public string NugetApiKey => this.ArgumentOrEnvironment<string>("NugetApiKey");
         public GitBranch Branch { get; }

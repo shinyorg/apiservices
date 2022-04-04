@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -9,6 +10,19 @@ namespace Shiny.Extensions.Localization
 {
     public static class LocalizationExtensions
     {
+        public static IServiceCollection ConfigureLocalization(this IServiceCollection services, Action<LocalizationBuilder> builderAction)
+        {
+            var builder = new LocalizationBuilder();
+            builderAction.Invoke(builder);
+            var manager = builder.Build();
+
+            services.AddSingleton(manager);
+            services.AddSingleton(typeof(ILocalize<>), typeof(Localize<>));
+
+            return services;
+        }
+
+
         /// <summary>
         /// This is a useful method if you want to serialize all sections for a specified culture to something like JSON
         /// </summary>
