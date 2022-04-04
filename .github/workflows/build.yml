@@ -9,7 +9,7 @@ on:
         default: 'warning'
   push:
     branches: 
-    - master2
+    - master
     - v*
     paths:
     - "src/**"
