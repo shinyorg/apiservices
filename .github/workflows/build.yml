@@ -8,11 +8,9 @@ on:
         required: true
         default: 'warning'
   push:
-    branches: [ master, main, dev, preview ]
-    paths:
-    - "src/**"
-    - "build/**"
-    - ".github/workflows/**"
+    branches: 
+    - master
+    - v*
 
 env:
   NugetApiKey: ${{secrets.NUGETAPIKEY}}
