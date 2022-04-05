@@ -16,6 +16,8 @@
 * [Documentation](https://shinylib.net/apiservices)
 * [Samples](https://github.com/shinyorg/apiservices/tree/master/samples)
 * [Community Support](https://github.com/shinyorg/shiny/discussions)
+* ![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/master?style=for-the-badge)
+
 
 ## SUPPORT SHINY
 
@@ -30,13 +32,7 @@ Depending on your Sponsorship Tier, you may also get access to some great benefi
 
 How about some [Shiny Gear](https://www.redbubble.com/shop/ap/45038461)
 
-## BUILDS
 
-Branch|Status
-------|------
-Master|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/master?style=for-the-badge)|
-Dev|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/dev?style=for-the-badge)|
-Preview|![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/preview?style=for-the-badge)|
 
 ## NUGETS
 
@@ -48,7 +44,7 @@ Shiny.Extensions.Mail|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.m
 Shiny.Extensions.Mail.DotLiquid|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.mail.dotliquid?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.mail.dotliquid?style=for-the-badge)
 Shiny.Extensions.Mail.StorageNet|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.mail.storagenet.dotliquid?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.mail.storagenet.dotliquid?style=for-the-badge)
 Shiny.Extensions.Localization|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.localization?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.localization?style=for-the-badge)
-Shiny.Extensions.Localization.SqlServer|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.localization.sqlserver?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.localization.sqlserver?style=for-the-badge)
+Shiny.Extensions.Localization.AdoNet|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.localization.adonet?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.localization.adonet?style=for-the-badge)
 
 
 ## SQL Scripts

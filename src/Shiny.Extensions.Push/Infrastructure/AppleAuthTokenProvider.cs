@@ -20,13 +20,15 @@ namespace Shiny.Extensions.Push.Infrastructure
         public virtual string GetAuthToken(AppleConfiguration config)
         {
             if (!this.tokens.ContainsKey(config.TeamId) || this.tokens[config.TeamId].Expires < DateTime.UtcNow)
-            {
+            {                
                 lock (this.syncLock)
                 {
                     if (!this.tokens.ContainsKey(config.TeamId) || this.tokens[config.TeamId].Expires < DateTime.UtcNow)
                     {
+                        this.tokens.Remove(config.TeamId);
                         var tokenValue = this.CreateJwtToken(config);
                         this.tokens.Add(config.TeamId, new JwtToken(tokenValue, DateTime.UtcNow.AddMinutes(config.JwtExpiryMinutes))); // cannot be less than 20 or great than 60
+                        System.Threading.Thread.Sleep(2000);
                     }
                 }
             }
@@ -42,7 +44,7 @@ namespace Shiny.Extensions.Push.Infrastructure
 
             var descriptor = new SecurityTokenDescriptor
             {
-                IssuedAt = DateTime.Now,
+                IssuedAt = DateTime.UtcNow,
                 Issuer = config.TeamId,
                 SigningCredentials = credentials
             };
