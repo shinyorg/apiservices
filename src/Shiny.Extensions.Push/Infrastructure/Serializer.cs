@@ -1,5 +1,6 @@
 ﻿using Shiny.Extensions.Push.Providers;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -11,9 +12,19 @@ namespace Shiny.Extensions.Push.Infrastructure
         static readonly PushJsonSerializerContext JsonContext = new(new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            PropertyNameCaseInsensitive = true,
+            Encoder = JavaScriptEncoder.Default,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         });
 
+        // need kebab naming strategy
+        //static readonly PushJsonSerializerContext AppleJsonContext = new(new JsonSerializerOptions
+        //{
+        //    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        //    PropertyNameCaseInsensitive = true,
+        //    Encoder = JavaScriptEncoder.Default,
+        //    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+        //});
 
         public static string Serialize(AppleNotification notification)
         {
@@ -38,28 +49,16 @@ namespace Shiny.Extensions.Push.Infrastructure
 
     //https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-source-generator/
     [JsonSerializable(typeof(AppleNotification))]
+    [JsonSerializable(typeof(Aps))]
+    [JsonSerializable(typeof(ApsAlert))]
     [JsonSerializable(typeof(GoogleNotification))]
     [JsonSerializable(typeof(FcmResponse))]
     [JsonSerializable(typeof(FcmResult))]
     [JsonSerializable(typeof(GoogleAndroidConfig))]
     [JsonSerializable(typeof(GoogleAndroidNotificationDetails))]
     [JsonSerializable(typeof(ApnResponse))]
+    [JsonSerializable(typeof(string))]
     public partial class PushJsonSerializerContext : JsonSerializerContext
     {
     }
 }
-//Person person = new() { FirstName = "Jane", LastName = "Doe" };
-//byte[] utf8Json = JsonSerializer.SerializeToUtf8Bytes(person, MyJsonContext.Default.Person);
-//person = JsonSerializer.Deserialize(utf8Json, MyJsonContext.Default.Person):
-
-
-//JsonSerializerOptions options = new()
-//{
-//    ReferenceHander = ReferenceHandler.Preserve,
-//    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-//};
-
-//// Use your custom options to initialize a context instance.
-//MyJsonContext context = new(options);
-
-//string json = JsonSerializer.Serialize(person, context.Person);

@@ -44,9 +44,10 @@ namespace Shiny.Extensions.Push.Infrastructure
             }
             if (notification.Data != null)
             {
+                native.CustomData = new();
                 foreach (var pair in notification.Data)
                 {
-                    native.Add(pair.Key, pair.Value);
+                    native.CustomData.Add(pair.Key, pair.Value);
                 }
                 native.Aps.ContentAvailable = 1;
             }

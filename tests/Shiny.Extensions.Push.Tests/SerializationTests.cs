@@ -1,5 +1,6 @@
 namespace Shiny.Extensions.Push.Tests;
 
+using FluentAssertions;
 using Shiny.Extensions.Push.Infrastructure;
 using Shiny.Extensions.Push.Providers;
 using System.Text.Json;
@@ -19,13 +20,18 @@ public class SerializationTests
                 {
                     Title = "Test Title",
                     Body = "Test Body"
-                }
+                },
+                Badge = 99
+            },
+            CustomData = new()
+            {
+                { "Test1", "one" },
+                { "Test2", "two" }
             }
         };
-        var json = Serializer.Serialize(apple);
-        var apple2 = JsonSerializer.Deserialize<AppleNotification>(json);
 
-        apple.Aps.Alert.Title.Equals(apple2.Aps.Alert.Title);
+        var json = Serializer.Serialize(apple);
+        json.Should().Be("{\"aps\":{\"alert\":{\"title\":\"Test Title\",\"body\":\"Test Body\"},\"badge\":99},\"Test1\":\"one\",\"Test2\":\"two\"}");
     }
 
 
@@ -41,11 +47,13 @@ public class SerializationTests
                     Title = "Test Title",
                     Body = "Test Body"
                 }
+            },
+            Data = new()
+            {
+                { "Test1", "one" }
             }
         };
         var json = Serializer.Serialize(google);
-        var google2 = JsonSerializer.Deserialize<GoogleNotification>(json);
-
-        google.Android.Notification.Title.Equals(google2.Android.Notification.Title);
+        json.Should().Be("{\"data\":{\"Test1\":\"one\"},\"android\":{\"notification\":{\"title\":\"Test Title\",\"body\":\"Test Body\"}}}");
     }
 }

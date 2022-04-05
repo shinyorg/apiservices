@@ -11,18 +11,19 @@
         //public string Name { get; set; } - response messageid
         //public string Topic { get; set; }
         //public string Condition { get; set; }
-        public string To { get; set; }
-        public string Token { get; set; }
+        public string? To { get; set; }
+        public string? Token { get; set; }
+
         public Dictionary<string, string>? Data { get; set; }
         public GoogleAndroidConfig? Android { get; set; }
     }
 
 
-    public enum GoogleAndroidMessagePriority
-    {
-        Normal,
-        High
-    }
+    //public enum GoogleAndroidMessagePriority
+    //{
+    //    Normal,
+    //    High
+    //}
 
 
     public class GoogleAndroidConfig
@@ -30,8 +31,9 @@
         [JsonPropertyName("ttl")]
         public string? TimeToLive { get; set; } // ie. "3.5s"
 
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public GoogleAndroidMessagePriority Priority { get; set; } = GoogleAndroidMessagePriority.Normal;
+        //[JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonPropertyName("priority")]
+        public string? Priority { get; set; } // normal or high
 
         [JsonPropertyName("collapse_key")]
         public string? CollapseKey { get; set; }
@@ -40,8 +42,9 @@
         public string? RestrictedPackageName { get; set; }
 
         [JsonPropertyName("direct_boot_ok")]
-        public bool DirectBootOk { get; set; }
+        public bool? DirectBootOk { get; set; }
 
+        [JsonPropertyName("notification")]
         public GoogleAndroidNotificationDetails? Notification { get; set; }
     }
 
