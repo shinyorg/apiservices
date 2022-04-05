@@ -8,7 +8,9 @@ on:
         required: true
         default: 'warning'
   push:
-    branches: [ master, main, dev, preview ]
+    branches: 
+    - master
+    - v*
     paths:
     - "src/**"
     - "build/**"
