@@ -20,7 +20,7 @@ namespace Shiny.Extensions.Push.Infrastructure
             this.fileInfo = new FileInfo(filePath ?? "pushdb.json");
             if (!this.fileInfo.Exists)
             {
-                this.fileInfo.Create();
+                File.Create(this.fileInfo.FullName);
             }
             else
             {

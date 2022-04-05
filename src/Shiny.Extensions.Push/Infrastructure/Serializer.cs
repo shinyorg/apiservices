@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace Shiny.Extensions.Push.Infrastructure
 {
-    internal static class Serializer
+    public static class Serializer
     {
         static readonly PushJsonSerializerContext JsonContext = new(new JsonSerializerOptions
         {
@@ -44,7 +44,7 @@ namespace Shiny.Extensions.Push.Infrastructure
     [JsonSerializable(typeof(GoogleAndroidConfig))]
     [JsonSerializable(typeof(GoogleAndroidNotificationDetails))]
     [JsonSerializable(typeof(ApnResponse))]
-    internal partial class PushJsonSerializerContext : JsonSerializerContext
+    public partial class PushJsonSerializerContext : JsonSerializerContext
     {
     }
 }
