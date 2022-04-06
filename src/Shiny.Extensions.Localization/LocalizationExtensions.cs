@@ -10,6 +10,12 @@ namespace Shiny.Extensions.Localization
 {
     public static class LocalizationExtensions
     {
+        /// <summary>
+        /// Configures localization with Microsoft.Extensions.DependencyInjection
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="builderAction"></param>
+        /// <returns></returns>
         public static IServiceCollection ConfigureLocalization(this IServiceCollection services, Action<LocalizationBuilder> builderAction)
         {
             var builder = new LocalizationBuilder();
@@ -21,6 +27,16 @@ namespace Shiny.Extensions.Localization
 
             return services;
         }
+
+
+        /// <summary>
+        /// Gets localization source for a type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="manager"></param>
+        /// <returns></returns>
+        public static ILocalizationSource GetLocalize<T>(this ILocalizationManager manager)
+            => new Localize<T>(manager);
 
 
         /// <summary>
