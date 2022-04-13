@@ -14,7 +14,7 @@
 
 ## LINKS
 * [Documentation](https://shinylib.net/apiservices)
-* [Samples](https://github.com/shinyorg/apiservices/tree/master/samples)
+* [Samples](https://github.com/shinyorg/samples)
 * [Community Support](https://github.com/shinyorg/shiny/discussions)
 * ![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/master?style=for-the-badge)
 
