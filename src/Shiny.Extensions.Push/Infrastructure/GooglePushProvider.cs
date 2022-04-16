@@ -16,19 +16,30 @@ namespace Shiny.Extensions.Push.Infrastructure
 
         public virtual GoogleNotification CreateNativeNotification(GoogleConfiguration configuration, Notification notification)
         {
-            // TODO: time-to-live is available on APN as well
             var native = new GoogleNotification
             {
                 Data = notification.Data,
-            };
-            native.Android = new GoogleAndroidConfig
-            {
-                Notification = new GoogleAndroidNotificationDetails
+                Notification = new()
                 {
-                    ChannelId = configuration.DefaultChannelId,
                     Title = notification.Title,
                     Body = notification.Message,
-                    ImageUrl = notification.ImageUri
+                    Image = notification.ImageUri
+                },
+                Android = new()
+                {
+                    //TimeToLive = notification.Expiration?.TotalSeconds + "s",
+                    //CollapseKey = null,
+                    //Priority = null,
+                    //RestrictedPackageName = null,
+                    //DirectBootOk = true,
+
+                    Notification = new()
+                    {
+                        ChannelId = configuration.DefaultChannelId,
+                        Title = notification.Title,
+                        Body = notification.Message,
+                        ImageUrl = notification.ImageUri
+                    }
                 }
             };
             return native;
