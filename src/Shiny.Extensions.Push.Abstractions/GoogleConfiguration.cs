@@ -8,7 +8,6 @@ namespace Shiny.Extensions.Push
         public string SenderId { get; set; }
         public string ServerKey { get; set; }
         public string? DefaultChannelId { get; set; }
-        public bool UseShinyAndroidPushIntent { get; set; } = true;
 
         public void AssertValid()
         {

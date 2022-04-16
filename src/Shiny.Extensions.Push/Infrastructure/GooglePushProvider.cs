@@ -25,7 +25,6 @@ namespace Shiny.Extensions.Push.Infrastructure
             {
                 Notification = new GoogleAndroidNotificationDetails
                 {
-                    ClickAction = configuration.UseShinyAndroidPushIntent ? Constants.ShinyPushAndroidIntent : null,
                     ChannelId = configuration.DefaultChannelId,
                     Title = notification.Title,
                     Body = notification.Message,
