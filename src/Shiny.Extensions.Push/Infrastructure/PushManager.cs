@@ -83,47 +83,57 @@ namespace Shiny.Extensions.Push.Infrastructure
         public async Task Send(Notification notification, PushRegistration[] registrations, CancellationToken cancelToken = default)
         {
             notification = notification ?? throw new ArgumentException("Notification is null");
+
+            // TODO: make this thread safe to allow parallel processing below
             var context = new NotificationBatchContext(this.logger, this.reporters, notification, cancelToken);
             await context.OnBatchStart(registrations).ConfigureAwait(false);
 
-            foreach (var registration in registrations)
-            {
-                if (cancelToken.IsCancellationRequested)
-                    return;
+            await Parallel
+                .ForEachAsync(
+                    registrations, 
+                    new ParallelOptions 
+                    {  
+                        CancellationToken = cancelToken, 
+                        MaxDegreeOfParallelism = 1
+                    }, 
+                    async (reg, ct) =>
+                    {
+                        try
+                        {
+                            var result = false;
+                            switch (reg.Platform)
+                            {
+                                case PushPlatforms.Apple:
+                                    result = await this.DoApple(context, reg, notification, cancelToken).ConfigureAwait(false);
+                                    break;
 
-                try
-                {
-                    var result = false;
-                    switch (registration.Platform)
-                    {
-                        case PushPlatforms.Apple:
-                            result = await this.DoApple(context, registration, notification, cancelToken).ConfigureAwait(false);
-                            break;
+                                case PushPlatforms.Google:
+                                    result = await this.DoGoogle(context, reg, notification, cancelToken).ConfigureAwait(false);
+                                    break;
+                            }
+                            if (result)
+                            {
+                                await context
+                                    .OnNotificationSuccess(reg)
+                                    .ConfigureAwait(false);
+                            }
+                            else
+                            {
+                                await context
+                                    .OnNotificationError(reg, NoSendException.Instance)
+                                    .ConfigureAwait(false);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            await context
+                                .OnNotificationError(reg, ex)
+                                .ConfigureAwait(false);
+                        }
+                    }
+                )
+                .ConfigureAwait(false);
 
-                        case PushPlatforms.Google:
-                            result = await this.DoGoogle(context, registration, notification, cancelToken).ConfigureAwait(false);
-                            break;
-                    }
-                    if (result)
-                    {
-                        await context
-                            .OnNotificationSuccess(registration)
-                            .ConfigureAwait(false);
-                    }
-                    else
-                    {
-                        await context
-                            .OnNotificationError(registration, NoSendException.Instance)
-                            .ConfigureAwait(false);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    await context
-                        .OnNotificationError(registration, ex)
-                        .ConfigureAwait(false);
-                }
-            }
             await context
                 .OnBatchCompleted()
                 .ConfigureAwait(false);
