@@ -1,6 +1,6 @@
 {
   "solution": {
-    "path": "Shiny.Api.sln",
+    "path": "API Extensions.sln",
     "projects": [
       "build\\ShinyApiBuild.csproj",
       "src\\Shiny.Extensions.Localization.AdoNet\\Shiny.Extensions.Localization.AdoNet.csproj",
@@ -12,8 +12,10 @@
       "src\\Shiny.Extensions.Push.Abstractions\\Shiny.Extensions.Push.Abstractions.csproj",
       "src\\Shiny.Extensions.Push.Ef\\Shiny.Extensions.Push.Ef.csproj",
       "src\\Shiny.Extensions.Push\\Shiny.Extensions.Push.csproj",
+      "src\\Shiny.Extensions.Webhooks\\Shiny.Extensions.Webhooks.csproj",
       "tests\\Shiny.Extensions.Localization.Tests\\Shiny.Extensions.Localization.Tests.csproj",
-      "tests\\Shiny.Extensions.Mail.Tests\\Shiny.Extensions.Mail.Tests.csproj"
+      "tests\\Shiny.Extensions.Mail.Tests\\Shiny.Extensions.Mail.Tests.csproj",
+      "tests\\Shiny.Extensions.Push.Tests\\Shiny.Extensions.Push.Tests.csproj"
     ]
   }
 }
