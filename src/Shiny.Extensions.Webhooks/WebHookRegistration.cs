@@ -5,5 +5,8 @@ public record WebHookRegistration(
     string EventName,
     string CallbackUri,
     string HashVerification,
-    int ExecutionTimeoutSeconds = 30
-);
+    int? ExecutionTimeoutSeconds
+)
+{
+    public Guid Id { get; set; } = Guid.NewGuid();
+};
