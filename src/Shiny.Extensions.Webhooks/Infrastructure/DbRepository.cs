@@ -30,7 +30,7 @@ public class DbRepository<TDbConnection> : IRepository
                     });
                 }
             },
-            $"SELECT Id, EventName, CallbackUri, HashVerification, TimeoutSeconds FROM {this.configuration.RegistrationTableName} WHERE EventName = @EventName",
+            $"SELECT Id, EventName, CallbackUri, HashVerification, TimeoutSeconds FROM {this.configuration.TableName} WHERE EventName = @EventName",
             ("EventName", eventName)
         );
 
@@ -40,7 +40,7 @@ public class DbRepository<TDbConnection> : IRepository
 
     public Task Subscribe(WebHookRegistration registration) => this.Do(
         command => command.ExecuteNonQueryAsync(),
-        $"INSERT INTO {this.configuration.RegistrationTableName}(WebHookRegistrationId, EventName, CallbackUri, HashVerification, TimeoutSeconds) VALUES (@Id, @EventName, @CallbackUri, @HashVerification, @TimeoutSeconds)",
+        $"INSERT INTO {this.configuration.TableName}(WebHookRegistrationId, EventName, CallbackUri, HashVerification, TimeoutSeconds) VALUES (@Id, @EventName, @CallbackUri, @HashVerification, @TimeoutSeconds)",
         ("Id", registration.Id),
         ("EventName", registration.EventName),
         ("CallbackUri", registration.CallbackUri),
@@ -51,25 +51,9 @@ public class DbRepository<TDbConnection> : IRepository
 
     public Task UnSubscribe(Guid registrationId) => this.Do(
         command => command.ExecuteNonQueryAsync(),
-        $"DELETE FROM {this.configuration.RegistrationTableName} WHERE WebHookRegistrationId = @Id",
+        $"DELETE FROM {this.configuration.TableName} WHERE WebHookRegistrationId = @Id",
         ("Id", registrationId)
     );
-
-
-    public Task SaveResult(WebHookRegistration registration, bool success, string? result)
-    {
-        if (!this.configuration.InsertResults)
-            return Task.CompletedTask;
-
-        return this.Do(
-            command => command.ExecuteNonQueryAsync(),
-            "INSERT INTO WebHookResults(WebHookRegistrationId, Success, Result, Timestamp) VALUES (@Id, @Success, @Result, @Timestamp)",
-            ("Id", registration.Id),
-            ("Success", success),
-            ("Result", result),
-            ("Timestamp", DateTime.UtcNow)
-        );
-    }
 
 
     async Task Do(Func<DbCommand, Task> doWork, string sql, params (string ParameterName, object? Value)[] args)

@@ -82,6 +82,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.Push.Tests", "tests\Shiny.Extensions.Push.Tests\Shiny.Extensions.Push.Tests.csproj", "{7BDAF7A4-A2E3-47B1-95C7-F696591A98C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Webhooks", "Webhooks", "{6C3A745E-BE16-41F3-A9D1-759320EB96D3}"
+	ProjectSection(SolutionItems) = preProject
+		db\webhookreg_table.sql = db\webhookreg_table.sql
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.Webhooks", "src\Shiny.Extensions.Webhooks\Shiny.Extensions.Webhooks.csproj", "{7E57319B-FA50-4852-8E78-F0BFECA456B8}"
 EndProject

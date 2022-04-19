@@ -8,8 +8,7 @@
 
         public string ConnectionString { get; }
         public string ParameterPrefix { get; set; } = "@";
-        public string RegistrationTableName { get; set; } = "WebHookRegistrations";
-        public string ResultTableName { get; set; } = "WebHookResults";
+        public string TableName { get; set; } = "WebHookRegistrations";
         public bool InsertResults { get; set; } = true;
     }
 }

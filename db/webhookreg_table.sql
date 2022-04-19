@@ -1,0 +1,19 @@
+﻿-- WIHTOUT APP IDENTIFIER
+CREATE TABLE [dbo].[WebHookRegistrations](
+	[WebHookRegistrationId] [uniqueidentifier] NOT NULL,
+	[EventName] [varchar](100) NOT NULL,
+	[CallbackUri] [varchar](1024) NOT NULL,
+	[HashVerification] [varchar](50) NULL,
+	[ExecutionTimeoutSeconds] [int](4) NULL,
+ CONSTRAINT [PK_WebHookRegistrations] PRIMARY KEY CLUSTERED
+(
+	[WebHookRegistrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [UK_WebHookRegistrations] UNIQUE NONCLUSTERED
+(
+	[EventName] ASC,
+	[CallbackUri] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+

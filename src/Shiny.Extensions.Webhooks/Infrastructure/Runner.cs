@@ -1,5 +1,6 @@
 ﻿namespace Shiny.Extensions.Webhooks.Infrastructure;
 
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 
@@ -40,6 +41,14 @@ public class Runner : IRunner
             Encoding.UTF8,
             "application/json"
         );
+
+        //https://stripe.com/docs/webhooks/signatures#compare-signatures
+        if (!String.IsNullOrWhiteSpace(registration.HashVerification))
+        {
+            var hash = this.ComputeHash(registration.HashVerification, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString());
+            content.Headers.TryAddWithoutValidation("signed_hash", hash);
+        }
+        
         var response = await this.httpClient
             .PostAsync(
                 registration.CallbackUri,
@@ -51,5 +60,16 @@ public class Runner : IRunner
         response.EnsureSuccessStatusCode();
 
         return response;
+    }
+
+
+    protected virtual string ComputeHash(string salt, string content)
+    {
+        using (var hasher = SHA256.Create())
+        {
+            var bytes = Encoding.UTF8.GetBytes(content);
+            var hashBytes = hasher.ComputeHash(bytes);
+            return Encoding.UTF8.GetString(hashBytes);
+        }
     }
 }

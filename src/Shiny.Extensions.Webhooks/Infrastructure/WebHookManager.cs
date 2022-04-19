@@ -42,8 +42,11 @@ public class WebHookManager : IWebHookManager
     }
 
 
-    public async Task Send(string eventName, object? args, CancellationToken cancelToken = default)
+    public async Task<SendBatchResult> Send(string eventName, object? args, CancellationToken cancelToken = default)
     {
+        var success = new List<WebHookRegistration>();
+        var errors = new List<(WebHookRegistration, Exception)>();
+
         var registrations = await this.repository
             .GetRegistrations(eventName)
             .ConfigureAwait(false);
@@ -57,15 +60,28 @@ public class WebHookManager : IWebHookManager
                 },
                 async (reg, token) =>
                 {
-                    using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(reg.ExecutionTimeoutSeconds ?? this.configuration.DefaultWaitTime));
-                    using var cancelSub = cancelToken.Register(() => timeout.Cancel());
+                    try
+                    {
+                        using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(reg.ExecutionTimeoutSeconds ?? this.configuration.DefaultWaitTime));
+                        using var cancelSub = cancelToken.Register(() => timeout.Cancel());
 
-                    await this.runner
-                        .Send(reg, args, token)
-                        .ConfigureAwait(false);
+                        await this.runner
+                            .Send(reg, args, token)
+                            .ConfigureAwait(false);
+
+                        lock (success)
+                            success.Add(reg);
+                    }
+                    catch (Exception ex)
+                    {
+                        lock (errors)
+                            errors.Add((reg, ex));
+                    }
                 }
             )
             .ConfigureAwait(false);
+
+        return new SendBatchResult(success, errors);
     }
 
 

@@ -12,8 +12,14 @@ namespace Shiny.Extensions.Mail.Impl
     public class AdoNetTemplateLoader<TDbConnection> : ITemplateLoader where TDbConnection : DbConnection, new()
     {
         readonly string connectionString;
-        public AdoNetTemplateLoader(string connectionString)
-            => this.connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
+        readonly string parameterPrefix;
+
+
+        public AdoNetTemplateLoader(string connectionString, string parameterPrefix)
+        {
+            this.connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
+            this.parameterPrefix = parameterPrefix ?? "@";
+        }
 
 
         public async Task<string> Load(string templateName, CultureInfo? culture = null, CancellationToken cancellationToken = default)
