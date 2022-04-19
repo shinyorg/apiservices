@@ -22,8 +22,6 @@ public class WebHookTests
     [Fact]
     public async Task EndToEnd_Request_Test()
     {
-
-
         using (var server = GetTestServer<TestRequest, TestResponse>(obj =>
         {
             return Task.FromResult(new TestResponse
