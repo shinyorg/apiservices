@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.Common;
 
 
-namespace Shiny.Extensions.Localization.AdoNet
+namespace Shiny.Extensions.Localization.Providers
 {
     public class AdoNetLocalizationProvider<TDbConnection> : ILocalizationProvider where TDbConnection : DbConnection, new()
     {

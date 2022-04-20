@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Data;
 using System.Data.Common;
 using System.Globalization;
@@ -41,7 +40,7 @@ namespace Shiny.Extensions.Mail.Impl
 
         protected virtual async Task<string> GetDefaultTemplate(string templateName, CancellationToken cancellationToken)
         {
-            var template = await this.TryLoad(templateName, DefaultCulture, cancellationToken).ConfigureAwait(false);
+            var template = await this.TryLoad(templateName, null, cancellationToken).ConfigureAwait(false);
             if (template == null)
                 throw new ArgumentException($"Template '{template}' does not exist");
 
@@ -49,30 +48,27 @@ namespace Shiny.Extensions.Mail.Impl
         }
 
 
-        protected async Task<string?> TryLoad(string templateName, string cultureCode, CancellationToken cancellationToken)
+        protected async Task<string?> TryLoad(string templateName, string? cultureCode, CancellationToken cancellationToken)
         {
-            using (var conn = new TDbConnection())
+            using var conn = new TDbConnection();
+            using var command = conn.CreateCommand();
+
+            conn.ConnectionString = this.connectionString;
+            command.Parameters.Add(this.CreateParameter(command, "TemplateName", templateName));
+            
+            if (cultureCode == null)
             {
-                conn.ConnectionString = this.connectionString;
-
-                using (var command = conn.CreateCommand())
-                {
-                    command.CommandText = SQL;
-                    command.Parameters.AddRange(new [] {
-                        this.CreateParameter(command, "@TemplateName", templateName),
-                        this.CreateParameter(command, "@CultureCode", cultureCode)
-                    });
-
-                    await conn.OpenAsync(cancellationToken).ConfigureAwait(false);
-
-                    using (var reader = await command.ExecuteReaderAsync(CommandBehavior.CloseConnection, cancellationToken).ConfigureAwait(false))
-                    {
-                        if (reader.Read())
-                            reader.GetString(0);
-                    }
-                }
+                command.CommandText = this.parameterPrefix == "@" ? SQL_DEFAULT : SQL_DEFAULT.Replace("@", this.parameterPrefix);
             }
-            return null;
+            else
+            {
+                command.CommandText = this.parameterPrefix == "@" ? SQL : SQL.Replace("@", this.parameterPrefix);
+                command.Parameters.Add(this.CreateParameter(command, "CultureCode", cultureCode));
+            }
+            await conn.OpenAsync(cancellationToken).ConfigureAwait(false);
+
+            using var reader = await command.ExecuteReaderAsync(CommandBehavior.CloseConnection, cancellationToken).ConfigureAwait(false);
+            return reader.Read() ? reader.GetString(0) : null;
         }
 
 
@@ -80,14 +76,14 @@ namespace Shiny.Extensions.Mail.Impl
         {
             var parameter = command.CreateParameter();
 
-            parameter.ParameterName = name;
+            parameter.ParameterName = this.parameterPrefix + name;
             parameter.Value = value?? DBNull.Value;
 
             return parameter;
         }
 
 
-        const string DefaultCulture = "DEFAULT";
-        static readonly string SQL = $"SELECT Content FROM MailTemplates WHERE TemplateName = @TemplateName AND ISNULL(CultureCode, '{DefaultCulture}') = @CultureCode";
+        static readonly string SQL = $"SELECT Content FROM MailTemplates WHERE TemplateName = @TemplateName AND CultureCode = @CultureCode";
+        static readonly string SQL_DEFAULT = $"SELECT Content FROM MailTemplates WHERE TemplateName = @TemplateName AND CultureCodeIS NULL";
     }
 }

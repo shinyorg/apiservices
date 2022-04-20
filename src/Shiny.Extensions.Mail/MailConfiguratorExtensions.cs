@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Shiny.Extensions.Mail
 {
-    public static class ServiceCollectionExtensions
+    public static class MailConfiguratorExtensions
     {
         public static void AddMail(this IServiceCollection services, Action<MailConfigurator> configAction)
         {
@@ -48,14 +48,14 @@ namespace Shiny.Extensions.Mail
 
         public static MailConfigurator UseSqlServerTemplateLoader(this MailConfigurator cfg, string connectionString)
         {
-            cfg.Services.AddScoped<ITemplateLoader>(_ => new AdoNetTemplateLoader<SqlConnection>(connectionString));
+            cfg.Services.AddScoped<ITemplateLoader>(_ => new AdoNetTemplateLoader<SqlConnection>(connectionString, "@"));
             return cfg;
         }
 
 
-        public static MailConfigurator UseAdoNetTemplateLoader<TDbConnection>(this MailConfigurator cfg, string connectionString) where TDbConnection : DbConnection, new()
+        public static MailConfigurator UseAdoNetTemplateLoader<TDbConnection>(this MailConfigurator cfg, string connectionString, string parameterPrefix = "@") where TDbConnection : DbConnection, new()
         {
-            cfg.Services.AddScoped<ITemplateLoader>(_ => new AdoNetTemplateLoader<TDbConnection>(connectionString));
+            cfg.Services.AddScoped<ITemplateLoader>(_ => new AdoNetTemplateLoader<TDbConnection>(connectionString, parameterPrefix));
             return cfg;
         }
     }

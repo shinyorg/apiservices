@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 
 
-namespace Shiny.Extensions.Localization.Impl
+namespace Shiny.Extensions.Localization.Providers
 {
     public class AssemblyResxLocalizationProvider : ILocalizationProvider
     {

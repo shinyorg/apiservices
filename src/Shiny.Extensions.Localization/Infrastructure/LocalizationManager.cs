@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 
 
-namespace Shiny.Extensions.Localization.Impl
+namespace Shiny.Extensions.Localization.Infrastructure
 {
     public class LocalizationManager : ILocalizationManager
     {

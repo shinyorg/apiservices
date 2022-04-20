@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using Shiny.Extensions.Localization.Impl;
+using Shiny.Extensions.Localization.Providers;
 using Xunit;
 
 

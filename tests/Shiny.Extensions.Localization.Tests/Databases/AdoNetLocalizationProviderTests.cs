@@ -1,14 +1,13 @@
 ﻿namespace Shiny.Extensions.Localization.Tests.Databases;
 
-using Microsoft.Data.SqlClient;
 using Xunit;
 using Shiny.Extensions.Localization;
 using FluentAssertions;
+using Microsoft.Data.Sqlite;
 
-
-public class SqlServerLocalizationProviderTests : AdoNetProviderTests<SqlConnection>
+public class AdoNetLocalizationProviderTests : AdoNetProviderTests<SqliteConnection>
 {
-    public SqlServerLocalizationProviderTests()
+    public AdoNetLocalizationProviderTests()
     {
         this.ConnectionString = "";
         this.ExecuteNonQuery(@"
@@ -46,7 +45,7 @@ GO"
 		this.ExecuteNonQuery("INSERT INTO Localizations(AppIdentifier, Section, ResourceKey, CultureCode, Value) VALUES ('UnitTests', 'EndToEnd', 'HelloWorld', NULL, 'One')");
 
 		var cfg = new LocalizationBuilder()
-			.AddSqlServer(this.ConnectionString!, "UnitTests")
+			.AddAdoNet<SqliteConnection>(this.ConnectionString!, "UnitTests")
 			.Build();
 
 		// testing case insensitivity as well

@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Resources;
 
 
-namespace Shiny.Extensions.Localization.Impl
+namespace Shiny.Extensions.Localization.Providers
 {
     public class ResxLocalizationSource : ILocalizationSource
     {
