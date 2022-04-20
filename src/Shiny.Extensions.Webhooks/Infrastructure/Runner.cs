@@ -1,7 +1,5 @@
 ﻿namespace Shiny.Extensions.Webhooks.Infrastructure;
 
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.Json;
 
 
@@ -9,6 +7,10 @@ public class Runner : IRunner
 {
     public static HttpClient? TestHttpClient { get; set; }
     readonly HttpClient httpClient = TestHttpClient ?? new();
+    readonly IHttpContentSerializer httpContentManager;
+
+    public Runner(IHttpContentSerializer httpContentManager) 
+        => this.httpContentManager = httpContentManager ?? throw new ArgumentNullException(nameof(httpContentManager));
 
 
     public async Task<T?> Request<T>(WebHookRegistration registration, object? args, CancellationToken cancelToken)
@@ -29,26 +31,8 @@ public class Runner : IRunner
 
     protected virtual async Task<HttpResponseMessage> SendHttp(WebHookRegistration registration, object? args, CancellationToken cancelToken)
     {
-        var jsonString = String.Empty;
+        var content = this.httpContentManager.Mutate(registration, args);
 
-        if (args is string s)
-            jsonString = s;
-        else if (args != null)
-            jsonString = JsonSerializer.Serialize(args);
-
-        var content = new StringContent(
-            jsonString,
-            Encoding.UTF8,
-            "application/json"
-        );
-
-        //https://stripe.com/docs/webhooks/signatures#compare-signatures
-        if (!String.IsNullOrWhiteSpace(registration.HashVerification))
-        {
-            var hash = this.ComputeHash(registration.HashVerification, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString());
-            content.Headers.TryAddWithoutValidation("signed_hash", hash);
-        }
-        
         var response = await this.httpClient
             .PostAsync(
                 registration.CallbackUri,
@@ -60,16 +44,5 @@ public class Runner : IRunner
         response.EnsureSuccessStatusCode();
 
         return response;
-    }
-
-
-    protected virtual string ComputeHash(string salt, string content)
-    {
-        using (var hasher = SHA256.Create())
-        {
-            var bytes = Encoding.UTF8.GetBytes(content);
-            var hashBytes = hasher.ComputeHash(bytes);
-            return Encoding.UTF8.GetString(hashBytes);
-        }
     }
 }
