@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 samples/SampleWeb/appsettings.Development.json
 docs/log.txt
+.DS_Store

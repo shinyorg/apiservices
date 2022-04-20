@@ -13,8 +13,8 @@
         //public string Condition { get; set; }
         public string? To { get; set; }
         public string? Token { get; set; }
-
         public Dictionary<string, string>? Data { get; set; }
+        public GeneralNotification? Notification {  get; set; }
         public GoogleAndroidConfig? Android { get; set; }
     }
 
@@ -25,6 +25,17 @@
     //    High
     //}
 
+    public class GeneralNotification
+    {
+        [JsonPropertyName("title")]
+        public string? Title { get; set; }
+
+        [JsonPropertyName("body")]
+        public string? Body { get; set; }
+
+        [JsonPropertyName("image")]
+        public string? Image { get; set; }
+    }
 
     public class GoogleAndroidConfig
     {

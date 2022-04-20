@@ -1,4 +1,6 @@
-﻿using Shiny.Extensions.Localization.Impl;
+﻿using Shiny.Extensions.Localization.Infrastructure;
+using Shiny.Extensions.Localization.Providers;
+
 using System;
 using System.Collections.Generic;
 using System.Reflection;

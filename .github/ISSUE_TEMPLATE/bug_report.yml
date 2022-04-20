@@ -17,6 +17,7 @@ body:
         - Push Notification Management
         - Mail Template Engine
         - Localization
+        - Web Hooks
     validations:
       required: true
   - type: textarea
