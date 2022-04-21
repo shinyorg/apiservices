@@ -5,9 +5,9 @@ VisualStudioVersion = 17.1.31903.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C2DBA370-CD54-4F74-A99E-90D48DCBD708}"
 	ProjectSection(SolutionItems) = preProject
+		tests\Directory.build.props = tests\Directory.build.props
 		src\global.json = src\global.json
 		readme.md = readme.md
-		rundocs.ps1 = rundocs.ps1
 		version.json = version.json
 	EndProjectSection
 EndProject

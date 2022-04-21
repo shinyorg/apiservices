@@ -67,7 +67,7 @@ namespace Shiny.Extensions.Push.Infrastructure
         }
 
 
-        public async Task Send(Notification notification, PushFilter? filter, CancellationToken cancelToken = default)
+        public async Task Send(Notification notification, PushFilter? filter, int maxParallelization = 3, CancellationToken cancelToken = default)
         {
             notification = notification ?? throw new ArgumentException("Notification is null");
             var registrations = (await this.repository.Get(filter, cancelToken)
@@ -75,16 +75,15 @@ namespace Shiny.Extensions.Push.Infrastructure
                 .ToArray();
 
             await this
-                .Send(notification, registrations, cancelToken)
+                .Send(notification, registrations, maxParallelization, cancelToken)
                 .ConfigureAwait(false);
         }
 
 
-        public async Task Send(Notification notification, PushRegistration[] registrations, CancellationToken cancelToken = default)
+        public async Task Send(Notification notification, PushRegistration[] registrations, int maxParallelization = 3, CancellationToken cancelToken = default)
         {
             notification = notification ?? throw new ArgumentException("Notification is null");
 
-            // TODO: make this thread safe to allow parallel processing below
             var context = new NotificationBatchContext(this.logger, this.reporters, notification, cancelToken);
             await context.OnBatchStart(registrations).ConfigureAwait(false);
 
@@ -94,7 +93,7 @@ namespace Shiny.Extensions.Push.Infrastructure
                     new ParallelOptions 
                     {  
                         CancellationToken = cancelToken, 
-                        MaxDegreeOfParallelism = 1
+                        MaxDegreeOfParallelism = maxParallelization
                     }, 
                     async (reg, ct) =>
                     {

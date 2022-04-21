@@ -44,7 +44,7 @@ Shiny.Extensions.Mail|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.m
 Shiny.Extensions.Mail.DotLiquid|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.mail.dotliquid?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.mail.dotliquid?style=for-the-badge)
 Shiny.Extensions.Mail.StorageNet|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.mail.storagenet.dotliquid?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.mail.storagenet.dotliquid?style=for-the-badge)
 Shiny.Extensions.Localization|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.localization?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.localization?style=for-the-badge)
-Shiny.Extensions.Localization.AdoNet|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.localization.adonet?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.localization.adonet?style=for-the-badge)
+Shiny.Extensions.Webhooks|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.webhooks?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.webhooks?style=for-the-badge)
 
 
 ## SQL Scripts
