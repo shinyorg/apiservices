@@ -7,7 +7,7 @@ using Shiny.Extensions.Push.Providers;
 
 
 namespace Shiny.Extensions.Push
-{ 
+{
     public static class PushConfiguratorExtensions
     {
         public static void AddPushManagement(this IServiceCollection services, Action<PushConfigurator> configure)
@@ -18,6 +18,10 @@ namespace Shiny.Extensions.Push
             services.TryAddSingleton<IAppleAuthTokenProvider, AppleAuthTokenProvider>();
             services.TryAddScoped<IPushManager, PushManager>();
         }
+
+
+        public static PushConfigurator AddShinyPushAndroidDecorator(this PushConfigurator pushConfig)
+            => pushConfig.AddGoogleDecorator<ShinyPushAndroidDecorator>();
 
 
         public static PushConfigurator AddAutoRemoveNoReceive(this PushConfigurator pushConfig)
@@ -57,7 +61,6 @@ namespace Shiny.Extensions.Push
             pushConfig.Services.TryAddScoped<IApplePushProvider, ApplePushProvider>();
             return pushConfig;
         }
-
 
 
         public static PushConfigurator AddGooglePush<TConfigProvider>(this PushConfigurator pushConfig)

@@ -29,9 +29,9 @@ namespace Shiny.Extensions.Push.Extensions
 
 
         public override Task OnBatchCompleted(
-            Guid batchId, 
-            IReadOnlyCollection<PushRegistration> success, 
-            IReadOnlyCollection<(PushRegistration Registration, Exception Exception)> failures, 
+            Guid batchId,
+            IReadOnlyCollection<PushRegistration> success,
+            IReadOnlyCollection<(PushRegistration Registration, Exception Exception)> failures,
             Notification notification,
             CancellationToken cancelToken = default
         )
