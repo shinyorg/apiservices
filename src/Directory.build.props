@@ -11,7 +11,7 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://shinylib.net</PackageProjectUrl>
         <PackageIcon>icon.png</PackageIcon>
-        <PackageReleaseNotes>https://shinyapilib.net/release-notes/</PackageReleaseNotes>
+        <PackageReleaseNotes>https://shinylib.net/releases/extensions/</PackageReleaseNotes>
         <PackageTags>shiny mail templates push</PackageTags>
         <RepositoryUrl>https://github.com/shinyorg/shinyapi</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
