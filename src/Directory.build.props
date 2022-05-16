@@ -32,7 +32,7 @@
         <None Include="$(MSBuildThisFileDirectory)nuget.png" Pack="true" PackagePath="icon.png" />
         <None Include="$(MSBuildThisFileDirectory)readme.txt" Pack="true" PackagePath="readme.txt" />
         <None Include="$(MSBuildThisFileDirectory)\..\readme.md" Pack="true" PackagePath="\" />
-		<PackageReference Include="Nerdbank.GitVersioning" Version="3.4.255" PrivateAssets="All" />
+		<PackageReference Include="Nerdbank.GitVersioning" Version="3.5.104" PrivateAssets="All" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     </ItemGroup>
 
