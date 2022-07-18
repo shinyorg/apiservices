@@ -6,7 +6,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
 		<ProjectReference Include="..\Shiny.Extensions.Push.Abstractions\Shiny.Extensions.Push.Abstractions.csproj" />
 	</ItemGroup>
 
