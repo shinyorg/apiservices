@@ -1,4 +1,8 @@
-﻿namespace Shiny.Extensions.Webhooks.Infrastructure;
+﻿using System;
+using System.Collections.Generic;
+
+namespace Shiny.Extensions.Webhooks.Infrastructure;
+
 
 public record SendBatchResult(
     IList<WebHookRegistration> Successful,

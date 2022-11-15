@@ -1,8 +1,10 @@
-﻿namespace Shiny.Extensions.Webhooks.Infrastructure;
-
+﻿using System;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+
+namespace Shiny.Extensions.Webhooks.Infrastructure;
 
 
 public class DefaultHttpContentSerializer : IHttpContentSerializer
@@ -36,11 +38,10 @@ public class DefaultHttpContentSerializer : IHttpContentSerializer
 
     protected virtual string ComputeHash(string salt, string content)
     {
-        using (var hasher = SHA256.Create())
-        {
-            var bytes = Encoding.UTF8.GetBytes(content);
-            var hashBytes = hasher.ComputeHash(bytes);
-            return Encoding.UTF8.GetString(hashBytes);
-        }
+        using var hasher = SHA256.Create();
+        
+        var bytes = Encoding.UTF8.GetBytes(content);
+        var hashBytes = hasher.ComputeHash(bytes);
+        return Encoding.UTF8.GetString(hashBytes);
     }
 }

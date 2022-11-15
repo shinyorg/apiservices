@@ -1,16 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
 		<Description>The ultimate email template engine with template parsing, loading, and sending all in one beautiful abstraction - provides razor templates, file system loading, smtp sending, and sendgrid providers out of the box</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Shiny.Extensions.Mail.Abstractions\Shiny.Extensions.Mail.Abstractions.csproj" />
-		<PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
-		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(MicrosoftExtensionsVersion)" />
 		<PackageReference Include="RazorEngine.NetCore" Version="3.1.0" />
-		<PackageReference Include="SendGrid" Version="9.27.0" />
+		<PackageReference Include="SendGrid" Version="9.28.1" />
 		<PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
 	</ItemGroup>
 </Project>

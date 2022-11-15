@@ -1,7 +1,9 @@
-﻿namespace Shiny.Extensions.Webhooks.Infrastructure
+﻿using System.Net.Http;
+
+namespace Shiny.Extensions.Webhooks.Infrastructure;
+
+
+public interface IHttpContentSerializer
 {
-    public interface IHttpContentSerializer
-    {
-        HttpContent Mutate(WebHookRegistration registration, object? args);
-    }
+    HttpContent Mutate(WebHookRegistration registration, object? args);
 }

@@ -1,11 +1,12 @@
 <Project>
     <PropertyGroup>
+        <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+        <MicrosoftExtensionsVersion>7.0.0</MicrosoftExtensionsVersion>
         <Authors>Allan Ritchie</Authors>
         <Owners>aritchie;shinylib</Owners>
-        <LangVersion>10.0</LangVersion>
+        <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <DisableExtraReferences>False</DisableExtraReferences>
-        <NoWarn>$(NoWarn);1591;1701;1591;1702;1705;VSX1000;NU1603</NoWarn>
         <Description>Shiny</Description>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -32,7 +33,7 @@
         <None Include="$(MSBuildThisFileDirectory)nuget.png" Pack="true" PackagePath="icon.png" />
         <None Include="$(MSBuildThisFileDirectory)readme.txt" Pack="true" PackagePath="readme.txt" />
         <None Include="$(MSBuildThisFileDirectory)\..\readme.md" Pack="true" PackagePath="\" />
-		<PackageReference Include="Nerdbank.GitVersioning" Version="3.4.255" PrivateAssets="All" />
+		<PackageReference Include="Nerdbank.GitVersioning" Version="3.5.119" PrivateAssets="All" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     </ItemGroup>
 
