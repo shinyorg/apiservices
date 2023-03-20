@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Description>Shiny Push Driver for Apple</Description>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Shiny.Extensions.Push.Abstractions\Shiny.Extensions.Push.Abstractions.csproj" />
+    </ItemGroup>
+</Project>

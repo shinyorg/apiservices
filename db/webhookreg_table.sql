@@ -1,4 +1,4 @@
-﻿-- WIHTOUT APP IDENTIFIER
+﻿-- WITHOUT APP IDENTIFIER
 CREATE TABLE [dbo].[WebHookRegistrations](
 	[WebHookRegistrationId] [uniqueidentifier] NOT NULL,
 	[EventName] [varchar](100) NOT NULL,
