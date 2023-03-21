@@ -18,11 +18,42 @@ public class ApnException : Exception
 }
 
 
+public enum PushType
+{
+    Alert,
+    Background,
+    Voip,
+    Complication,
+    FileProvider,
+    Mdm,
+    Location,
+    LiveActivity
+}
+
+
 /// <summary>
 /// https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification
 /// </summary>
 public class AppleNotification
 {
+    [JsonIgnore]
+    public string? ApnsId { get; set; }
+
+    [JsonIgnore]
+    public string? ApnsCollapseId { get; set; }
+
+    [JsonIgnore]
+    public int? ApnsPriority { get; set; }
+
+    [JsonIgnore]
+    public long? ExpirationFromEpoch { get; set; }
+
+    [JsonIgnore]
+    public PushType? PushType { get; set; }
+
+    [JsonIgnore]
+    public string? ApnsTopic { get; set; }
+
     [JsonPropertyName("aps")]
     public Aps? Aps { get; set; }
 

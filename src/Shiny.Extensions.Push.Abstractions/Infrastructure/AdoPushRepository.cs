@@ -31,7 +31,9 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
                     list.Add(new PushRegistration
                     (
                         reader.GetString(0),
-                        reader.GetString(1)
+                        reader.GetString(1),
+                        Tags: new[] { "" },
+                        UserId: ""
                     ));
                 }
             },
@@ -72,6 +74,7 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
             ("p1", reg.Platform),
             ("p2", reg.DeviceToken),
             ("p3", reg.UserId)
+            // TODO: merge tags with ;
         );
     }
 
@@ -132,5 +135,13 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
         await connection.OpenAsync().ConfigureAwait(false);
         await doWork(command).ConfigureAwait(false);
     }
-}
 
+
+    async Task CreateTables()
+    {
+        var ns = typeof(TDbConnection).Namespace;
+
+        //"Microsoft.Data.Sqlite"
+        //"Microsoft.Data.SqlClient"
+    }
+}

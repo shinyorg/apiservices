@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net70</TargetFramework>
+        <Description>Defines all of the necessary endpoints to register push notifications</Description>
+        <ImplicitUsings>enable</ImplicitUsings>        
+    </PropertyGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <ProjectReference Include="..\src\Shiny.Extensions.Push.Abstractions\Shiny.Extensions.Push.Abstractions.csproj" />
+    </ItemGroup>
+</Project>

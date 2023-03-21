@@ -50,10 +50,8 @@ public class GooglePushProvider : IPushProvider
             throw new ArgumentException("No response from firebase");
 
         var result = Serializer.DeserialzeFcmResponse(responseString)!;
-        //return result.Success == 1 && result.Failure == 0;
-
-        //if (notification is IGoogleNotificationCustomizer customizer)
-        //    await customizer.Customize();
+        if (result.Success != 1 || result.Failure > 0)
+            throw new InvalidOperationException("Failed to send");
     }
 
 

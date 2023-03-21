@@ -57,40 +57,59 @@ public class ApplePushProvider : IPushProvider
         request.Headers.Authorization = new AuthenticationHeaderValue("bearer", jwt);
         request.Headers.TryAddWithoutValidation(":method", "POST");
         request.Headers.TryAddWithoutValidation(":path", path);
-        request.Headers.TryAddWithoutValidation("apns-id", Guid.NewGuid().ToString("D"));
-        request.Headers.TryAddWithoutValidation("apns-topic", config.AppBundleIdentifier);
+        request.Headers.TryAddWithoutValidation("apns-id", native.ApnsId ?? Guid.NewGuid().ToString("D"));
+        request.Headers.TryAddWithoutValidation("apns-topic", this.GetApnsTopic(this.config.AppBundleIdentifier, native));
+        request.Headers.TryAddWithoutValidation("apns-expiration", Convert.ToString(native.ExpirationFromEpoch ?? 0));
 
-        //apns-collapse-id
-        //notification.Expiration == null ? "0" : from epoch
-        request.Headers.TryAddWithoutValidation("apns-expiration", Convert.ToString(0));
+        if (native.ApnsCollapseId != null)
+            request.Headers.TryAddWithoutValidation("apns-collapse-id", native.ApnsCollapseId);
 
-        //var silentPush = native.Aps.Alert == null && native.Aps.ContentAvailable == 1;
-        //request.Headers.Add("apns-priority", silentPush ? "5" : "10");
+        if (native.ApnsPriority != null) 
+            request.Headers.Add("apns-priority", native.ApnsPriority.ToString());
 
-        //    // for iOS 13 required - TODO: more new types here, need a way to configure headers as well - perhaps non-serialized props in native notification?
-        //    request.Headers.Add("apns-push-type", silentPush ? "background" : "alert");
+        if (native.PushType != null)
+            request.Headers.TryAddWithoutValidation("apns-push-type", native.PushType.ToString().ToLower());
+
+        else if (native.Aps?.ContentAvailable == 1 && native.Aps?.Alert == null)
+            request.Headers.TryAddWithoutValidation("apns-push-type", "background");
+
+        else
+            request.Headers.TryAddWithoutValidation("apns-push-type", "alert");
+
 
         var response = await this.httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
         if (!response.IsSuccessStatusCode)
         {
+            var content = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+            var apnResponse = Serializer.DeserialzeAppleResponse(content);
+            var reason = apnResponse?.Reason;
 
+            // TODO: should cause registration to be removed
+            if (reason == "BadDeviceToken" || reason == "Unregistered")
+                return;
+
+            throw new ApnException(reason);
+            // TODO: retry reasons
+            // ExpiredProviderToken
+            // InternalServerError,
+            // ServiceUnavailable,
+            // Shutdown,
         }
-        //if (response.IsSuccessStatusCode)
-        //    return true;
+    }
 
-        //    var content = await response.Content.ReadAsStringAsync(cancelToken).ConfigureAwait(false);
-        //    var apnResponse = Serializer.DeserialzeAppleResponse(content);
-        //    var reason = apnResponse?.Reason;
 
-        //    if (reason == "BadDeviceToken" || reason == "Unregistered")
-        //        return false;
+    protected virtual string GetApnsTopic(string appBundleIdentifier, AppleNotification native)
+    {
+        if (native.ApnsTopic != null)
+            return native.ApnsTopic;
 
-        //    throw new ApnException(reason);
-        //    // TODO: retry reasons
-        //    // ExpiredProviderToken
-        //    // InternalServerError,
-        //    // ServiceUnavailable,
-        //    // Shutdown,
+        if (native.PushType == PushType.Location)
+            return $"{appBundleIdentifier}.location-query";
+
+        if (native.PushType == PushType.FileProvider)
+            return $"{appBundleIdentifier}pushkit.fileprovider";
+
+        return appBundleIdentifier;
     }
 
 

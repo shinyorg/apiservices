@@ -22,6 +22,9 @@ public static class Serializer
         var bytes = JsonSerializer.SerializeToUtf8Bytes(notification, JsonContext.AppleNotification);
         return Encoding.UTF8.GetString(bytes);
     }
+
+    public static ApnResponse? DeserialzeAppleResponse(string content)
+        => JsonSerializer.Deserialize(content, JsonContext.ApnResponse);
 }
 
 
@@ -29,6 +32,7 @@ public static class Serializer
 [JsonSerializable(typeof(AppleNotification))]
 [JsonSerializable(typeof(Aps))]
 [JsonSerializable(typeof(ApsAlert))]
+[JsonSerializable(typeof(ApnResponse))]
 [JsonSerializable(typeof(string))]
 public partial class PushJsonSerializerContext : JsonSerializerContext
 {

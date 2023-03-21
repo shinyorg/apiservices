@@ -51,7 +51,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{FBA41A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.Mail.Abstractions", "src\Shiny.Extensions.Mail.Abstractions\Shiny.Extensions.Mail.Abstractions.csproj", "{1F3D6907-DD9A-458C-A6BC-A232D7213AFE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.Mail", "src\Shiny.Extensions.Mail\Shiny.Extensions.Mail.csproj", "{7FF64E64-128A-465E-800D-60C2547C602B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shiny.Extensions.Mail", "src\Shiny.Extensions.Mail\Shiny.Extensions.Mail.csproj", "{7FF64E64-128A-465E-800D-60C2547C602B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.Mail.Tests", "tests\Shiny.Extensions.Mail.Tests\Shiny.Extensions.Mail.Tests.csproj", "{E77C9155-95ED-4418-8129-4BDCC6BFE501}"
 EndProject
@@ -90,6 +90,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shiny.Extensions.Push.GoogleFirebase", "src\Shiny.Extensions.Push.GoogleFirebase\Shiny.Extensions.Push.GoogleFirebase.csproj", "{6C206667-645A-4777-9098-E2E861E37BA0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csproj", "{0723282F-E9EF-4D10-A994-0DBEE638D108}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shiny.Extensions.Push.Endpoints", "Shiny.Extensions.Push.Endpoints\Shiny.Extensions.Push.Endpoints.csproj", "{99A9DC1E-604A-4EED-B7BA-D305DBA202DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -293,6 +295,18 @@ Global
 		{0723282F-E9EF-4D10-A994-0DBEE638D108}.Release|iPhone.Build.0 = Release|Any CPU
 		{0723282F-E9EF-4D10-A994-0DBEE638D108}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{0723282F-E9EF-4D10-A994-0DBEE638D108}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{99A9DC1E-604A-4EED-B7BA-D305DBA202DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99A9DC1E-604A-4EED-B7BA-D305DBA202DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99A9DC1E-604A-4EED-B7BA-D305DBA202DA}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{99A9DC1E-604A-4EED-B7BA-D305DBA202DA}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{99A9DC1E-604A-4EED-B7BA-D305DBA202DA}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{99A9DC1E-604A-4EED-B7BA-D305DBA202DA}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{99A9DC1E-604A-4EED-B7BA-D305DBA202DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99A9DC1E-604A-4EED-B7BA-D305DBA202DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99A9DC1E-604A-4EED-B7BA-D305DBA202DA}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{99A9DC1E-604A-4EED-B7BA-D305DBA202DA}.Release|iPhone.Build.0 = Release|Any CPU
+		{99A9DC1E-604A-4EED-B7BA-D305DBA202DA}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{99A9DC1E-604A-4EED-B7BA-D305DBA202DA}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -318,6 +332,7 @@ Global
 		{E5DDEA2E-4FA9-45E0-A487-FE636C3AB8EB} = {6C3A745E-BE16-41F3-A9D1-759320EB96D3}
 		{C6F08DCD-2BDA-44DF-8A67-9CA42AF552EC} = {8B31ACF0-86B8-4208-A054-940EA9378C1D}
 		{6C206667-645A-4777-9098-E2E861E37BA0} = {8B31ACF0-86B8-4208-A054-940EA9378C1D}
+		{99A9DC1E-604A-4EED-B7BA-D305DBA202DA} = {8B31ACF0-86B8-4208-A054-940EA9378C1D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97760152-ADDA-421F-9345-9C7825A99FB7}
