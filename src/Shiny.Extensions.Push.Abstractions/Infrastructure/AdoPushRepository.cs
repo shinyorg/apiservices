@@ -171,8 +171,10 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
             for (var i = 0; i < filter.Tags.Length; i++)
             {
                 if (i > 0) wc += " AND ";
-                wc += $"Tags LIKE '%' + @w4_{i} + ';%'"; // ensure semi-colon to check split
-                ps.Add(("w4_" + i, filter.Tags[i]));
+                wc += $"Tags LIKE @w4_{i}";
+
+                // ensure semi-colon to check split
+                ps.Add(("w4_" + i, $"%{filter.Tags[i]};%"));
             }
         }
         if (ps.Count > 0)

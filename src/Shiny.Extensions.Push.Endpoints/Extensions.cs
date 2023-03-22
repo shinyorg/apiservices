@@ -31,9 +31,9 @@ public static class Extensions
                 var userId = getUserId?.Invoke(httpContext);
                 await push.Register(new PushRegistration(
                     register.Platform,
-                    register.DeviceToken,
-                    register.Tags,
-                    userId
+                    register.DeviceToken,                    
+                    userId,
+                    register.Tags
                 ));
             }
         );
