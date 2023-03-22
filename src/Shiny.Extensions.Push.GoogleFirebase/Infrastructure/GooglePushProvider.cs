@@ -20,19 +20,17 @@ public class GooglePushProvider : IPushProvider
     }
 
 
-    public bool CanPushTo(PushRegistration registration)
-    {
-        if (registration.Platform.Equals("android", StringComparison.InvariantCultureIgnoreCase))
-            return true;
+    public bool CanPushTo(PushRegistration registration) => this.CanPushTo(registration.Platform);
 
-        if (registration.Platform.Equals("ios", StringComparison.InvariantCultureIgnoreCase))
+    public bool CanPushTo(string platform)
+    {
+        if (platform.Equals("google", StringComparison.InvariantCultureIgnoreCase))
             return true;
 
         return false;
     }
 
-
-    public async Task Send(INotification notification, PushRegistration registration, CancellationToken cancelToken)
+    public async Task<bool> Send(INotification notification, PushRegistration registration, CancellationToken cancelToken)
     {
         var native = await this.CreateNativeNotification(notification, registration);
         var json = Serializer.Serialize(native);
@@ -50,8 +48,7 @@ public class GooglePushProvider : IPushProvider
             throw new ArgumentException("No response from firebase");
 
         var result = Serializer.DeserialzeFcmResponse(responseString)!;
-        if (result.Success != 1 || result.Failure > 0)
-            throw new InvalidOperationException("Failed to send");
+        return (result.Success == 1) ;
     }
 
 

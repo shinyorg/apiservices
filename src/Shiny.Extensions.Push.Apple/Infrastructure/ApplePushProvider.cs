@@ -25,20 +25,17 @@ public class ApplePushProvider : IPushProvider
         this.events = events;
     }
 
-
-    public bool CanPushTo(PushRegistration registration)
+    public bool CanPushTo(PushRegistration registration) => this.CanPushTo(registration.Platform);
+    public bool CanPushTo(string platform)
     {
-        if (registration.Platform.Equals("apple", StringComparison.InvariantCultureIgnoreCase))
-            return true;
-
-        if (registration.Platform.Equals("ios", StringComparison.InvariantCultureIgnoreCase))
+        if (platform.Equals("apple", StringComparison.InvariantCultureIgnoreCase))
             return true;
 
         return false;
     }
 
 
-    public async Task Send(INotification notification, PushRegistration registration, CancellationToken cancellationToken)
+    public async Task<bool> Send(INotification notification, PushRegistration registration, CancellationToken cancellationToken)
     {
         var path = $"/v3/device/{registration.DeviceToken}";
         var url = (this.config.IsProduction ? ProdUrl : DevUrl) + path;
@@ -76,25 +73,24 @@ public class ApplePushProvider : IPushProvider
         else
             request.Headers.TryAddWithoutValidation("apns-push-type", "alert");
 
-
         var response = await this.httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
-        if (!response.IsSuccessStatusCode)
-        {
-            var content = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-            var apnResponse = Serializer.DeserialzeAppleResponse(content);
-            var reason = apnResponse?.Reason;
+        if (response.IsSuccessStatusCode)
+            return true;
 
-            // TODO: should cause registration to be removed
-            if (reason == "BadDeviceToken" || reason == "Unregistered")
-                return;
+        var content = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+        var apnResponse = Serializer.DeserialzeAppleResponse(content);
+        var reason = apnResponse?.Reason;
 
-            throw new ApnException(reason);
-            // TODO: retry reasons
-            // ExpiredProviderToken
-            // InternalServerError,
-            // ServiceUnavailable,
-            // Shutdown,
-        }
+        // TODO: should cause registration to be removed
+        if (reason == "BadDeviceToken" || reason == "Unregistered")
+            return false;
+
+        throw new ApnException(reason);
+        // TODO: retry reasons
+        // ExpiredProviderToken
+        // InternalServerError,
+        // ServiceUnavailable,
+        // Shutdown,
     }
 
 

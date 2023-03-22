@@ -29,7 +29,12 @@ public class PushManager : IPushManager
 
 
     public Task<IList<PushRegistration>> GetRegistrations(Filter? filter, CancellationToken cancellationToken = default)
-        => this.repository.Get(filter, cancellationToken);
+    {
+        if (!String.IsNullOrWhiteSpace(filter?.Platform) && !this.providers.Any(x => x.CanPushTo(filter!.Platform)))
+            throw new InvalidOperationException("Invalid platform - " + filter?.Platform);
+
+        return this.repository.Get(filter, cancellationToken);
+    }
 
 
     public Task Register(PushRegistration registration)
@@ -49,8 +54,8 @@ public class PushManager : IPushManager
         if (String.IsNullOrEmpty(deviceToken))
             throw new ArgumentNullException(nameof(deviceToken));
 
-        //if (!this.providers.Any(x => x.CanPushTo(platform)))
-        //    throw new InvalidOperationException("Invalid platform - " + platform);
+        if (!this.providers.Any(x => x.CanPushTo(platform)))
+            throw new InvalidOperationException("Invalid platform - " + platform);
 
         return this.repository.Remove(
             new Filter
@@ -109,11 +114,15 @@ public class PushManager : IPushManager
                             throw new InvalidOperationException("No provider found for platform: " + reg.Platform);
 
                         // TODO: retry options
-                        await provider.Send(notification, reg, ct).ConfigureAwait(false);
-                        await context.OnNotificationSuccess(reg).ConfigureAwait(false);
-
-                        // TODO: this requires bool flag from provider
-                        //await context.OnNotificationError(reg, NoSendException.Instance);
+                        var success = await provider.Send(notification, reg, ct).ConfigureAwait(false);
+                        if (success)
+                        {
+                            await context.OnNotificationSuccess(reg).ConfigureAwait(false);
+                        }
+                        else
+                        {
+                            await context.OnNotificationError(reg, NoSendException.Instance);
+                        }
                     }
                     catch (Exception ex)
                     {
