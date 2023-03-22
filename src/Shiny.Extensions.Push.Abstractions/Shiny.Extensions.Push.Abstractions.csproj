@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<RootNamespace>Shiny.Extensions.Push</RootNamespace>
-		<Description>The collection of abstractions used by Shiny.Push.Extensions and addon libraries</Description>
-	</PropertyGroup>
+    <PropertyGroup>
+        <Description>Shiny Push Extension Abstractions</Description>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>Shiny.Extensions.Push</RootNamespace>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
-		<PackageReference Include="System.Text.Json" Version="6.0.3" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+    </ItemGroup>
 </Project>

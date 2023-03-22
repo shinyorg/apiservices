@@ -1,19 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<Description>Manage your push notification without Azure Notification Hubs.  Adds logging, registration, tagging, etc to Apple and Google push.  Great for small apps on ASP.NET Core or bigger apps on an Azure Function</Description>
-	</PropertyGroup>
+    <PropertyGroup>
+        <Description>Easy push management for your server based APIs - supports Google and Apple push</Description>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
-		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.17.0" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
-		<PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Shiny.Extensions.Push.Abstractions\Shiny.Extensions.Push.Abstractions.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Shiny.Extensions.Push.GoogleFirebase\Shiny.Extensions.Push.GoogleFirebase.csproj" />
+        <ProjectReference Include="..\Shiny.Extensions.Push.Apple\Shiny.Extensions.Push.Apple.csproj" />
+        <ProjectReference Include="..\Shiny.Extensions.Push.Abstractions\Shiny.Extensions.Push.Abstractions.csproj" />
+    </ItemGroup>
 </Project>

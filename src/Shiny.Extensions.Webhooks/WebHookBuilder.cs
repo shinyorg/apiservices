@@ -1,8 +1,9 @@
-﻿namespace Shiny.Extensions.Webhooks;
-
+﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Shiny.Extensions.Webhooks.Infrastructure;
+
+namespace Shiny.Extensions.Webhooks;
 
 
 public class WebHookBuilder

@@ -1,4 +1,6 @@
-﻿namespace Shiny.Extensions.Webhooks;
+﻿using System;
+
+namespace Shiny.Extensions.Webhooks;
 
 
 public record WebHookRegistration(

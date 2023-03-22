@@ -364,3 +364,4 @@ FodyWeavers.xsd
 samples/SampleWeb/appsettings.Development.json
 docs/log.txt
 .DS_Store
+Samples/Sample/shiny.db

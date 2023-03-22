@@ -19,7 +19,7 @@ on:
 
 env:
   NugetApiKey: ${{secrets.NUGETAPIKEY}}
-  DotNetVersion: 6.0.100
+  DotNetVersion: 7.0.202
   #TwitterConsumerKey: ${{secrets.TWITTER_CONSUMER_KEY}}
   #TwitterConsumerSecret: ${{secrets.TWITTER_CONSUMER_SECRET}}
   #TwitterAccessToken: ${{secrets.TWITTER_ACCESS_TOKEN}}

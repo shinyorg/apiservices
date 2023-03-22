@@ -1,20 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+﻿namespace Shiny.Extensions.Push;
 
 
-namespace Shiny.Extensions.Push
+public interface IPushManager
 {
-    public interface IPushManager
-    {
-        int MaxParallelization { get; set; }
+    Task<IList<PushRegistration>> GetRegistrations(Filter? filter, CancellationToken cancellationToken = default);
+    Task Send(INotification notification, Filter? filter, CancellationToken cancellationToken = default);
+    Task Send(INotification notification, PushRegistration[] registrations, CancellationToken cancellationToken = default);
 
-        Task Send(Notification notification, PushFilter? filter, CancellationToken cancelToken = default);
-        Task Send(Notification notification, PushRegistration[] registrations, CancellationToken cancelToken = default);
-        Task<IEnumerable<PushRegistration>> GetRegistrations(PushFilter? filter, CancellationToken cancelToken = default);
-
-        Task Register(PushRegistration registration, CancellationToken cancelToken = default);
-        Task UnRegister(PushPlatforms platform, string deviceToken, CancellationToken cancelToken = default);
-        Task UnRegisterByUser(string userId, CancellationToken cancelToken = default);
-    }
+    Task Register(PushRegistration registration);
+    Task UnRegister(string platform, string deviceToken, CancellationToken cancelToken = default);
+    Task UnRegister(string userId, CancellationToken cancelToken = default);
 }
