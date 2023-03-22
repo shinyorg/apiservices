@@ -7,7 +7,11 @@ public class ShinyAndroidIntentEvents : IGoogleEvents
 
     public Task OnBeforeSend(INotification notification, PushRegistration registration, GoogleNotification native)
     {
-        native.Android!.Notification!.ClickAction = AndroidClickAction;
+        native.Android ??= new();
+        native.Android.Notification ??= new();
+        if (String.IsNullOrWhiteSpace(native.Android.Notification.ClickAction))
+            native.Android.Notification.ClickAction = AndroidClickAction;
+
         return Task.CompletedTask;
     }
 }
