@@ -23,6 +23,7 @@ public static class PushConfiguratorExtensions
         return services;
     }
 
+
     public static PushConfigurator AddAutoRemoveNoReceive(this PushConfigurator pushConfig)
         => pushConfig.AddReporter<AutoCleanupNotificationReporter>();
 
@@ -65,11 +66,4 @@ public static class PushConfiguratorExtensions
         config.Services.AddSingleton<IPushRepository>(_ => new AdoPushRepository<TDbConnection>(repoConfig));
         return config;
     }
-
-
-    //public static PushConfigurator UseSqlServerRepository(this PushConfigurator config, DbRepositoryConfig repoConfig)
-    //{
-    //    config.Services.AddSingleton<IPushRepository>(_ => new AdoPushRepository<SqlConnection>(repoConfig));
-    //    return config;
-    //}
 }

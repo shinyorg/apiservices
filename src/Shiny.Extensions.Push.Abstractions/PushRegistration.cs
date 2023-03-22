@@ -3,7 +3,7 @@
 
 public record PushRegistration(
     string Platform,
-    string DeviceToken,
-    string[]? Tags = null,
-    string? UserId = null
+    string DeviceToken,    
+    string? UserId = null,
+    string[]? Tags = null
 );

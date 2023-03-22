@@ -31,7 +31,6 @@ builder.Services.AddPushManagement(x => x
         "Data Source=shiny.db",
         "@",
         "PushRegistrations",
-        "PushRegistrationTags",
         true
     ))
     .AddShinyAndroidClickAction()
@@ -44,7 +43,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
-app.MapPushEndpoints();
+app.MapPushEndpoints(requiresAuth: false);
 app.MapAppEndpoints();
 
 app.Run();

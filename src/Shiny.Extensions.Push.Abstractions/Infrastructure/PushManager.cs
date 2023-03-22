@@ -14,7 +14,7 @@ public class PushManager : IPushManager
 
 
     public PushManager(
-        PushConfigurator config,
+        //PushConfigurator config,
         IPushRepository repository,
         ILogger<PushManager> logger,
         IEnumerable<IPushProvider> providers,
@@ -26,6 +26,7 @@ public class PushManager : IPushManager
         this.providers = providers;
         this.reporters = reporters;
 	}
+
 
     public Task<IList<PushRegistration>> GetRegistrations(Filter? filter, CancellationToken cancellationToken = default)
         => this.repository.Get(filter, cancellationToken);
@@ -42,6 +43,9 @@ public class PushManager : IPushManager
 
     public Task UnRegister(string platform, string deviceToken, CancellationToken cancelToken = default)
     {
+        if (String.IsNullOrEmpty(platform))
+            throw new ArgumentNullException(nameof(platform));
+
         if (String.IsNullOrEmpty(deviceToken))
             throw new ArgumentNullException(nameof(deviceToken));
 
@@ -51,7 +55,7 @@ public class PushManager : IPushManager
         return this.repository.Remove(
             new Filter
             {
-                Platforms = new[] { platform },
+                Platform = platform ,
                 DeviceToken = deviceToken
             },
             cancelToken
