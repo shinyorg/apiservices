@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net70</TargetFramework>
+        <TargetFrameworks>net70</TargetFrameworks>
         <Description>Defines all of the necessary endpoints to register push notifications</Description>
         <ImplicitUsings>enable</ImplicitUsings>        
     </PropertyGroup>
