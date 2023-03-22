@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using Sample;
 using Shiny.Extensions.Push;
-using Shiny.Extensions.Push.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 

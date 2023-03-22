@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Shiny.Extensions.Push.Endpoints;
+namespace Shiny.Extensions.Push;
 
 
 public record PushRegister(
