@@ -1,8 +1,7 @@
 {
   "solution": {
-    "path": "API Extensions.sln",
+    "path": "API Services.sln",
     "projects": [
-      "build\\ShinyApiBuild.csproj",
       "src\\Shiny.Extensions.Localization\\Shiny.Extensions.Localization.csproj",
       "src\\Shiny.Extensions.Mail.Abstractions\\Shiny.Extensions.Mail.Abstractions.csproj",
       "src\\Shiny.Extensions.Mail.DotLiquid\\Shiny.Extensions.Mail.DotLiquid.csproj",

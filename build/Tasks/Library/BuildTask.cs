@@ -13,7 +13,7 @@ namespace ShinyBuild.Tasks.Library
             context.CleanDirectories($"./src/**/obj/");
             context.CleanDirectories($"./src/**/bin/{context.MsBuildConfiguration}");
 
-            context.MSBuild("apiservices.sln", x => x
+            context.MSBuild("Build.slnf", x => x
                 .WithRestore()
                 .WithTarget("Clean")
                 .WithTarget("Build")
