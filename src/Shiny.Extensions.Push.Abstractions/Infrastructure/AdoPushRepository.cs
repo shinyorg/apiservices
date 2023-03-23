@@ -37,7 +37,7 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
                         ));
                     }
                 },
-                $"SELECT Platform, DeviceToken, UserId, Tags FROM {this.config.TableName}{wc?.WhereClause}",
+                $"SELECT Platform, DeviceToken, UserId, Tags FROM PushRegistrations{wc?.WhereClause}",
                 wc?.Parameters!
             )
             .ConfigureAwait(false);
@@ -56,7 +56,7 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
         await this
             .Do(
                 conn => conn.ExecuteNonQueryAsync(cancelToken),
-                $"DELETE FROM {this.config.TableName} {wc.Value.WhereClause}",
+                $"DELETE FROM PushRegistrations{wc.Value.WhereClause}",
                 wc.Value.Parameters!
             )
             .ConfigureAwait(false);
@@ -71,7 +71,7 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
         await this.CreateTables().ConfigureAwait(false);
 
         var parms = new List<(string ParameterName, object? Value)>();
-        var sql = $"DELETE FROM {this.config.TableName} WHERE ";
+        var sql = "DELETE FROM PushRegistrations WHERE ";
 
         for (var i = 0; i < pushRegistrations.Length; i++)
         {
@@ -123,16 +123,16 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
         if (typeof(TDbConnection).Namespace == "Microsoft.Data.SqlClient")
         {
             return $$"""
-                MERGE TABLE_NAME AS [Target]
+                MERGE PushRegistrations AS [Target]
                 USING (SELECT Platform = @p1, DeviceToken = @p2) AS [Source] 
                     ON [Target].Platform = [Source].Platform AND [Target].DeviceToken = [Source].DeviceToken
                 WHEN MATCHED THEN
                     UPDATE SET [Target].UserId = @p3, [Target].Tags = @p4
                 WHEN NOT MATCHED THEN
                     INSERT (Platform, DeviceToken, UserId, Tags) VALUES (@p1, @p2, @p3, @p4);
-                """.Replace("TABLE_NAME", this.config.TableName);
+                """;
         }
-        return $"INSERT INTO {this.config.TableName}(Platform, DeviceToken, UserId, Tags) VALUES (@p1, @p2, @p3, @p4) ON CONFLICT(Platform, DeviceToken) DO UPDATE SET UserId = @p3, Tags = @p4";
+        return $"INSERT INTO PushRegistrations(Platform, DeviceToken, UserId, Tags) VALUES (@p1, @p2, @p3, @p4) ON CONFLICT(Platform, DeviceToken) DO UPDATE SET UserId = @p3, Tags = @p4";
     }
 
 
@@ -157,7 +157,6 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
             ps.Add(("w2", filter.DeviceToken));
         }
 
-        // TODO: verify platform filter if not null
         if (!String.IsNullOrWhiteSpace(filter.Platform))
         {
             if (ps.Count > 0) wc += " AND ";
@@ -191,6 +190,9 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
         var prefix = this.config.ParameterPrefix;
         if (prefix != "@")
             sql = sql.Replace("@", prefix);
+
+        if (!this.config.TableName.Equals("PushRegistrations"))
+            sql = sql.Replace("PushRegistrations", this.config.TableName);
 
         connection.ConnectionString = this.config.ConnectionString;
         using var command = connection.CreateCommand();
@@ -229,7 +231,6 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
         {
             try
             {
-                sql = sql.Replace("TABLE_NAME", this.config.TableName);
                 await this.Do(x =>
                     x.ExecuteNonQueryAsync(),
                     sql
@@ -243,8 +244,9 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
         tablesCreated = true;
     }
 
+
     const string SQLITE = $$"""
-        CREATE TABLE IF NOT EXISTS TABLE_NAME (
+        CREATE TABLE IF NOT EXISTS PushRegistrations (
             Platform    TEXT NOT NULL,
             DeviceToken TEXT NOT NULL,
             UserId      TEXT,
@@ -254,8 +256,8 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
         """;
 
     const string SQLSERVER = $$"""
-        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name = 'TABLE_NAME' and xtype = 'U')
-            CREATE TABLE [dbo].[TABLE_NAME](
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name = 'PushRegistrations' and xtype = 'U')
+            CREATE TABLE [dbo].[PushRegistrations](
                 [Platform] [varchar](10) NOT NULL PRIMARY KEY,
                 [DeviceToken] [varchar](50) NOT NULL PRIMARY KEY,
                 [UserId] [varchar](50) NULL,
@@ -266,7 +268,7 @@ public class AdoPushRepository<TDbConnection> : IPushRepository
 
 
     const string POSTGRES = $$"""
-        CREATE TABLE IF NOT EXISTS TABLE_NAME (
+        CREATE TABLE IF NOT EXISTS PushRegistrations (
             Platform varchar(10) NOT NULL,
             DeviceToken varchar(50) NOT NULL,
             UserId varchar(50) NULL,
