@@ -1,5 +1,7 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using System.Security.Claims;
+using Microsoft.Data.Sqlite;
 using Sample;
+using Shiny.Extensions.Mail;
 using Shiny.Extensions.Push;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,26 @@ if (!File.Exists("shiny.db"))
 
 //builder.Services.AddMail(XmlConfigurationExtensions =>)
 //builder.Services.AddWebHooks();
+builder.Services.AddMail(mail =>
+{
+    var cfg = builder.Configuration.GetSection("Mail");
+    mail
+        .UseSmtpSender(new SmtpConfig
+        {
+            EnableSsl = cfg.GetValue("EnableSsl", true),
+            Host = cfg["Host"],
+            Port = cfg.GetValue("Port", 587)
+        })
+        //.UseSendGridSender("SendGridApiKey")
+        //.UseFileTemplateLoader("File Path to templates")
+        .UseAdoNetTemplateLoader<SqliteConnection>(
+            "Data Source=shiny.db",
+            "@",
+            "MailTemplates",
+            true
+        );
+});
+
 var appleCfg = builder.Configuration.GetSection("Push:Apple");
 var googleCfg = builder.Configuration.GetSection("Push:Google");
 builder.Services.AddPushManagement(x => x
@@ -43,7 +65,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
-app.MapPushEndpoints(requiresAuth: false);
+app.MapPushEndpoints("push", true, x => x.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 app.MapAppEndpoints();
 
 app.Run();
