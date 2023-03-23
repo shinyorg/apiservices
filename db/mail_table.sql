@@ -1,23 +1,25 @@
-/****** Object:  Table [dbo].[MailTemplates]    Script Date: 12/18/2021 4:17:08 PM ******/
-SET ANSI_NULLS ON
+// SQL SERVER
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name = 'MailTemplates' and xtype = 'U')
+     CREATE TABLE [dbo].[MailTemplates](
+	    [TemplateName] [nvarchar](255) NOT NULL PRIMARY KEY,
+	    [CultureCode] [varchar](5) NULL PRIMARY KEY,
+	    [Content] [nvarchar](max) NOT NULL
+    )
 GO
 
-SET QUOTED_IDENTIFIER ON
-GO
+// POSTGRES
+CREATE TABLE IF NOT EXISTS MailTemplates (
+    TemplateName varchar(255) NOT NULL,
+    CultureCode varchar(5) NULL,
+    Content varchar(2000) NULL,
+    PRIMARY KEY(TemplateName, CultureCode)
+);
 
-CREATE TABLE [dbo].[MailTemplates](
-	[MailTemplateId] [uniqueidentifier] NOT NULL,
-	[TemplateName] [nvarchar](255) NOT NULL,
-	[CultureCode] [varchar](5) NULL,
-	[Content] [nvarchar](max) NOT NULL,
- CONSTRAINT [PK_MailTemplates] PRIMARY KEY CLUSTERED
-(
-	[MailTemplateId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [UK_MailTemplates] UNIQUE NONCLUSTERED
-(
-	[TemplateName] ASC,
-	[CultureCode] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
+
+// SQLITE - use for testing
+CREATE TABLE IF NOT EXISTS MailTemplates (
+    TemplateName    TEXT NOT NULL,
+    CultureCode TEXT NOT NULL,
+    Content      TEXT,
+    PRIMARY KEY (TemplateName, CultureCode)
+);
