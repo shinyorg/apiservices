@@ -52,9 +52,9 @@ public static class MailConfiguratorExtensions
     //}
 
 
-    public static MailConfigurator UseAdoNetTemplateLoader<TDbConnection>(this MailConfigurator cfg, string connectionString, string parameterPrefix = "@") where TDbConnection : DbConnection, new()
+    public static MailConfigurator UseAdoNetTemplateLoader<TDbConnection>(this MailConfigurator cfg, string connectionString, string parameterPrefix = "@", string tableName = "MailTemplates", bool tryCreateTables = false) where TDbConnection : DbConnection, new()
     {
-        cfg.Services.AddScoped<ITemplateLoader>(_ => new AdoNetTemplateLoader<TDbConnection>(connectionString, parameterPrefix));
+        cfg.Services.AddScoped<ITemplateLoader>(_ => new AdoNetTemplateLoader<TDbConnection>(connectionString, parameterPrefix, tableName, tryCreateTables));
         return cfg;
     }
 }
