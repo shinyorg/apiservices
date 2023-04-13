@@ -11,7 +11,7 @@ public static class MauiProgram
         .UseMauiCommunityToolkit()
         .UseShinyFramework(
             new DryIocContainerExtension(),
-            prism => prism.OnAppStart("NavigationPage/MainPage")
+            prism => prism.OnAppStart("NavigationPage/SettingsPage")
         )
         .ConfigureFonts(fonts =>
         {
@@ -19,16 +19,8 @@ public static class MauiProgram
             fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold"); 
         })
         .RegisterInfrastructure()
-        .RegisterAppServices()
         .RegisterViews()
         .Build();
-
-
-    static MauiAppBuilder RegisterAppServices(this MauiAppBuilder builder) 
-    {
-        // register your own services here!
-        return builder;
-    }
 
 
     static MauiAppBuilder RegisterInfrastructure(this MauiAppBuilder builder)
@@ -38,6 +30,7 @@ public static class MauiProgram
         builder.Logging.AddConsole();
 #endif
         var s = builder.Services;
+
         s.AddPush<SampleMauiPush.Delegates.MyPushDelegate>();
         s.AddDataAnnotationValidation();
         s.AddGlobalCommandExceptionHandler(new(
@@ -55,8 +48,7 @@ public static class MauiProgram
     {
         var s = builder.Services;
 
-
-        s.RegisterForNavigation<MainPage, MainViewModel>();
+        s.RegisterForNavigation<SettingsPage, SettingsViewModel>();
         return builder;
     }
 }

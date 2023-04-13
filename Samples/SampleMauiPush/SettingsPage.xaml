@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:samplemauipush="clr-namespace:SampleMauiPush"
+             x:DataType="samplemauipush:SettingsViewModel"
+             x:Class="SampleMauiPush.SettingsPage"
+             Title="Settings">
+
+    <RefreshView IsRefreshing="{Binding IsBusy}">
+        <TableView Intent="Form">
+            <TableRoot>
+                <TableSection Title="Registration">
+                    <TextCell Text="Register"
+                                Command="{Binding RequestAccess}" />
+                    <TextCell Text="Un-Register"
+                                Command="{Binding UnRegister}" />
+                </TableSection>
+
+                <TableSection Title="Info">
+                    <TextCell Text="Status"
+                                Detail="{Binding AccessStatus}" />
+                    <TextCell Text="Registration Token"
+                                Detail="{Binding RegToken}" />
+                </TableSection>
+
+                <TableSection Title="Native Registration">
+                    <EntryCell Label="Base URI"
+                                Text="{Binding BaseUri}" />
+
+                    <TextCell Text="Reset Base URI"
+                                Command="{Binding ResetBaseUri}" />
+                </TableSection>
+            </TableRoot>
+        </TableView>
+    </RefreshView>
+</ContentPage>
