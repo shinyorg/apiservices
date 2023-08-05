@@ -11,7 +11,7 @@ namespace Shiny.Extensions.Push.Apple.Infrastructure;
 
 public class ApplePushProvider : IPushProvider
 {
-    const string DevUrl = "https://api.development.push.apple.com";
+    const string DevUrl = "https://api.sandbox.push.apple.com";
     const string ProdUrl = "https://api.push.apple.com";
 
     readonly AppleConfiguration config;
@@ -37,11 +37,11 @@ public class ApplePushProvider : IPushProvider
 
     public async Task<bool> Send(INotification notification, PushRegistration registration, CancellationToken cancellationToken)
     {
-        var path = $"/v3/device/{registration.DeviceToken}";
+        var path = $"/3/device/{registration.DeviceToken}";
         var url = (this.config.IsProduction ? ProdUrl : DevUrl) + path;
 
         var native = await this.CreateNativeNotification(registration, notification);
-        var json = Serializer.Serialize(new AppleNotification { });
+        var json = Serializer.Serialize(native);
 
         var request = new HttpRequestMessage(HttpMethod.Post, new Uri(url))
         {
