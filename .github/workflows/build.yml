@@ -19,14 +19,6 @@ on:
 
 env:
   NugetApiKey: ${{secrets.NUGETAPIKEY}}
-  DotNetVersion: 7.0.202
-  #TwitterConsumerKey: ${{secrets.TWITTER_CONSUMER_KEY}}
-  #TwitterConsumerSecret: ${{secrets.TWITTER_CONSUMER_SECRET}}
-  #TwitterAccessToken: ${{secrets.TWITTER_ACCESS_TOKEN}}
-  #TwitterAccessTokenSecret: ${{secrets.TWITTER_ACCESS_TOKEN_SECRET}}
-  #DiscordToken: ${{secrets.DISCORD_TOKEN}}
-  #DiscordGuildId: '679761126598115336'
-  #DiscordChannelId: '803717285986566174'
 
 jobs:
   build:
@@ -39,9 +31,9 @@ jobs:
           fetch-depth: 0
 
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: ${{ env.DotNetVersion }}
+        dotnet-version: '8.0.x'
 
     - name: Build
       run: dotnet run --project build/ShinyApiBuild.csproj
