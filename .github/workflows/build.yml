@@ -47,3 +47,13 @@ jobs:
         name: nugets
         path: ${{ github.workspace }}/artifacts
         retention-days: 5
+
+    - name: Post NuGet Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: nuget-artifacts
+        path: '**/*.nupkg'
+
+    - name: Publish NuGets
+      if: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/v') }}
+      run: dotnet nuget push **\*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGETAPIKEY }} --skip-duplicate
