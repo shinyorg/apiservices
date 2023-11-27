@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>SampleMauiPush</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -15,7 +15,7 @@
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 		
-		<ShinyVersion>3.0.0-alpha-0533</ShinyVersion>
+		<ShinyVersion>3.1.2</ShinyVersion>
 		<UseInterpreter Condition="'$(Configuration)' == 'Debug'">True</UseInterpreter>
 		<UserSecretsId>9af1bdf8-18f5-48ad-9804-36e1eec19bb2</UserSecretsId>
 	</PropertyGroup>
@@ -37,9 +37,6 @@
 		<CodesignEntitlements>Platforms\MacCatalyst\Entitlements.plist</CodesignEntitlements>
 	</PropertyGroup>
 	
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
-	  <CreatePackage>false</CreatePackage>
-	</PropertyGroup>
 	<ItemGroup>
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -53,14 +50,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" Condition="'$(Configuration)' == 'Debug'" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" Condition="'$(Configuration)' == 'Debug'" />
 
-		<PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
-		<PackageReference Include="Prism.DryIoc.Maui" Version="8.1.273-pre" />
-		<PackageReference Include="ReactiveUI.Fody" Version="18.4.26" />
-		<PackageReference Include="Shiny.Framework" Version="3.0.0-alpha-0058" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
+		<PackageReference Include="Prism.DryIoc.Maui" Version="9.0.271-pre" />
+		<PackageReference Include="ReactiveUI.Fody" Version="19.2.1" />
+		<PackageReference Include="Shiny.Framework" Version="4.0.0-beta-0013" />
 		<PackageReference Include="Shiny.Extensions.Configuration" Version="$(ShinyVersion)" />
 		<PackageReference Include="Shiny.Push" Version="$(ShinyVersion)" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+    </ItemGroup>
 
 </Project>

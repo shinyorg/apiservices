@@ -1,16 +1,14 @@
-﻿using System.Security.Claims;
-using Microsoft.Data.Sqlite;
-using Sample;
-using Shiny.Extensions.Mail;
+﻿using Sample;
 using Shiny.Extensions.Push;
+using Shiny.Extensions.Mail;
+using Microsoft.Data.Sqlite;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
 if (!File.Exists("shiny.db"))
     File.Create("shiny.db");
 
-//builder.Services.AddMail(XmlConfigurationExtensions =>)
-//builder.Services.AddWebHooks();
 builder.Services.AddMail(mail =>
 {
     var cfg = builder.Configuration.GetSection("Mail");

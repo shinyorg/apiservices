@@ -8,7 +8,10 @@ public class SettingsViewModel : ViewModel
     readonly IPushManager pushManager;
 
 
-    public SettingsViewModel(IPushManager pushManager)
+    public SettingsViewModel(
+        BaseServices services,
+        IPushManager pushManager
+    ) : base(services)
     {
         this.pushManager = pushManager;
 

@@ -18,17 +18,9 @@
 
                 <TableSection Title="Info">
                     <TextCell Text="Status"
-                                Detail="{Binding AccessStatus}" />
+                              Detail="{Binding AccessStatus}" />
                     <TextCell Text="Registration Token"
-                                Detail="{Binding RegToken}" />
-                </TableSection>
-
-                <TableSection Title="Native Registration">
-                    <EntryCell Label="Base URI"
-                                Text="{Binding BaseUri}" />
-
-                    <TextCell Text="Reset Base URI"
-                                Command="{Binding ResetBaseUri}" />
+                              Detail="{Binding RegToken}" />
                 </TableSection>
             </TableRoot>
         </TableView>

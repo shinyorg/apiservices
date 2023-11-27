@@ -1,6 +1,4 @@
-﻿using Prism.DryIoc;
-
-namespace SampleMauiPush;
+﻿namespace SampleMauiPush;
 
 
 public static class MauiProgram
@@ -11,7 +9,14 @@ public static class MauiProgram
         .UseMauiCommunityToolkit()
         .UseShinyFramework(
             new DryIocContainerExtension(),
-            prism => prism.OnAppStart("NavigationPage/SettingsPage")
+            prism => prism.OnAppStart("NavigationPage/SettingsPage"),
+            new(
+                #if DEBUG
+                ErrorAlertType.FullError
+                #else
+                ErrorAlertType.NoLocalize
+                #endif
+            )
         )
         .ConfigureFonts(fonts =>
         {
@@ -33,13 +38,6 @@ public static class MauiProgram
 
         s.AddPush<SampleMauiPush.Delegates.MyPushDelegate>();
         s.AddDataAnnotationValidation();
-        s.AddGlobalCommandExceptionHandler(new(
-#if DEBUG
-            ErrorAlertType.FullError
-#else
-            ErrorAlertType.NoLocalize
-#endif
-        ));
         return builder;
     }
 
