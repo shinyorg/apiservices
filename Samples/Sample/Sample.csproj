@@ -12,7 +12,7 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
         <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.0" />
         <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
-        <PackageReference Include="Npgsql" Version="8.0.0" />
+        <PackageReference Include="Npgsql" Version="8.0.1" />
     </ItemGroup>
 
     <ItemGroup>

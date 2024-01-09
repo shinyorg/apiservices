@@ -15,7 +15,7 @@
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 		
-		<ShinyVersion>3.1.2</ShinyVersion>
+		<ShinyVersion>3.2.2</ShinyVersion>
 		<UseInterpreter Condition="'$(Configuration)' == 'Debug'">True</UseInterpreter>
 		<UserSecretsId>9af1bdf8-18f5-48ad-9804-36e1eec19bb2</UserSecretsId>
 	</PropertyGroup>
@@ -57,8 +57,8 @@
 
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
 		<PackageReference Include="Prism.DryIoc.Maui" Version="9.0.271-pre" />
-		<PackageReference Include="ReactiveUI.Fody" Version="19.2.1" />
-		<PackageReference Include="Shiny.Framework" Version="4.0.0-beta-0013" />
+		<PackageReference Include="ReactiveUI.Fody" Version="19.5.39" />
+		<PackageReference Include="Shiny.Framework" Version="4.0.0" />
 		<PackageReference Include="Shiny.Extensions.Configuration" Version="$(ShinyVersion)" />
 		<PackageReference Include="Shiny.Push" Version="$(ShinyVersion)" />
 	</ItemGroup>
