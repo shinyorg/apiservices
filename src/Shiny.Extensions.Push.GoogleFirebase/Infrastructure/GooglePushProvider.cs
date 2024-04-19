@@ -6,7 +6,7 @@ namespace Shiny.Extensions.Push.GoogleFirebase.Infrastructure;
 
 public class GooglePushProvider : IPushProvider
 {
-    const string FcmUrl = "https://fcm.googleapis.com/fcm/send";
+    const string FcmUrl = "https://fcm.googleapis.com/v1/projects/myproject-b5ae1/messages:send";
     readonly HttpClient httpClient = new HttpClient();
 
     readonly GoogleConfiguration config;
@@ -27,6 +27,9 @@ public class GooglePushProvider : IPushProvider
         if (platform.Equals("google", StringComparison.InvariantCultureIgnoreCase))
             return true;
 
+        if (platform.Equals("android", StringComparison.InvariantCultureIgnoreCase))
+            return true;
+        
         return false;
     }
 
@@ -48,11 +51,11 @@ public class GooglePushProvider : IPushProvider
             throw new ArgumentException("No response from firebase");
 
         var result = Serializer.DeserialzeFcmResponse(responseString)!;
-        return (result.Success == 1) ;
+        return (result.Success == 1);
     }
 
 
-    protected async virtual Task<GoogleNotification> CreateNativeNotification(INotification notification, PushRegistration registration)
+    protected virtual async Task<GoogleNotification> CreateNativeNotification(INotification notification, PushRegistration registration)
     {
         var native = new GoogleNotification
         {

@@ -31,6 +31,9 @@ public class ApplePushProvider : IPushProvider
         if (platform.Equals("apple", StringComparison.InvariantCultureIgnoreCase))
             return true;
 
+        if (platform.Equals("ios", StringComparison.InvariantCultureIgnoreCase))
+            return true;
+        
         return false;
     }
 

@@ -54,7 +54,7 @@ public class FilePushRepository : IPushRepository
         {
             var reg = this.registrations.FirstOrDefault(x =>
                 x.DeviceToken == delete.DeviceToken &&
-                x.Platform == x.Platform
+                x.Platform == delete.Platform
             );
             if (reg != null)
                 this.registrations.Remove(reg);
@@ -80,10 +80,15 @@ public class FilePushRepository : IPushRepository
                 query = query.Where(x => x.DeviceToken.Equals(filter.DeviceToken));
 
             if (!String.IsNullOrWhiteSpace(filter.UserId))
-                query = query.Where(x => x.UserId == filter.UserId);
+                query = query.Where(x => x.UserId != null && x.UserId.Equals(filter.UserId, StringComparison.InvariantCultureIgnoreCase));
 
+            if (!String.IsNullOrWhiteSpace(filter.Platform))
+                query = query.Where(x => x.Platform.Equals(filter.Platform, StringComparison.InvariantCultureIgnoreCase));
+
+            if (filter.Tags != null && filter.Tags.Any())
+                query = query.Where(x => x.Tags != null && x.Tags.All(y => filter.Tags.Contains(y)));
         }
-        var result = this.registrations.ToList();
+        var result = query.ToList();
         return result;
     }
 }
