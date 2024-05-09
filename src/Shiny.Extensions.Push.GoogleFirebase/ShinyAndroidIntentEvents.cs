@@ -3,7 +3,7 @@
 
 public class ShinyAndroidIntentEvents : IGoogleEvents
 {
-    public static string AndroidClickAction { get; set; } = "SHINY_NOTIFICATION_CLICK";
+    public static string AndroidClickAction { get; set; } = "SHINY_PUSH_NOTIFICATION_CLICK";
 
     public Task OnBeforeSend(INotification notification, PushRegistration registration, GoogleNotification native)
     {

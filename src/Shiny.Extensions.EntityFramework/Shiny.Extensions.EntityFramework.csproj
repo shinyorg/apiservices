@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+		<Description>Entity Framework Extensions</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+    </ItemGroup>
+
+</Project>

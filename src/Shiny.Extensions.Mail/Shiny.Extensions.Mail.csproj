@@ -8,7 +8,7 @@
 		<ProjectReference Include="..\Shiny.Extensions.Mail.Abstractions\Shiny.Extensions.Mail.Abstractions.csproj" />
 		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(MicrosoftExtensionsVersion)" />
 		<PackageReference Include="RazorEngine.NetCore" Version="3.1.0" />
-		<PackageReference Include="SendGrid" Version="9.28.1" />
+		<PackageReference Include="SendGrid" Version="9.29.3" />
 		<PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
 	</ItemGroup>
 </Project>

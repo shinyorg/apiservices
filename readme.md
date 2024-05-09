@@ -5,18 +5,11 @@
 ## FEATURES
 * Push Notification Management without a 3rd Party (think Azure Notification Hubs for your on-prem servers)
 * Mail Templating On Steroids!  Loaders, parsers, converters, & senders!
-* Localization done right
-	* Looks like Microsoft.Extensions.Configuration
-	* Loads from a database, resx files, and more out of the box
-	* Allows you to serialize to JSON easily for your frontend
-	* Existing strongly typed classes generated for RESX, no worries - we have solutions for that too!
-	* Want to use in your XAML, yup - we got that covered properly too
 
 ## LINKS
-* [Documentation](https://shinylib.net/apiservices)
-* [Samples](https://github.com/shinyorg/samples/tree/main/ApiExtensions)
+* [Documentation](https://shinylib.net/server)
+* [Push Sample](https://github.com/shinyorg/pushtester)
 * [Community Support](https://github.com/shinyorg/shiny/discussions)
-* ![Build](https://img.shields.io/github/workflow/status/shinyorg/shiny/Build/master?style=for-the-badge)
 
 
 ## SUPPORT SHINY
@@ -32,22 +25,7 @@ Depending on your Sponsorship Tier, you may also get access to some great benefi
 
 How about some [Shiny Gear](https://www.redbubble.com/shop/ap/45038461)
 
-
-
-## NUGETS
-
-Name|Stable|Preview
-----|------|-------
-Shiny.Extensions.Push|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.push?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.push?style=for-the-badge)
-Shiny.Extensions.Push.Ef|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.push.ef?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.push.ef?style=for-the-badge)
-Shiny.Extensions.Mail|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.mail?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.mail?style=for-the-badge)
-Shiny.Extensions.Mail.DotLiquid|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.mail.dotliquid?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.mail.dotliquid?style=for-the-badge)
-Shiny.Extensions.Mail.StorageNet|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.mail.storagenet?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.mail.storagenet?style=for-the-badge)
-Shiny.Extensions.Localization|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.localization?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.localization?style=for-the-badge)
-Shiny.Extensions.Webhooks|![Nuget](https://img.shields.io/nuget/v/shiny.extensions.webhooks?style=for-the-badge)|![Nuget (Preview)](https://img.shields.io/nuget/vpre/shiny.extensions.webhooks?style=for-the-badge)
-
-
-## SQL Scripts
+## SQL Server Table Scripts
 
 ### Mail
 
@@ -73,35 +51,6 @@ CREATE TABLE [dbo].[MailTemplates](
 	[CultureCode] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-```
-
-### Localization
-
-```sql
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[Localizations](
-	[LocalizationId] [uniqueidentifier] NOT NULL,
-	[Section] [varchar](50) NOT NULL,
-	[ResourceKey] [varchar](50) NOT NULL,
-	[CultureCode] [varchar](5) NULL,
-	[Value] [nvarchar](4000) NOT NULL,
- CONSTRAINT [PK_Localizations] PRIMARY KEY CLUSTERED 
-(
-	[LocalizationId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [UK_Localizations] UNIQUE NONCLUSTERED 
-(
-	[Section] ASC,
-	[ResourceKey] ASC,
-	[CultureCode] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
 GO
 ```
 

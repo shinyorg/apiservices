@@ -2,7 +2,7 @@
 Shiny Server APIs
 -----
 
-GitHub: https://github.com/shinyorg/shinyapi
+GitHub: https://github.com/shinyorg
 Blog: https://allanritchie.com
 
 
