@@ -1,6 +1,5 @@
 <Project>
     <PropertyGroup>
-        <TargetFrameworks>net8.0</TargetFrameworks>
         <MicrosoftExtensionsVersion>8.0.0</MicrosoftExtensionsVersion>
         <Authors>Allan Ritchie</Authors>
         <Owners>aritchie;shinylib</Owners>

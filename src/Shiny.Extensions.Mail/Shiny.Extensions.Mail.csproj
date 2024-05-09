@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
 		<Description>The ultimate email template engine with template parsing, loading, and sending all in one beautiful abstraction - provides razor templates, file system loading, smtp sending, and sendgrid providers out of the box</Description>
 	</PropertyGroup>
 

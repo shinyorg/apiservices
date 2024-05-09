@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
         <Description>Shiny Push Extension Abstractions</Description>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>Shiny.Extensions.Push</RootNamespace>

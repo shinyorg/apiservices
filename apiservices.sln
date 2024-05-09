@@ -5,8 +5,6 @@ VisualStudioVersion = 17.1.31903.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C2DBA370-CD54-4F74-A99E-90D48DCBD708}"
 	ProjectSection(SolutionItems) = preProject
-		Build.slnf = Build.slnf
-		tests\Directory.build.props = tests\Directory.build.props
 		readme.md = readme.md
 		version.json = version.json
 	EndProjectSection
@@ -18,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mail", "Mail", "{109FDCE7-7
 		db\mail_table.sql = db\mail_table.sql
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{24C20221-23EA-427B-AAEB-5A5F475E7A78}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{24C20221-23EA-427B-AAEB-5A5F475E7A78}"
 	ProjectSection(SolutionItems) = preProject
 		src\Directory.build.props = src\Directory.build.props
 		src\nuget.png = src\nuget.png
@@ -67,9 +65,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.Push.Endpo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.Push.Web", "src\Shiny.Extensions.Push.Web\Shiny.Extensions.Push.Web.csproj", "{42A541B5-1722-43BF-9475-C710B9032099}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shiny.Extensions.EntityFramework", "src\Shiny.Extensions.EntityFramework\Shiny.Extensions.EntityFramework.csproj", "{2292E505-10FD-4348-93EC-00541074E841}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.EntityFramework", "src\Shiny.Extensions.EntityFramework\Shiny.Extensions.EntityFramework.csproj", "{2292E505-10FD-4348-93EC-00541074E841}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shiny.Extensions.WebHosting", "src\Shiny.Extensions.WebHosting\Shiny.Extensions.WebHosting.csproj", "{EC01A0CE-325C-4232-AC68-D2A5BF95EF9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shiny.Extensions.WebHosting", "src\Shiny.Extensions.WebHosting\Shiny.Extensions.WebHosting.csproj", "{EC01A0CE-325C-4232-AC68-D2A5BF95EF9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

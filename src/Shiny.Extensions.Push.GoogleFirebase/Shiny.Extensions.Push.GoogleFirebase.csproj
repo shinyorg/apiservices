@@ -1,15 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
         <Description>Shiny Push Driver for Apple</Description>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="FirebaseAdmin" Version="3.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
+        <PackageReference Include="FirebaseAdmin" Version="3.0.0" />
         <ProjectReference Include="..\Shiny.Extensions.Push.Abstractions\Shiny.Extensions.Push.Abstractions.csproj" />
     </ItemGroup>
 </Project>

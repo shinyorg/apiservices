@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
         <Description>Easy push management for your server based APIs - supports Google and Apple push</Description>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>

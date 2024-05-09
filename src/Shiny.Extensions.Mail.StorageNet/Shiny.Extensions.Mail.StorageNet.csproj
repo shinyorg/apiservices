@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
 		<Description>A Mail template loader for use by Shiny.Extensions.Mail.  By using Storage.NET, you can load templates up from nearly any blob provider you can think of</Description>
 	</PropertyGroup>
 
