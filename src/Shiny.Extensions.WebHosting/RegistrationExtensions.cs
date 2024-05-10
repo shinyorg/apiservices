@@ -11,27 +11,32 @@ namespace Shiny;
 
 public static class RegistrationExtensions
 {
-    public static WebApplicationBuilder AddInfrastructure(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddInfrastructureForAppDomain(this WebApplicationBuilder builder, Func<string, bool>? predicate = null)
     {
-        var assemblyFileNames = Directory
+        predicate ??= x => !x.StartsWith("System.");
+        
+        var assemblies = Directory
             .GetFiles(
                 AppDomain.CurrentDomain.BaseDirectory,
-                "BuildingOps.*.dll"
+                "*.dll"
             )
-            .Where(x => !Path
-                .GetFileName(x)
-                .Equals(
-                    "BuildingOps.WebInfrastructure.dll",
-                    StringComparison.InvariantCultureIgnoreCase
-                )
-            )
-            .ToList();
+            .Where(x => predicate.Invoke(Path.GetFileName(x)))
+            .Select(x =>
+            {
+                var assembly = Assembly.LoadFrom(x);
+                AppDomain.CurrentDomain.Load(assembly.GetName());
+                return assembly;
+            })
+            .ToArray();
 
-        foreach (var assemblyFileName in assemblyFileNames)
+        return builder.AddInfrastructure(assemblies);
+    }
+    
+    
+    public static WebApplicationBuilder AddInfrastructure(this WebApplicationBuilder builder, params Assembly[] assemblies)
+    {
+        foreach (var assembly in assemblies)
         {
-            var assembly = Assembly.LoadFrom(assemblyFileName);
-            AppDomain.CurrentDomain.Load(assembly.GetName());
-
             var moduleTypes = assembly
                 .GetTypes()
                 .Where(x =>
