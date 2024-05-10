@@ -6,7 +6,7 @@ public class AuditEntry
     public string EntityId { get; set; }
     public string EntityType { get; set; }
 
-    public AuditInfo Info { get; set; }
+    public AuditInfo? Info { get; set; }
     public DbOperation Operation { get; set; }
     public DateTimeOffset Timestamp { get; set; }
     public Dictionary<string, object> ChangeSet { get; set; } // TODO: from current main record

@@ -35,6 +35,9 @@ public static class RegistrationExtensions
     
     public static WebApplicationBuilder AddInfrastructure(this WebApplicationBuilder builder, params Assembly[] assemblies)
     {
+        if (assemblies.Length == 0)
+            throw new InvalidOperationException("No assemblies passed to scan");
+        
         foreach (var assembly in assemblies)
         {
             var moduleTypes = assembly
