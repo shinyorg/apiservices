@@ -2,21 +2,26 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 
 namespace Shiny.Auditing;
 
 
 public class AuditSaveChangesInterceptor(IAuditInfoProvider provider) : SaveChangesInterceptor
 {
-    public override int SavedChanges(SaveChangesCompletedEventData eventData, int result)
+    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
     {
         var entries = this.GetAuditEntries(eventData);
-        eventData.Context!.AddRange(entries);
-        
-        var actualResult = base.SavedChanges(eventData, result);
-        return actualResult;
+        eventData.Context!.AddRange(entries);        
+        return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
+    public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
+    {
+        var entries = this.GetAuditEntries(eventData);
+        eventData.Context!.AddRange(entries);        
+        return base.SavingChanges(eventData, result);
+    }
 
     static DbOperation ToOperation(EntityState state)
     {
@@ -29,11 +34,9 @@ public class AuditSaveChangesInterceptor(IAuditInfoProvider provider) : SaveChan
         return DbOperation.Update;
     }
 
-
-    protected virtual List<AuditEntry> GetAuditEntries(SaveChangesCompletedEventData eventData)
+    protected virtual List<AuditEntry> GetAuditEntries(DbContextEventData eventData)
     {
         var entries = new List<AuditEntry>();
-        var auditInfo = provider.GetAuditInfo();
         var changeTracker = eventData.Context!.ChangeTracker;
         changeTracker.DetectChanges();
 
@@ -44,19 +47,29 @@ public class AuditSaveChangesInterceptor(IAuditInfoProvider provider) : SaveChan
                 entry.State != EntityState.Unchanged &&
                 entry.Entity is IAuditable auditable)
             {
-                auditable.LastEditUserIdentifier = auditInfo.UserIdentifier;
-                if (auditable.DateCreated == DateTimeOffset.MinValue)
-                    auditable.DateCreated = DateTimeOffset.UtcNow;
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.CurrentValues[nameof(IAuditable.DateUpdated)] = DateTimeOffset.UtcNow;
+                }
+                else if (entry.State == EntityState.Added)
+                {
+                    entry.CurrentValues[nameof(IAuditable.DateUpdated)] = DateTimeOffset.UtcNow;
+                    entry.CurrentValues[nameof(IAuditable.DateCreated)] = DateTimeOffset.UtcNow;
+                }
 
-                entry.DetectChanges();
+                entry.CurrentValues[nameof(IAuditable.LastEditUserIdentifier)] = provider.UserIdentifier;
                 var auditEntry = new AuditEntry
                 {
                     Operation = ToOperation(entry.State),
                     EntityId = entry.Properties.Single(p => p.Metadata.IsPrimaryKey()).CurrentValue!.ToString()!,
                     EntityType = entry.Metadata.ClrType.Name,
                     Timestamp = DateTime.UtcNow,
-                    ChangeSet = this.CalculateChangeSet(entry),
-                    Info = auditInfo
+                    ChangeSet = this.CalculateChangeSet(entry), // TODO: NULL on add
+                    
+                    UserIdentifier = provider.UserIdentifier,
+                    UserIpAddress = provider.UserIpAddress,
+                    Tenant = provider.Tenant,
+                    AppLocation = provider.AppLocation
                 };
                 entries.Add(auditEntry);
             }
@@ -65,8 +78,9 @@ public class AuditSaveChangesInterceptor(IAuditInfoProvider provider) : SaveChan
     }
     
 
-    protected virtual Dictionary<string, object> CalculateChangeSet(EntityEntry entry)
+    protected virtual JsonDocument CalculateChangeSet(EntityEntry entry)
     {
+        // TODO: if I'm deleting, I want all the original values (even ignored?)
         var dict = new Dictionary<string, object>();
         foreach (var property in entry.Properties)
         {
@@ -75,7 +89,9 @@ public class AuditSaveChangesInterceptor(IAuditInfoProvider provider) : SaveChan
                 dict.Add(property.Metadata.Name, property.OriginalValue ?? "NULL");
             }
         }
-        return dict;
+
+        var json = JsonSerializer.SerializeToDocument(dict);
+        return json;
     }
 
 
@@ -93,10 +109,11 @@ public class AuditSaveChangesInterceptor(IAuditInfoProvider provider) : SaveChan
         return true;
     }
 
+    
     protected virtual bool IsPropertyIgnored(string propertyName) => propertyName switch
     {
-        nameof(IAuditable.LastEditUserIdentifier) => false,
-        nameof(IAuditable.DateCreated) => false,
-        _ => true
+        nameof(IAuditable.LastEditUserIdentifier) => true,
+        nameof(IAuditable.DateCreated) => true,
+        _ => false
     };
 }

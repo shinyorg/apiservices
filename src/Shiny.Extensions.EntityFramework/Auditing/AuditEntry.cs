@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 namespace Shiny.Auditing;
 
 public class AuditEntry
@@ -6,15 +8,20 @@ public class AuditEntry
     public string EntityId { get; set; }
     public string EntityType { get; set; }
 
-    public AuditInfo? Info { get; set; }
+    public string? UserIdentifier { get; set; }
+    public string? Tenant { get; set; }
+    public string? AppLocation { get; set; }
+    public string? UserIpAddress { get; set; }
+    
     public DbOperation Operation { get; set; }
     public DateTimeOffset Timestamp { get; set; }
-    public Dictionary<string, object> ChangeSet { get; set; } // TODO: from current main record
+    public JsonDocument ChangeSet { get; set; }
+    // public Dictionary<string, object> ChangeSet { get; set; }
 }
 
 public enum DbOperation
 {
-    Insert,
-    Update,
-    Delete
+    Insert = 1,
+    Update = 2,
+    Delete = 3
 }

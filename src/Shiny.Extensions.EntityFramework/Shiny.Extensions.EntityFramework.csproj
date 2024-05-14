@@ -7,6 +7,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(MicrosoftExtensionsVersion)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(MicrosoftExtensionsVersion)" />
     </ItemGroup>
 
 </Project>

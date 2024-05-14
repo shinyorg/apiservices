@@ -54,18 +54,21 @@ public static class RegistrationExtensions
             {
                 Console.WriteLine("Registering Infrastructure Module: " + moduleType.FullName);
                 var module = (IInfrastructureModule)Activator.CreateInstance(moduleType)!;
-                builder.AddInfrastructureModule(module);
+                builder.AddInfrastructure(module);
                 Console.WriteLine("Successfully Registered Infrastructure Module: " + moduleType.FullName);
             }
         }
         return builder;
     }
+    
 
-
-    public static WebApplicationBuilder AddInfrastructureModule(this WebApplicationBuilder builder, IInfrastructureModule module)
+    public static WebApplicationBuilder AddInfrastructure(this WebApplicationBuilder builder, params IInfrastructureModule[] modules)
     {
-        module.Add(builder);
-        builder.Services.AddTransient<IInfrastructureModule>(_ => module);
+        foreach (var module in modules)
+        {
+            module.Add(builder);
+            builder.Services.AddTransient<IInfrastructureModule>(_ => module);
+        }
         return builder;
     }
 
