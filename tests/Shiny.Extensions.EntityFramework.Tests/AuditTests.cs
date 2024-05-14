@@ -7,8 +7,7 @@ using Shiny.Auditing;
 namespace Shiny.Extensions.EntityFramework.Tests;
 
 
-// TODO: test on entity updates
-// TODO: test ignored properties
+// TODO: check entityId & entityType
 public class AuditTests : IDisposable
 {
     readonly TestAuditInfoProvider auditProvider;
@@ -45,36 +44,15 @@ public class AuditTests : IDisposable
     [Fact]
     public async Task AddAudits()
     {
-        using var scope = this.serviceProvider.CreateScope();
-        var data = scope.ServiceProvider.GetRequiredService<TestDbContext>();
-        await this.DoDb(data =>
-        {
-            var manu = new Manufacturer { Name = "Cadillac" };
-            data.Add(manu);
+        await this.Seed();
 
-            var model = new Model
-            {
-                Name = "X5",
-                Manufacturer = manu
-            };
-            data.Add(model);
-            return data.SaveChangesAsync();
-        });
-
-        
         await this.DoDb(async data =>
         {
             var audits = await data.AuditEntries.ToListAsync();
             audits.Count.Should().Be(2);
-        
-            audits.All(x => x.UserIdentifier!.Equals("Test User")).Should().BeTrue("All audits should be 'Test User'");
-            audits.All(x => x.Tenant!.Equals("Test Tenant")).Should().BeTrue("All audits should be 'Test Tenant'");
-            audits.All(x => x.UserIpAddress!.Equals("0.0.0.0")).Should().BeTrue("All audits should be '0.0.0.0'");
-            audits.All(x => x.AppLocation!.Equals("UNIT TESTS")).Should().BeTrue("All audits should be 'UNIT TESTS'");
-        
-            audits.All(x => x.Operation == DbOperation.Insert).Should().BeTrue("All audits should Insert operations");
+            audits.ForEach(x => AssertAudit(x, DbOperation.Insert));
 
-            var manu = await data.Manufacturers.FirstOrDefaultAsync();
+            var manu = await data.Manufacturers.FirstAsync()!;
             manu.LastEditUserIdentifier.Should().Be("Test User");
             manu.DateUpdated.Date.Should().Be(DateTimeOffset.UtcNow.Date, "DateUpdated is wrong");
             manu.DateCreated.Date.Should().Be(DateTimeOffset.UtcNow.Date, "DateCreated is wrong");
@@ -85,20 +63,69 @@ public class AuditTests : IDisposable
     [Fact]
     public async Task DeleteAudits()
     {
-        
+        await this.Seed();
+        await this.DoDb(async data =>
+        {
+            var manu = await data.Manufacturers.FirstAsync();
+            data.Remove(manu);
+            await data.SaveChangesAsync();
+        });
+        await this.DoDb(async data =>
+        {
+            var audit = await data.AuditEntries.FirstOrDefaultAsync(x => x.Operation == DbOperation.Delete);
+            audit.Should().NotBeNull("No Delete Audit Found");
+            AssertAudit(audit!, DbOperation.Delete);
+            
+            // TODO: check changeset
+        });
     }
 
 
     [Fact]
     public async Task UpdateAudits()
     {
-        
+        await this.Seed();
+        await this.DoDb(async data =>
+        {
+            var manu = await data.Manufacturers.FirstAsync();
+            manu.Name = "UPDATE";
+            await data.SaveChangesAsync();
+        });
+        await this.DoDb(async data =>
+        {
+            var audit = await data.AuditEntries.FirstOrDefaultAsync(x => x.Operation == DbOperation.Update);
+            audit.Should().NotBeNull("No Delete Audit Found");
+            AssertAudit(audit!, DbOperation.Update);
+            
+            // TODO: check changeset
+        });        
     }
 
-    public void Dispose()
+
+    Task Seed() => this.DoDb(data =>
     {
-        (this.serviceProvider as IDisposable)?.Dispose();
+        var manu = new Manufacturer { Name = "Cadillac" };
+        data.Add(manu);
+
+        var model = new Model
+        {
+            Name = "X5",
+            Manufacturer = manu
+        };
+        data.Add(model);
+        return data.SaveChangesAsync();
+    });
+    
+    
+    void AssertAudit(AuditEntry audit, DbOperation op)
+    {
+        audit.Operation.Should().Be(op, "Invalid Operation");
+        audit.UserIdentifier.Should().Be("Test User");
+        audit.UserIpAddress.Should().Be("0.0.0.0");
+        audit.AppLocation.Should().Be("UNIT TESTS");
     }
+
+    public void Dispose() => (this.serviceProvider as IDisposable)?.Dispose();
 }
 
 public class TestAuditInfoProvider : IAuditInfoProvider

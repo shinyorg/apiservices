@@ -7,6 +7,8 @@ using System.Text.Json;
 namespace Shiny.Auditing;
 
 
+// TODO: I need the entity ID after insert
+// TODO: catch ExecuteUpdate & ExecuteDelete - how?  ExecuteDelete isn't something I believe in with audited tables anyhow - So only ExecuteUpdate
 public class AuditSaveChangesInterceptor(IAuditInfoProvider provider) : SaveChangesInterceptor
 {
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
@@ -22,6 +24,7 @@ public class AuditSaveChangesInterceptor(IAuditInfoProvider provider) : SaveChan
         eventData.Context!.AddRange(entries);        
         return base.SavingChanges(eventData, result);
     }
+    
 
     static DbOperation ToOperation(EntityState state)
     {
@@ -33,6 +36,7 @@ public class AuditSaveChangesInterceptor(IAuditInfoProvider provider) : SaveChan
 
         return DbOperation.Update;
     }
+    
 
     protected virtual List<AuditEntry> GetAuditEntries(DbContextEventData eventData)
     {
@@ -114,6 +118,7 @@ public class AuditSaveChangesInterceptor(IAuditInfoProvider provider) : SaveChan
     {
         nameof(IAuditable.LastEditUserIdentifier) => true,
         nameof(IAuditable.DateCreated) => true,
+        nameof(IAuditable.DateUpdated) => true,
         _ => false
     };
 }
