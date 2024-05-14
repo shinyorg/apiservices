@@ -4,7 +4,8 @@ namespace Shiny.Auditing;
 
 public interface IAuditable
 {
-    AuditInfo Audit { get; set; }
+    string? LastEditUserIdentifier { get; set; }
+    DateTimeOffset DateCreated { get; set; }
 }
 
 [Owned]

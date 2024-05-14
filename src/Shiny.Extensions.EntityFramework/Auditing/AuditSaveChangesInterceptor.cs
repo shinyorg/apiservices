@@ -42,8 +42,13 @@ public class AuditSaveChangesInterceptor(IAuditInfoProvider provider) : SaveChan
             // Dot not audit entities that are not tracked, not changed, or not of type IAuditable
             if (entry.State != EntityState.Detached && 
                 entry.State != EntityState.Unchanged &&
-                entry.Entity is IAuditable)
+                entry.Entity is IAuditable auditable)
             {
+                auditable.LastEditUserIdentifier = auditInfo.UserIdentifier;
+                if (auditable.DateCreated == DateTimeOffset.MinValue)
+                    auditable.DateCreated = DateTimeOffset.UtcNow;
+
+                entry.DetectChanges();
                 var auditEntry = new AuditEntry
                 {
                     Operation = ToOperation(entry.State),
@@ -65,11 +70,33 @@ public class AuditSaveChangesInterceptor(IAuditInfoProvider provider) : SaveChan
         var dict = new Dictionary<string, object>();
         foreach (var property in entry.Properties)
         {
-            if (property.IsModified && property.CurrentValue is not byte[])
+            if (this.IsAuditedProperty(property))
             {
                 dict.Add(property.Metadata.Name, property.OriginalValue ?? "NULL");
             }
         }
         return dict;
     }
+
+
+    protected virtual bool IsAuditedProperty(PropertyEntry entry)
+    {
+        if (!entry.IsModified)
+            return false;
+
+        if (entry.OriginalValue is byte[])
+            return false;
+
+        if (this.IsPropertyIgnored(entry.Metadata.Name))
+            return false;
+        
+        return true;
+    }
+
+    protected virtual bool IsPropertyIgnored(string propertyName) => propertyName switch
+    {
+        nameof(IAuditable.LastEditUserIdentifier) => false,
+        nameof(IAuditable.DateCreated) => false,
+        _ => true
+    };
 }
