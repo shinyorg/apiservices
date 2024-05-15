@@ -36,14 +36,13 @@ public static class EntityFrameworkExtensions
         map.HasKey(x => x.Id);
         map.Property(x => x.Id).ValueGeneratedOnAdd();
         map.Property(x => x.EntityId).HasMaxLength(100);
-        map.Property(x => x.EntityType).HasMaxLength(255);
+        map.Property(x => x.TableName).HasMaxLength(255);
         map.Property(x => x.Operation);
         map.Property(x => x.Timestamp);
         map.Property(x => x.ChangeSet);
         
         map.Property(x => x.UserIdentifier).HasMaxLength(50);
         map.Property(x => x.UserIpAddress).HasMaxLength(39);
-        map.Property(x => x.Tenant).HasMaxLength(50);
         map.Property(x => x.AppLocation).HasMaxLength(1024);
         
         return modelBuilder;

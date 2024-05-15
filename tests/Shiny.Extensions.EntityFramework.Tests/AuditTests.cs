@@ -18,11 +18,15 @@ public class AuditTests : IDisposable
         this.auditProvider = new();
         
         var services = new ServiceCollection();
-        services.AddDbContext<TestDbContext>(x => x
+        services.AddSingleton<IAuditInfoProvider>(this.auditProvider);
+        services.AddScoped<AuditSaveChangesInterceptor>();
+        services.AddDbContext<TestDbContext>((sp, opts) =>
+        {
             // .UseSqlite("Data Source=test.db")
-            .UseNpgsql(new NpgsqlDataSourceBuilder("User ID=sa;Password=Blargh911!;Host=localhost;Port=5432;Database=AuditUnitTests;Pooling=true;Connection Lifetime=30;").Build())
-            .AddInterceptors(new AuditSaveChangesInterceptor(this.auditProvider))
-        );
+            opts.UseNpgsql(new NpgsqlDataSourceBuilder("User ID=sa;Password=Blargh911!;Host=localhost;Port=5432;Database=AuditUnitTests;Pooling=true;Connection Lifetime=30;").Build());
+            var interceptor = sp.GetRequiredService<AuditSaveChangesInterceptor>();
+            opts.AddInterceptors(interceptor);
+        });
         this.serviceProvider = services.BuildServiceProvider();
 
         using var scope = this.serviceProvider.CreateScope();
@@ -75,8 +79,8 @@ public class AuditTests : IDisposable
             var audit = await data.AuditEntries.FirstOrDefaultAsync(x => x.Operation == DbOperation.Delete);
             audit.Should().NotBeNull("No Delete Audit Found");
             AssertAudit(audit!, DbOperation.Delete);
-            
-            // TODO: check changeset
+
+            audit!.ChangeSet.RootElement.GetProperty("Name").GetString().Should().Be("Cadillac");
         });
     }
 
@@ -97,7 +101,7 @@ public class AuditTests : IDisposable
             audit.Should().NotBeNull("No Delete Audit Found");
             AssertAudit(audit!, DbOperation.Update);
             
-            // TODO: check changeset
+            audit!.ChangeSet.RootElement.GetProperty("Name").GetString().Should().Be("Cadillac");
         });        
     }
 

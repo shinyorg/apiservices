@@ -6,10 +6,9 @@ public class AuditEntry
 {
     public int Id { get; set; }
     public string EntityId { get; set; }
-    public string EntityType { get; set; }
+    public string TableName { get; set; }
 
     public string? UserIdentifier { get; set; }
-    public string? Tenant { get; set; }
     public string? AppLocation { get; set; }
     public string? UserIpAddress { get; set; }
     

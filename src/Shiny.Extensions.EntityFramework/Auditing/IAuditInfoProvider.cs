@@ -8,11 +8,6 @@ public interface IAuditInfoProvider
     string? AppLocation { get; }
     
     /// <summary>
-    /// For multi-tenanted apps if available
-    /// </summary>
-    string? Tenant { get; }
-    
-    /// <summary>
     /// Your user ID or name if available
     /// </summary>
     string? UserIdentifier { get; }
@@ -21,4 +16,7 @@ public interface IAuditInfoProvider
     /// The IP address of the remote user if available
     /// </summary>
     string? UserIpAddress { get; }
+    
+    
+    // IDictionary<string, object> AdditionalProperties { get; }
 }
