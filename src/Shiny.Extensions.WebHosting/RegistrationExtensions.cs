@@ -29,11 +29,11 @@ public static class RegistrationExtensions
             })
             .ToArray();
 
-        return builder.AddInfrastructure(assemblies);
+        return builder.AddInfrastructureWithAssemblies(assemblies);
     }
     
     
-    public static WebApplicationBuilder AddInfrastructure(this WebApplicationBuilder builder, params Assembly[] assemblies)
+    public static WebApplicationBuilder AddInfrastructureWithAssemblies(this WebApplicationBuilder builder, params Assembly[] assemblies)
     {
         if (assemblies.Length == 0)
             throw new InvalidOperationException("No assemblies passed to scan");
@@ -54,7 +54,7 @@ public static class RegistrationExtensions
             {
                 Console.WriteLine("Registering Infrastructure Module: " + moduleType.FullName);
                 var module = (IInfrastructureModule)Activator.CreateInstance(moduleType)!;
-                builder.AddInfrastructure(module);
+                builder.AddInfrastructureWithModules(module);
                 Console.WriteLine("Successfully Registered Infrastructure Module: " + moduleType.FullName);
             }
         }
@@ -62,7 +62,7 @@ public static class RegistrationExtensions
     }
     
 
-    public static WebApplicationBuilder AddInfrastructure(this WebApplicationBuilder builder, params IInfrastructureModule[] modules)
+    public static WebApplicationBuilder AddInfrastructureWithModules(this WebApplicationBuilder builder, params IInfrastructureModule[] modules)
     {
         foreach (var module in modules)
         {

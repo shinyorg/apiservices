@@ -27,7 +27,7 @@ public class RegistrationTests
     public void DidRegisterAll_SingleAssembly()
     {
         var builder = WebApplication.CreateBuilder();
-        builder.AddInfrastructure(Assembly.GetExecutingAssembly());
+        builder.AddInfrastructureWithAssemblies(Assembly.GetExecutingAssembly());
         this.FireAll(builder);
     }
 
@@ -36,7 +36,7 @@ public class RegistrationTests
     public void DidRegister_OnlyOneModule()
     {
         var builder = WebApplication.CreateBuilder();
-        builder.AddInfrastructure(new Module1());
+        builder.AddInfrastructureWithModules(new Module1());
         
         Module1.AddCalled.Should().BeTrue("Module1.Add should be true");
         Module1.UseCalled.Should().BeFalse("Module1.Use should not have been fired");
