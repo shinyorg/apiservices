@@ -5,7 +5,7 @@ namespace Shiny.Auditing;
 
 // TODO: I need the entity ID after insert
 // TODO: catch ExecuteUpdate & ExecuteDelete - how?  ExecuteDelete isn't something I believe in with audited tables anyhow - So only ExecuteUpdate
-public class AuditSaveChangesInterceptor(IAuditInfoProvider provider) : SaveChangesInterceptor
+public class AuditSaveChangesInterceptor(IContextInfoProvider provider) : SaveChangesInterceptor
 {
     AuditScope? auditScope;
     

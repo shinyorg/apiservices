@@ -19,7 +19,7 @@ public class AuditScope
     }
     
     
-    public static AuditScope Create(IAuditInfoProvider provider, DbContextEventData eventData)
+    public static AuditScope Create(IContextInfoProvider provider, DbContextEventData eventData)
     {
         var state = AuditScope.BuildState(provider, eventData);
         var scope = new AuditScope(eventData.Context!, state);
@@ -86,7 +86,7 @@ public class AuditScope
     }
     
     
-    static List<EntityAuditContext> BuildState(IAuditInfoProvider provider, DbContextEventData eventData)
+    static List<EntityAuditContext> BuildState(IContextInfoProvider provider, DbContextEventData eventData)
     {
         var entries = new List<EntityAuditContext>();
         var changeTracker = eventData.Context!.ChangeTracker;

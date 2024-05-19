@@ -1,50 +1,14 @@
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Npgsql;
 using Shiny.Auditing;
 
 namespace Shiny.Extensions.EntityFramework.Tests;
 
 
 // TODO: check entityId & entityType
-public class AuditTests : IDisposable
+public partial class EfTests
 {
-    readonly TestAuditInfoProvider auditProvider;
-    readonly IServiceProvider serviceProvider;
 
-    public AuditTests()
-    {
-        this.auditProvider = new();
-        
-        var services = new ServiceCollection();
-        services.AddSingleton<IAuditInfoProvider>(this.auditProvider);
-        services.AddScoped<AuditSaveChangesInterceptor>();
-        services.AddDbContext<TestDbContext>((sp, opts) =>
-        {
-            // .UseSqlite("Data Source=test.db")
-            opts.UseNpgsql(new NpgsqlDataSourceBuilder("User ID=sa;Password=Blargh911!;Host=localhost;Port=5432;Database=AuditUnitTests;Pooling=true;Connection Lifetime=30;").Build());
-            var interceptor = sp.GetRequiredService<AuditSaveChangesInterceptor>();
-            opts.AddInterceptors(interceptor);
-        });
-        this.serviceProvider = services.BuildServiceProvider();
-
-        using var scope = this.serviceProvider.CreateScope();
-        var data = scope.ServiceProvider.GetRequiredService<TestDbContext>();
-        data.Database.EnsureDeleted();
-        data.Database.EnsureCreated();
-        
-        // TODO: seed
-    }
-
-    async Task DoDb(Func<TestDbContext, Task> task)
-    {
-        using var scope = this.serviceProvider.CreateScope();
-        var data = scope.ServiceProvider.GetRequiredService<TestDbContext>();
-        await task(data);
-    }
-    
-    
     [Fact]
     public async Task AddAudits()
     {
@@ -106,6 +70,15 @@ public class AuditTests : IDisposable
     }
 
 
+    void AssertAudit(AuditEntry audit, DbOperation op)
+    {
+        audit.Operation.Should().Be(op, "Invalid Operation");
+        audit.UserIdentifier.Should().Be("Test User");
+        audit.UserIpAddress.Should().Be("0.0.0.0");
+        audit.AppLocation.Should().Be("UNIT TESTS");
+    }
+    
+
     Task Seed() => this.DoDb(data =>
     {
         var manu = new Manufacturer { Name = "Cadillac" };
@@ -119,23 +92,4 @@ public class AuditTests : IDisposable
         data.Add(model);
         return data.SaveChangesAsync();
     });
-    
-    
-    void AssertAudit(AuditEntry audit, DbOperation op)
-    {
-        audit.Operation.Should().Be(op, "Invalid Operation");
-        audit.UserIdentifier.Should().Be("Test User");
-        audit.UserIpAddress.Should().Be("0.0.0.0");
-        audit.AppLocation.Should().Be("UNIT TESTS");
-    }
-
-    public void Dispose() => (this.serviceProvider as IDisposable)?.Dispose();
-}
-
-public class TestAuditInfoProvider : IAuditInfoProvider
-{
-    public string? AppLocation { get; set; } = "UNIT TESTS";
-    public string? Tenant { get; set; } = "Test Tenant";
-    public string? UserIdentifier { get; set; } = "Test User";
-    public string? UserIpAddress { get; set; } = "0.0.0.0";
 }

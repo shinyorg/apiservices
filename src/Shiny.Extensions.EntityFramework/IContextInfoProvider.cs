@@ -1,6 +1,6 @@
-namespace Shiny.Auditing;
+namespace Shiny;
 
-public interface IAuditInfoProvider
+public interface IContextInfoProvider
 {
     /// <summary>
     /// Can be a URL or anything else if available

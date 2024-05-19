@@ -1,12 +1,15 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Shiny.Auditing;
+using Shiny.QueryLog;
 
 namespace Shiny.Extensions.EntityFramework.Tests;
 
 public class TestDbContext(DbContextOptions<TestDbContext> options) : DbContext(options)
 {
     public DbSet<AuditEntry> AuditEntries => this.Set<AuditEntry>();
+    public DbSet<QueryLogEntry> QueryLogs => this.Set<QueryLogEntry>();
     public DbSet<Manufacturer> Manufacturers => this.Set<Manufacturer>();
     public DbSet<Model> Models => this.Set<Model>();
 
