@@ -43,6 +43,7 @@ public class QueryLogDbCommandInterceptor(IContextInfoProvider infoProvider, Tim
             };
             try
             {
+                // TODO: may cause a loop due to nonexecutequery
                 // TODO: cannot audit seeding/migrations data
                 eventData.Context!.Add(log);
                 eventData.Context.SaveChanges();

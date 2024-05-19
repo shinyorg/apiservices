@@ -30,30 +30,30 @@ public static class EntityFrameworkExtensions
     }
 
 
-    public static IServiceCollection AddDbContextQueryLogging<T>(this IServiceCollection services, TimeSpan minLogDuration) where T : class, IContextInfoProvider
-    {
-        services.AddScoped<T>();
-        services.AddScoped(sp =>
-        {
-            var contextInfo = sp.GetRequiredService<T>();
-            return new QueryLogDbCommandInterceptor(contextInfo, minLogDuration);
-        });
-        return services;
-    }
-
-
-    public static IServiceCollection AddDbContextQueryLogging(
-        this IServiceCollection services,
-        IContextInfoProvider contextProvider,
-        TimeSpan minLogDuration
-    ) => services.AddScoped(_ => new QueryLogDbCommandInterceptor(contextProvider, minLogDuration));
-    
-    
-    public static void UseQueryLogging(this DbContextOptionsBuilder builder, IServiceProvider scope)
-    {
-        var interceptor = scope.GetRequiredService<QueryLogDbCommandInterceptor>();
-        builder.AddInterceptors(interceptor);
-    } 
+    // public static IServiceCollection AddDbContextQueryLogging<T>(this IServiceCollection services, TimeSpan minLogDuration) where T : class, IContextInfoProvider
+    // {
+    //     services.AddScoped<T>();
+    //     services.AddScoped(sp =>
+    //     {
+    //         var contextInfo = sp.GetRequiredService<T>();
+    //         return new QueryLogDbCommandInterceptor(contextInfo, minLogDuration);
+    //     });
+    //     return services;
+    // }
+    //
+    //
+    // public static IServiceCollection AddDbContextQueryLogging(
+    //     this IServiceCollection services,
+    //     IContextInfoProvider contextProvider,
+    //     TimeSpan minLogDuration
+    // ) => services.AddScoped(_ => new QueryLogDbCommandInterceptor(contextProvider, minLogDuration));
+    //
+    //
+    // public static void UseQueryLogging(this DbContextOptionsBuilder builder, IServiceProvider scope)
+    // {
+    //     var interceptor = scope.GetRequiredService<QueryLogDbCommandInterceptor>();
+    //     builder.AddInterceptors(interceptor);
+    // } 
     
     
     public static ModelConfigurationBuilder SetDefaultStringLength(this ModelConfigurationBuilder configurationBuilder, int length = 50, bool unicode = true)

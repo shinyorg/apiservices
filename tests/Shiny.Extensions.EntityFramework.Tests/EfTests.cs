@@ -16,12 +16,12 @@ public partial class EfTests : IDisposable
         
         var services = new ServiceCollection();
         services.AddDbContextAuditing(this.contextProvider);
-        services.AddDbContextQueryLogging(this.contextProvider, TimeSpan.Zero);
+        // services.AddDbContextQueryLogging(this.contextProvider, TimeSpan.Zero);
         
         services.AddDbContext<TestDbContext>((sp, opts) => opts
             .UseNpgsql(new NpgsqlDataSourceBuilder("User ID=sa;Password=Blargh911!;Host=localhost;Port=5432;Database=AuditUnitTests;Pooling=true;Connection Lifetime=30;").Build())
             .UseAuditing(sp)
-            .UseQueryLogging(sp)
+            // .UseQueryLogging(sp)
             // .UseSqlite("Data Source=test.db")
         );
         this.serviceProvider = services.BuildServiceProvider();
