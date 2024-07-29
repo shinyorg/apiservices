@@ -8,7 +8,7 @@
 
     <ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
-		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.5.2" />
+		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.0.1" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.2" />
 		<PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
         <ProjectReference Include="..\Shiny.Extensions.Push.Abstractions\Shiny.Extensions.Push.Abstractions.csproj" />
