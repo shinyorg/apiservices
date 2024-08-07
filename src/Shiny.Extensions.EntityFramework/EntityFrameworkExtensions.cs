@@ -9,9 +9,9 @@ namespace Shiny;
 
 public static class EntityFrameworkExtensions
 {
-    public static IServiceCollection AddDbContextAuditing<T>(this IServiceCollection services) where T : class, IContextInfoProvider
+    public static IServiceCollection AddDbContextAuditing<TContextProvider>(this IServiceCollection services) where TContextProvider : class, IContextInfoProvider
     {
-        services.AddScoped<T>();
+        services.AddScoped<IContextInfoProvider, TContextProvider>();
         services.AddScoped<AuditSaveChangesInterceptor>();
         return services;
     }
