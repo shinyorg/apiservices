@@ -26,15 +26,9 @@ public static class QueryableExtensions
 
         var resultQuery = query.Select(selectExpression);
         if (request.Ordering != null)
-        {
-            foreach (var orderBy in request.Ordering)
-            {
-                resultQuery = resultQuery.OrderByDynamic(orderBy);
-            }
-        }
+            resultQuery = resultQuery.MultipleOrderByDynamic(request.Ordering);
 
-        var results = await query
-            .Select(selectExpression)
+        var results = await resultQuery
             .Skip(request.Page * request.Size)
             .Take(request.Size)
             .ToListAsync(cancellationToken);
@@ -47,6 +41,14 @@ public static class QueryableExtensions
         );
     }
 
+
+    public static IQueryable<T> MultipleOrderByDynamic<T>(this IQueryable<T> query, params OrderBy[] orderBys)
+    {
+        foreach (var orderBy in orderBys)
+            query = query.OrderByDynamic(orderBy);
+
+        return query;
+    }
 
     public static IQueryable<T> OrderByDynamic<T>(this IQueryable<T> query, OrderBy order)
     {
