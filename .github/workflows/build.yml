@@ -42,17 +42,11 @@ jobs:
       run: dotnet build apiservices.sln /restore -m -property:Configuration=Release -property:PublicRelease=true
 
     - name: Publish Artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: nugets
-        path: ${{ github.workspace }}/artifacts
-        retention-days: 5
-
-    - name: Post NuGet Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: nuget-artifacts
         path: '**/*.nupkg'
+        retention-days: 5
 
     - name: Publish NuGets
       if: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/v') }}
